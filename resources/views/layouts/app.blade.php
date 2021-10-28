@@ -18,16 +18,9 @@
         <x-sidebar></x-sidebar>
         <div id="main">
             <x-header></x-header>
-            <div class="content">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt est animi earum molestiae neque dolores excepturi atque voluptas dicta rerum.</p>
-            </div>
+            <x-table></x-table>
             <x-footer></x-footer>
         </div>
     </div>
-    <script src="{{ asset("vendors/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
-    <script src="{{ asset("js/bootstrap.bundle.min.js") }}"></script>
-    <script src="{{ asset("vendors/apexcharts/apexcharts.js") }}"></script>
-    <script src="{{ asset("js/pages/dashboard.js") }}"></script>
-    <script src="{{ asset("js/main.js") }}"></script>
 </body>
 </html>
