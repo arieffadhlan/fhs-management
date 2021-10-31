@@ -17,7 +17,7 @@
                 <td class="text-bold-500">UI/UX</td>
                 <td>Remote</td>
                 <td>Austin,Taxes</td>
-                <td class="d-flex justify-content-evenly">
+                <td>
                     <button class="badge bg-success border-0">Edit</button>
                     <button class="badge bg-danger border-0">Delete</button>
                 </td>
