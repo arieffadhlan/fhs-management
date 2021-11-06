@@ -2,13 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::view('app', 'layouts.app');
 Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::view('/', 'welcome');
+Route::get('/dashboard', DashboardController::class);

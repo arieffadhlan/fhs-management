@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ $title }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,39 +21,51 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendors/iconly/bold.css') }}">
+    @if (request()->route()->uri === "dashboard")
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @endif
     <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.css') }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <div id="app">
         @guest
-            @if (Route::has('login'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-            @endif
-
-            @if (Route::has('register'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-            @endif
-        @else
-            <x-sidebar></x-sidebar>
-            <div id="main">
-                <x-header></x-header>
-                <x-table></x-table>
-                <x-footer></x-footer>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-5">
+            <div class="container mt-3 mb-3">
+                <a class="navbar-brand" href="{{ url('/') }}">FHS-Management</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav ms-auto d-flex justify-content-end align-items-end">
+                        @if (Route::has('login'))
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        @endif
+                        @if (Route::has('register'))
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        @endif
+                    </div>
+                </div>
             </div>
+        </nav>
+        @else
+        <x-sidebar></x-sidebar>
+        <div id="main">
+            <x-header></x-header>
+            {{ $slot }}
+            <x-footer></x-footer>
+        </div>
         @endguest
 
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+
+    <script src="{{ asset("js/bootstrap.bundle.min.js") }}"></script>
+    <script src="{{ asset("js/main.js") }}"></script>
+    <script src="{{ asset("vendors/perfect-scrollbar/perfect-scrollbar.min.js") }}"></script>
 </body>
 
 </html>

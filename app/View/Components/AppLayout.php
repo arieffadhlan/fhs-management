@@ -11,10 +11,10 @@ class AppLayout extends Component
      *
      * @return void
      */
-    public $title = null;
-    public function __construct($title)
+    public $title;
+    public function __construct($title = null)
     {
-        $this->title = $title ?? "FHS Management";
+        $this->title = "$title | FHS Management" ?? "FHS Management";
     }
 
     /**
