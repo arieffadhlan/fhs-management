@@ -28,7 +28,7 @@
                     </a>
                     <ul class="submenu">
                         <li class="submenu-item">
-                            <a href="component-alert.html">Stock</a>
+                            <a href="{{ route('stock') }}">Stock</a>
                         </li>
                         <li class="submenu-item">
                             <a href="component-badge.html">Penjualan</a>
