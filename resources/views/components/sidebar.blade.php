@@ -2,7 +2,7 @@
     <div class="sidebar-wrapper active">
         <div class="sidebar-header">
             <div class="d-flex justify-content-between">
-                <div class="brand">
+                <div class="container brand">
                     <a class="navbar-brand" href="#">{{ Auth::user()->fullname }}</a>
                 </div>
                 <div class="toggler">
