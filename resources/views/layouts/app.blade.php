@@ -27,6 +27,10 @@
     <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/fontawesome/all.min.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">\
+
+    <!-- CK Editor -->
+    <script src=”https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js”></script>
 </head>
 
 <body>
