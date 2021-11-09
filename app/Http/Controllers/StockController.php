@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Stock;
+use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
@@ -25,16 +25,16 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('stock.tambahStock');
+        return view('stock.create');
     }
 
     public function attributes()
     {
         return [
-            'nama_brg' => 'nama barang',
-            'kategori_brg' => 'kategori barang',
-            'deskripsi_brg' => 'deskripsi barang',
-            'jumlah_brg' => 'jumlah barang'
+            'nama_barang' => 'nama barang',
+            'kategori_barang' => 'kategori barang',
+            'deskripsi_barang' => 'deskripsi barang',
+            'jumlah_barang' => 'jumlah barang'
         ];
     }
 
@@ -46,28 +46,30 @@ class StockController extends Controller
      */
     public function store(Request $request)
     {
-
         $messages = [
-            'required' => 'harap masukkan :attribute',
+            'required' => 'Harap masukkan :attribute!',
+            'image' => 'File harus dalam bentuk gambar!',
+            'max' => 'Ukuran file maxsimal 2mb!'
         ];
 
-        $this->validate($request,[
-            'nama_brg' => 'required',
-            'kategori_brg' => 'required',
-            'deskripsi_brg' => 'required',
-            'jumlah_brg' => 'required|numeric'
-        ],$messages);
+        $this->validate($request, [
+            'nama_barang' => 'required',
+            'kategori_barang' => 'required',
+            'deskripsi_barang' => 'required',
+            'jumlah_barang' => 'required|numeric',
+            'image' => 'image|max:2048'
+        ], $messages);
 
-        $fileName=$request->image->getClientOriginalName().'.'.$request->image->extension();
-        $request->File('image')->storeAs('images', $fileName);
-        $articles=Stock::create([
-            'nama_brg'=>$request->nama_brg,
-            'kategori_brg'=>$request->kategori_brg,
-            'deskripsi_brg'=>$request->deskripsi_brg,
-            'jumlah_brg'=>$request->jumlah_brg,
-            'image'=>$fileName,
+        $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : null;
+        Stock::create([
+            'nama_barang' => $request->nama_barang,
+            'kategori_barang' => $request->kategori_barang,
+            'deskripsi_barang' => $request->deskripsi_barang,
+            'jumlah_barang' => $request->jumlah_barang,
+            'image' => $request->image->getClientOriginalName() ?? null,
         ]);
-        return redirect('/stock')->with('success', 'Penambahan Barang telah Berhasil!');
+
+        return redirect('/management/stock')->with('success', 'Penambahan Barang telah Berhasil!');
     }
 
     /**

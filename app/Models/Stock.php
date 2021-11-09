@@ -9,12 +9,11 @@ class Stock extends Model
 {
     use HasFactory;
 
-    protected $table="stocks";
-    protected $fillable=[
-        'nama_brg',
-        'kategori_brg',
-        'deskripsi_brg',
-        'jumlah_brg',
+    protected $fillable = [
+        'nama_barang',
+        'kategori_barang',
+        'deskripsi_barang',
+        'jumlah_barang',
         'image',
     ];
 }

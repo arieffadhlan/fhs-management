@@ -8,11 +8,7 @@ use App\Http\Controllers\StockController;
 
 Auth::routes();
 Route::view('/', 'welcome');
-Route::get('/dashboard', DashboardController::class);
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/stock', [StockController::class, 'index'])->name('stock');
-
-Route::get('/stock/create', [StockController::class, 'create'])->name('tambah');
-Route::post('/stock/store', [StockController::class, 'store'])->name('stock.store');
+Route::get('dashboard', DashboardController::class)->name('dashboard');
+Route::get('management/stock', [StockController::class, 'index'])->name('stock');
+Route::get('management/stock/create', [StockController::class, 'create'])->name('tambah');
+Route::post('management/stock/store', [StockController::class, 'store'])->name('stock.store');

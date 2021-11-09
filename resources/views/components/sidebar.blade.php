@@ -14,20 +14,20 @@
             <ul class="menu mt-0">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item active">
-                    <a href="index.html" class='sidebar-link'>
+                <li class="sidebar-item {{ request()->route()->uri === 'dashboard' ? 'active' : '' }}">
+                    <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item has-sub">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item has-sub {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
+                    <a href="{{ route('stock') }}" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Management</span>
                     </a>
-                    <ul class="submenu">
-                        <li class="submenu-item">
+                    <ul class="submenu {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
+                        <li class="submenu-item {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
                             <a href="{{ route('stock') }}">Stock</a>
                         </li>
                         <li class="submenu-item">
@@ -37,10 +37,6 @@
                             <a href="component-breadcrumb.html">Data Barang</a>
                         </li>
                     </ul>
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
-                        <span>Absensi Staff</span>
-                    </a>
                 </li>
             </ul>
 
