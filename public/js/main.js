@@ -186,3 +186,32 @@ function password_confirm_show_hide() {
     confirm_hide_eye.style.display = "none";
   }
 }
+
+// Account Image 
+function readURL(input) {
+  console.log(input);
+  if (input.files && input.files[0]) {
+      let reader = new FileReader();
+      let previewImage = document.getElementById("preview-account-image");
+
+      reader.onload = function (e) {
+          previewImage.setAttribute('src', e.target.result);
+      }
+
+      reader.readAsDataURL(input.files[0]);
+      previewImage.style.display = "flex";
+      previewImage.style.width = "300px";
+  }
+}
+
+function clearAccountImage() {
+  let previewImage = document.getElementById("preview-account-image");
+  previewImage.src = "";
+}
+
+function AccountImageClose() {
+  let accountImageInput = document.getElementById("account-image");
+  let previewImage = document.getElementById("preview-account-image");
+  accountImageInput.value = "";
+  previewImage.src = "";
+}
