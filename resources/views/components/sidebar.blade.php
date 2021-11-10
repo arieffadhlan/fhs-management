@@ -48,6 +48,13 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="sidebar-item {{ request()->route()->uri === 'management/absence' ? 'active' : '' }}">
+                    <a href="{{ route('absence') }}" class='sidebar-link'>
+                    <i class="fas fa-address-book me-2"></i>
+                        <span>Absence</span>
+                    </a>
+                </li>
             </ul>
 
             <ul class="menu">
