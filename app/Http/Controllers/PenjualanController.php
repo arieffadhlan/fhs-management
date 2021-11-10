@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Stock;
+use App\Models\Penjualan;
 use Illuminate\Http\Request;
 
-class StockController extends Controller
+class PenjualanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::get();
-        return view('stock.index', compact('stocks'));
+        return view('penjualan.index');
     }
 
     /**
@@ -25,7 +24,7 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('stock.create');
+        return view('penjualan.create');
     }
 
     /**
@@ -51,7 +50,7 @@ class StockController extends Controller
         ], $messages);
 
         $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : null;
-        Stock::create([
+        Penjualan::create([
             'nama_barang' => $request->nama_barang,
             'kategori_barang' => $request->kategori_barang,
             'deskripsi_barang' => $request->deskripsi_barang,
