@@ -41,7 +41,7 @@
                             <a href="{{ route('stock') }}">Stock</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="component-badge.html">Penjualan</a>
+                            <a href="{{ route('penjualan') }}">Penjualan</a>
                         </li>
                         <li class="submenu-item">
                             <a href="component-breadcrumb.html">Data Barang</a>
