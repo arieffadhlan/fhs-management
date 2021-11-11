@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="AccountImageClose()"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="mt-2 mb-2">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TabelAbsen extends Migration
+class CreateAbsensisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class TabelAbsen extends Migration
      */
     public function up()
     {
-        Schema::create('absence', function (Blueprint $table) {
+        Schema::create('absensis', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('kelas');
@@ -33,6 +33,6 @@ class TabelAbsen extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absence');
+        Schema::dropIfExists('absensis');
     }
 }

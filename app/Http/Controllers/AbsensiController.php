@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absence;
+use App\Models\Absensi;
 use Illuminate\Http\Request;
 
-class AbsenceController extends Controller
+class AbsensiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AbsenceController extends Controller
      */
     public function index()
     {
-        $data = Absence::all();
-        return view('absen/index', compact('data'));
+        $data = Absensi::all();
+        return view('absensi/index', compact('data'));
     }
 
     /**
@@ -25,7 +25,7 @@ class AbsenceController extends Controller
      */
     public function create()
     {
-        return view('adm/add');
+        return view('absensi.create');
     }
 
     /**
@@ -36,7 +36,7 @@ class AbsenceController extends Controller
      */
     public function store(Request $request)
     {
-        Absence::create($request->all());
+        Absensi::create($request->all());
         return redirect('admin')->with('Kirim', 'Data Sukses Dikirim');
     }
 
@@ -59,7 +59,7 @@ class AbsenceController extends Controller
      */
     public function edit($id)
     {
-        $data = Absence::findOrFail($id);
+        $data = Absensi::findOrFail($id);
         return view('adm/edit', compact('data'));
     }
 
@@ -72,7 +72,7 @@ class AbsenceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Absence::findOrFail($id);
+        $data = Absensi::findOrFail($id);
         $data->update($request->all());
 
         return redirect('admin')->with('Edit', 'Data Sukses Di Edit');
@@ -81,12 +81,13 @@ class AbsenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $data = Absence::findOrFail($id);
+        $data = Absensi::findOrFail($id);
         $data->delete($request->all());
         return redirect('admin')->with('hapus', 'Data Telah Di Hapus');
     }

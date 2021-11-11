@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('profiles.index');
     }
 
     /**
@@ -70,25 +71,53 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $messages = [
-            'required' => 'Harap masukkan :attribute!',
+            'alpha_num' => ':Attribute hanya boleh berisi huruf dan angka!',
+            'confirmed' => 'Konfirmasi password dan password tidak cocok!',
+            'email' => 'Format email harus valid!',
             'image' => 'File harus dalam bentuk gambar!',
-            'max' => 'Ukuran file maxsimal 2mb!'
+            'max' => [
+                'file' => 'Ukuran foto maxsimal 2mb!',
+                'string' => ':Attribute tidak boleh lebih dari :max karakter!',
+            ],
+            'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
+            'required' => ':Attribute harus diisi!',
+            'unique' => ':Attribute sudah ada!',
         ];
 
         $this->validate($request, [
+            'fullname' => 'string|max:225',
+            'username' => 'alpha_num|min:3|max:25|unique:users',
+            'password' => 'string|min:8|confirmed',
+            'email' => 'string|email|max:225|unique:users',
             'image' => 'image|max:2048'
         ], $messages);
 
-        if (isset(auth()->user()->image)) {
-            unlink(storage_path('app/public/images/' . auth()->user()->image));
+        if ($request->image != null) {
+            if (isset(auth()->user()->image)) {
+                unlink(storage_path('app/public/images/' . auth()->user()->image));
+                $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
+                $user->where('username', auth()->user()->username)->update([
+                    'image' => $request->image->getClientOriginalName(),
+                ]);
+            } else {
+                $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
+                $user->where('username', auth()->user()->username)->update([
+                    'image' => $request->image->getClientOriginalName(),
+                ]);
+            }
+        } else if ($request->fullname != null && $request->username != null && $request->email != null) {
+            $user->where('username', auth()->user()->username)->update([
+                'fullname' => $request->fullname,
+                'username' => $request->username,
+                'email' => $request->email,
+            ]);
+        } else {
+            $user->where('username', auth()->user()->username)->update([
+                'password' => Hash::make($request->password),
+            ]);
         }
 
-        $request->file('image')->storeAs('images', $request->image->getClientOriginalName());
-        $user->where('username', auth()->user()->username)->update([
-            'image' => $request->image->getClientOriginalName(),
-        ]);
-
-        return redirect('/dashboard')->with('success', 'Profile berhasil diupdate!');
+        return back()->with('success', 'Profil berhasil diupdate!');
     }
 
     /**
