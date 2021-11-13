@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Absensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
@@ -14,8 +15,8 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $data = Absensi::all();
-        return view('absensi/index', compact('data'));
+        $absensis = Absensi::get();
+        return view('absensi/index', compact('absensis'));
     }
 
     /**
@@ -36,8 +37,15 @@ class AbsensiController extends Controller
      */
     public function store(Request $request)
     {
-        Absensi::create($request->all());
-        return redirect('admin')->with('Kirim', 'Data Sukses Dikirim');
+        Auth::user()->absensi()->create([
+            'user_id' => Auth::user()->id,
+            'nama' => Auth::user()->fullname,
+            'tanggal' => date('Y-m-d 08:00:00'),
+            'kehadiran' => now(),
+            'status' => $request->status
+        ]);
+
+        return redirect('/absensi')->with('success', 'Absensi telah disimpan!');
     }
 
     /**

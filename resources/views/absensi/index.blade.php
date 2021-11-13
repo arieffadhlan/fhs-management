@@ -1,4 +1,5 @@
 <x-app-layout title="Absensi">
+    <x-alert-success></x-alert-success>
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3 mb-0 text-gray-800">Absensi</h1>
@@ -79,6 +80,7 @@
                     <div class="card-body">
                         <div class="card-body-title d-flex justify-content-between align-items-center mb-3">
                             <h5 class="fw-bold text-primary">Data Absen</h5>
+                            <a class="btn btn-primary" href="{{ route('absensi.create') }}" role="button">Tambah Absensi</a>
                         </div>
                         <div class="table-responsive">
                             <table id="tabel-data" class="table table-bordered table-striped table-bordered">
@@ -86,26 +88,29 @@
                                     <tr class="table-secondary">
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>Kelas</th>
                                         <th>Tanggal</th>
                                         <th>Kehadiran</th>
-                                        <th>Opt</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-center">
                                     @php $no = 1; @endphp
-                                    @foreach ($data as $siswa)
+                                    @foreach ($absensis as $absensi)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $siswa->nama }}</td>
-                                            <td>{{ $siswa->kelas }}</td>
-                                            <td>{{ $siswa->tanggal }}</td>
-                                            <td>{{ $siswa->kehadiran }}</td>
+                                            <td>{{ $absensi->nama }}</td>
+                                            <td>{{ $absensi->tanggal }}</td>
+                                            <td>{{ $absensi->kehadiran }}</td>
                                             <td>
-                                                <a href="/admin/{{ $siswa->id }}/edit" class="badge badge-warning"><i
-                                                        class="fa fa-edit"></i></a>
-                                                <a href="/admin/{{ $siswa->id }}/hapus" class="badge badge-danger"><i
-                                                        class="fa fa-trash"></i></a>
+                                                @if ($absensi->status == 'hadir')
+                                                    <span class="badge bg-primary">
+                                                        {{ ucwords($absensi->status) }}
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-danger">
+                                                        {{ ucwords($absensi->status) }}
+                                                    </span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

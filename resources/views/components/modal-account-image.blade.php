@@ -16,8 +16,8 @@
                     </div>
             </div>
             <div class="modal-footer d-flex justify-content-between align-items-center">
-                <button type="reset" onclick="clearAccountImage()" class="btn btn-danger">Reset</button>
-                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" onclick="clearAccountImage()" class="btn btn-danger px-2 py-1">Hapus Foto</button>
+                <button type="submit" name="submit" class="btn btn-primary px-2 py-1">Kirim</button>
                 </form>
             </div>
         </div>

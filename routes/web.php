@@ -9,20 +9,24 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenjualanController;
 
 Auth::routes();
-Route::view('/', 'welcome');
-Route::get('dashboard', DashboardController::class)->name('dashboard');
-Route::get('profile', [UserController::class, 'index'])->name('profile');
-Route::put('profile/edit', [UserController::class, 'update'])->name('profile.update');
+Route::view('/', 'welcome')->middleware('guest');
 
-Route::get('management/stock', [StockController::class, 'index'])->name('stock');
-Route::get('management/stock/create', [StockController::class, 'create'])->name('tambah');
-Route::post('management/stock/store', [StockController::class, 'store'])->name('stock.store');
-Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
-Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+    Route::get('profile', [UserController::class, 'index'])->name('profile');
+    Route::put('profile/edit', [UserController::class, 'update'])->name('profile.update');
 
-Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
-Route::get('absensi/create', [AbsensiController::class, 'create']);
-Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
-Route::get('absensi/{id}/edit', [AbsensiController::class, 'edit']);
-Route::put('absensi/{id}/edit', [AbsensiController::class, 'update']);
-Route::delete('absensi/{id}/delete', [AbsensiController::class, 'destroy']);
+    Route::get('management/stock', [StockController::class, 'index'])->name('stock');
+    Route::get('management/stock/create', [StockController::class, 'create'])->name('tambah');
+    Route::post('management/stock/store', [StockController::class, 'store'])->name('stock.store');
+
+    Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
+    Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
+
+    Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
+    Route::get('absensi/create', [AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
+    Route::get('absensi/{id}/edit', [AbsensiController::class, 'edit']);
+    Route::put('absensi/{id}/edit', [AbsensiController::class, 'update']);
+    Route::delete('absensi/{id}/delete', [AbsensiController::class, 'destroy']);
+});
