@@ -18,7 +18,7 @@ composer install
 4.  Generate APP_KEY
 
 ```console
-php artisan generate:key
+php artisan key:generate
 ```
 
 5.  Clear Cache
