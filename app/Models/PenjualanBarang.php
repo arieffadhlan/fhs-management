@@ -5,19 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Stock extends Model
+class PenjualanBarang extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'nama_barang',
-        'kategori_barang',
-        'deskripsi_barang',
         'jumlah_barang',
-        'image',
+        'tanggal_keluar',
     ];
-
-    Public function comment() {
-        return $this->belongsTo(Penjualan::class);
-    }
+    use HasFactory;
+    protected $table = 'penjualan_barang';
 }

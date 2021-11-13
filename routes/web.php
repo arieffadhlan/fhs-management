@@ -19,6 +19,7 @@ Route::get('management/stock/create', [StockController::class, 'create'])->name(
 Route::post('management/stock/store', [StockController::class, 'store'])->name('stock.store');
 Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
 Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
+Route::post('management/penjualan/store2', [PenjualanController::class, 'store2'])->name('penjualan.store');
 
 Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
 Route::get('absensi/create', [AbsensiController::class, 'create']);

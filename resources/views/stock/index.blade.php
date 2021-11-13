@@ -8,7 +8,6 @@
             @endphp
         </div>
     @endif
-
     <div class="stock-header d-flex flex-wrap justify-content-between align-items-center mb-3">
         <h2 class="m-0">Pendataan Stock Barang</h2>
         <a class="btn btn-primary" href="{{ route('tambah') }}" role="button">Tambah Stock</a>
