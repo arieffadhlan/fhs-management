@@ -1,5 +1,5 @@
 <div id="sidebar" class="active">
-    <div class="sidebar-wrapper active">
+    <div class="sidebar-wrapper active shadow">
         <div class="d-flex justify-content-between">
             <div class="container brand d-flex flex-column justify-content-center align-items-center fs-5 fw-bold pt-4 pb-3">
                 @isset(Auth::user()->image)
@@ -11,7 +11,7 @@
                     <h5 class="m-0">{{ Auth::user()->fullname }}</h4>
                 </div>
             </div>
-            <div class="toggler">
+            <div class="toggler pe-3">
                 <a href="#" class="sidebar-hide d-xl-none d-block">
                     <i class="bi bi-x bi-middle fa-2x"></i>
                 </a>

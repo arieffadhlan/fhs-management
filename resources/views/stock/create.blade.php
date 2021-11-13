@@ -1,75 +1,87 @@
-<x-app-layout title="Tambah Stock">
-    <h2>Penambahan Stock Barang</h2>
-    <form method="POST" action="{{ route('stock.store') }}" enctype="multipart/form-data" class="row g-3">
-        @csrf
-        <div class="col-6">
-            <label for="nama_barang" class="form-label @error('name') is-invalid @enderror">Nama Barang</label>
-            <input type="text" name="nama_barang" value="{{ old('nama_barang') }}" class="form-control"
-                id="nama_barang" placeholder="">
-            @error('nama_barang')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
+<x-app-layout title="Tambah Stok">
+    <h2>Penambahan Stok Barang</h2>
+    <x-form-card>
+        <x-slot name="title">
+            Form
+        </x-slot>
 
-            <label for="inputAddress" class="form-label">Kategori</label>
-            <select name="kategori_barang" value="{{ old('kategori_barang') }}" class="form-select"
-                id="inputGroupSelect01">
-                <option selected>Pilih Kategori</option>
-                <option value="Tissue">Tissue</option>
-                <option value="Doorsmeer">Doorsmeer</option>
-                <option value="Peralatan Lainnya">Peralatan Lainnya</option>
-            </select>
-            @error('kategori_barang')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
+        <form method="POST" action="{{ route('stock.store') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="col-md-9">
+                <div class="container-fluid">
+                    <label for="nama_barang" class="form-label fw-bold">Nama Barang</label>
+                    <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang') }}" class="form-control">
+                    @error('nama_barang')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-            <label for="exampleFormControlTextarea1" class="form-label">Deskripsi</label>
-            <textarea name="deskripsi_barang" value="{{ old('deskripsi_barang') }}" class="editor form-control"
-                id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label class="form-label fw-bold mt-3">Kategori</label>
+                    <select name="kategori_barang" value="{{ old('kategori_barang') }}" class="form-select form-select-sm" aria-label=".form-select-sm">
+                        <option selected>Pilih Kategori</option>
+                        <option value="Tissue">Tissue</option>
+                        <option value="Doorsmeer">Doorsmeer</option>
+                        <option value="Peralatan Lainnya">Peralatan Lainnya</option>
+                    </select>
+                    @error('kategori_barang')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
+
+                    <label class="form-label fw-bold mt-3">Deskripsi Barang</label>
+                    <textarea name="deskripsi_barang" value="{{ old('deskripsi_barang') }}" class="editor form-control" rows="3"></textarea>
+                    <script>
+                        ClassicEditor
+                            .create(document.querySelector('.editor'))
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    </script>
+                    @error('deskripsi_barang')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
+
+                    <label for="jumlah_barang" class="form-label fw-bold mt-3">Jumlah</label>
+                    <input type="number" name="jumlah_barang" id="jumlah_barang" value="{{ old('jumlah_barang') }}"  class="form-control" min="1">
+                    @error('jumlah_barang')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
+
+                    <div class="label-gambar d-flex justify-content-between align-items-center mt-3">
+                        <label for="image" class="form-label fw-bold">Gambar</label>
+                        <button id="clear_image" type="reset" onclick="clearImage()" class="d-none badge bg-danger border-0 fs-6 fw-normal mb-2">
+                            Hapus Gambar
+                        </button>
+                    </div>
+                    <input name="image" type="file" id="image" class="form-control input-image" onchange="preview()">
+                    <img id="frame" src="" class="img-fluid mt-3 mb-3" />
+                    <br>
+                    @error('image')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary">Tambah Stok</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- untuk preview dan hapus image -->
             <script>
-                ClassicEditor
-                    .create(document.querySelector('.editor'))
-                    .catch(error => {
-                        console.error(error);
-                    });
+                function preview() {
+                    let clear_image = document.getElementById('clear_image');
+                    clear_image.classList.remove("d-none");
+                    frame.src = URL.createObjectURL(event.target.files[0]);
+                    frame.style.width = "150px";
+                }
+                function clearImage() {
+                    let clear_image = document.getElementById('clear_image');
+                    clear_image.classList.add("d-none");
+                    frame.src = "";
+                }
             </script>
-            @error('deskripsi_barang')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
-
-            <label for="jumlah_barang" class="form-label">Jumlah</label>
-            <input type="number" min="1" value="{{ old('jumlah_barang') }}" name="jumlah_barang" class="form-control"
-                id="jumlah_barang" placeholder="">
-            @error('jumlah_barang')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
-
-            <label for="image" class="form-label">Gambar</label>
-            <input name="image" class="form-control input-image" type="file" id="image" onchange="preview()">
-            <img id="frame" src="" class="img-fluid mt-3 mb-1" />
-            <button onclick="clearImage()" type="reset" class="btn btn-primary mt-3">Hapus Gambar</button>
-            <br>
-            @error('image')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <!-- untuk preview dan hapus image -->
-        <script>
-            function preview() {
-                frame.src = URL.createObjectURL(event.target.files[0]);
-            }
-
-            function clearImage() {
-                frame.src = "";
-            }
-        </script>
-
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Tambahkan Data</button>
-        </div>
-    </form>
+        </form>
+    </x-form-card>
 </x-app-layout>

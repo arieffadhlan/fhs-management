@@ -1,4 +1,5 @@
 <x-app-layout title="Stock">
+<<<<<<< HEAD
     @if (session()->has('success'))
         <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
             {{ session()->get('success') }}
@@ -8,6 +9,10 @@
             @endphp
         </div>
     @endif
+=======
+    <x-alert-success></x-alert-success>
+
+>>>>>>> origin/master
     <div class="stock-header d-flex flex-wrap justify-content-between align-items-center mb-3">
         <h2 class="m-0">Pendataan Stock Barang</h2>
         <a class="btn btn-primary" href="{{ route('tambah') }}" role="button">Tambah Stock</a>

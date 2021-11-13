@@ -14,14 +14,12 @@ class CreateAbsensisTable extends Migration
     public function up()
     {
         Schema::create('absensis', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nama');
-            $table->string('kelas');
-            $table->string('hari');
-            $table->string('tanggal');
-            $table->string('bulan');
-            $table->string('tahun');
-            $table->string('kehadiran');
+            $table->dateTime('tanggal');
+            $table->dateTime('kehadiran');
+            $table->enum('status', ['hadir', 'absen']);
             $table->timestamps();
         });
     }
