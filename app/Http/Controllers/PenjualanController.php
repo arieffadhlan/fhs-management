@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Penjualan;
 use App\Models\Stock;
 use App\Models\PenjualanBarang;
+use App\Models\PenjualanStaff;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -17,7 +18,8 @@ class PenjualanController extends Controller
     public function index()
     {  
         $penjualan = PenjualanBarang::get();
-        return view('penjualan.index', compact('penjualan'));
+        $penjualanStaff = PenjualanStaff::get();
+        return view('penjualan.index', compact('penjualan','penjualanStaff'));
     }
 
     /**

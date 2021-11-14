@@ -48,4 +48,52 @@
         </div>
     </div>
     
+    <div class="stock-header d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <h2 class="m-0">Data penjualan staff</h2>
+    </div>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStaff" aria-expanded="false" aria-controls="collapseExample">
+        Tampilkan Data
+    </button>
+    <a class="btn btn-primary" href="{{ route('penjualanStaff') }}" role="button">Tambah Penjualan Staff</a>
+    <br><br>
+
+    <div class="collapse" id="collapseStaff">
+        <div class="card card-body">
+            <div class="col-12">
+                <!-- nanti di isi ya beb  -->
+                <div class="alert alert-primary">
+                @if ($penjualanStaff->isNotEmpty())
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped mb-0">
+                    <thead class="text-center">
+                        <tr class="table-dark">
+                            <th>Nama Staff</th>
+                            <th>Barang</th>
+                            <th>Jumlah Penjualan</th>
+                            <th>Tanggal Penjualan</th>
+                        </tr>
+                    </thead>
+                    @foreach ($penjualanStaff as $penjualan)
+                        <tbody>
+                            <tr class="text-center">
+                                <td>{{ $penjualan->nama_staff }}</td>
+                                <td>{{ $penjualan->nama_barang }} dus</td>
+                                <td>{{ $penjualan->jumlah_penjualan }}</td>
+                                <td>{{ $penjualan->tanggal_penjualan }}</td>
+                            </tr>
+                        </tbody>
+                    @endforeach
+                </table>
+            </div>
+            @else
+                <div class="col-12">
+                    <div class="alert alert-primary">
+                        Data barang tidak ditemukan.
+                    </div>
+                </div>
+            @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>

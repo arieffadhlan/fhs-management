@@ -7,6 +7,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\StaffController;
 
 Auth::routes();
 Route::view('/', 'welcome')->middleware('guest');
@@ -23,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
     Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
     Route::post('management/penjualan/store2', [PenjualanController::class, 'store2'])->name('penjualan.store');
+    Route::get('management/penjualan/staff', [StaffController::class, 'index'])->name('penjualanStaff');
+    Route::post('management/penjualan/staff/store', [StaffController::class, 'store'])->name('staff.store');
 
     Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
     Route::get('absensi/create', [AbsensiController::class, 'create'])->name('absensi.create');
