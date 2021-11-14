@@ -48,7 +48,7 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             @endif
 
-                            @if (Route::is('register'))
+                            @if (Request::is('register'))
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 <a class="nav-link fw-bold" href="{{ route('register') }}">{{ __('Register') }}</a>
                             @endif
@@ -65,15 +65,15 @@
             </div>
         @endguest
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
 
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

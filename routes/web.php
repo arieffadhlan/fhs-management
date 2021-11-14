@@ -2,33 +2,43 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StockController;
-use App\Http\Controllers\AbsenceController;
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\StaffController;
 
 Auth::routes();
-Route::view('/', 'welcome');
-Route::get('dashboard', DashboardController::class)->name('dashboard');
-Route::put('dashboard/edit', [UserController::class, 'update'])->name('user.update');
-Route::get('management/stock', [StockController::class, 'index'])->name('stock');
-Route::get('management/stock/create', [StockController::class, 'create'])->name('tambah');
-Route::post('management/stock/store', [StockController::class, 'store'])->name('stock.store');
+Route::view('/', 'welcome')->middleware('guest');
 
-Route::get('management/absence', [AbsenceController::class, 'index'])->name('absence');
-Route::get('/admin', [AbsenceController::class, 'index']);
-Route::get('/admin/create', [AbsenceController::class, 'create']);
-Route::post('/admin/add/tambahken', [AbsenceController::class, 'store']);
-Route::get('/admin/{id}/edit', [AbsenceController::class, 'edit']);
-Route::put('/admin/{id}/apdetin', [AbsenceController::class, 'update']);
-Route::delete('/admin/{id}/hapus', [AbsenceController::class, 'destroy']);
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+    Route::get('profile', [UserController::class, 'index'])->name('profile');
+    Route::put('profile/edit', [UserController::class, 'update'])->name('profile.update');
 
-Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
-Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
+    Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
+    Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
 
-Route::get('management/penjualan/customer', [CustomerController::class, 'index'])->name('pembelianCustomer');
-Route::post('management/penjualan/customer/store', [CustomerController::class, 'store'])->name('customer.store');
-Route::post('management/penjualan/customer/store2', [CustomerController::class, 'store2'])->name('customer.store2');
+    Route::get('management/penjualan/customer', [CustomerController::class, 'index'])->name('pembelianCustomer');
+    Route::post('management/penjualan/customer/store', [CustomerController::class, 'store'])->name('customer.store');
+    Route::post('management/penjualan/customer/store2', [CustomerController::class, 'store2'])->name('customer.store2');
+    
+    Route::get('management/stock', [StockController::class, 'index'])->name('stock');
+    Route::get('management/stock/create', [StockController::class, 'create'])->name('tambah');
+    Route::post('management/stock/store', [StockController::class, 'store'])->name('stock.store');
+
+    Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
+    Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
+    Route::post('management/penjualan/store2', [PenjualanController::class, 'store2'])->name('penjualan.store');
+    Route::get('management/penjualan/staff', [StaffController::class, 'index'])->name('penjualanStaff');
+    Route::post('management/penjualan/staff/store', [StaffController::class, 'store'])->name('staff.store');
+
+    Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
+    Route::get('absensi/create', [AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
+    Route::get('absensi/{id}/edit', [AbsensiController::class, 'edit']);
+    Route::put('absensi/{id}/edit', [AbsensiController::class, 'update']);
+    Route::delete('absensi/{id}/delete', [AbsensiController::class, 'destroy']);
+});

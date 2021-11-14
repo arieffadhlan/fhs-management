@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TabelAbsen extends Migration
+class CreateAbsensisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class TabelAbsen extends Migration
      */
     public function up()
     {
-        Schema::create('absence', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('absensis', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('nama');
-            $table->string('kelas');
-            $table->string('hari');
-            $table->string('tanggal');
-            $table->string('bulan');
-            $table->string('tahun');
-            $table->string('kehadiran');
+            $table->dateTime('tanggal');
+            $table->dateTime('kehadiran');
+            $table->enum('status', ['hadir', 'absen']);
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class TabelAbsen extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absence');
+        Schema::dropIfExists('absensis');
     }
 }

@@ -1,5 +1,5 @@
 <div id="sidebar" class="active">
-    <div class="sidebar-wrapper active">
+    <div class="sidebar-wrapper active shadow">
         <div class="d-flex justify-content-between">
             <div class="container brand d-flex flex-column justify-content-center align-items-center fs-5 fw-bold pt-4 pb-3">
                 @isset(Auth::user()->image)
@@ -7,16 +7,13 @@
                 @else
                 <img src="{{ asset("images/user.png") }}" alt="Avatar" class="rounded-circle" width="100px" height="100px">
                 @endisset
-                <div class="user-account container d-flex justify-content-evenly align-items-center mt-4">
+                <div class="user-account container d-flex justify-content-center align-items-center mt-4">
                     <h5 class="m-0">{{ Auth::user()->fullname }}</h4>
-                    <button type="button" class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#edit-foto">
-                            Edit
-                    </button>
                 </div>
             </div>
-            <div class="toggler">
+            <div class="toggler pe-3">
                 <a href="#" class="sidebar-hide d-xl-none d-block">
-                    <i class="bi bi-x bi-middle"></i>
+                    <i class="bi bi-x bi-middle fa-2x"></i>
                 </a>
             </div>
         </div>
@@ -26,14 +23,21 @@
 
                 <li class="sidebar-item {{ request()->route()->uri === 'dashboard' ? 'active' : '' }}">
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
+                        <i class="fas fa-home me-1"></i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item {{ request()->route()->uri === 'profile' ? 'active' : '' }}">
+                    <a href="{{ route('profile') }}" class='sidebar-link'>
+                    <i class="fas fa-user me-2"></i>
+                        <span>Profil</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item has-sub {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
                     <a href="{{ route('stock') }}" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
+                        <i class="fas fa-layer-group me-2"></i>
                         <span>Management</span>
                     </a>
                     <ul class="submenu {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
@@ -49,10 +53,10 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item {{ request()->route()->uri === 'management/absence' ? 'active' : '' }}">
-                    <a href="{{ route('absence') }}" class='sidebar-link'>
-                    <i class="fas fa-address-book me-2"></i>
-                        <span>Absence</span>
+                <li class="sidebar-item {{ request()->route()->uri === 'absensi' ? 'active' : '' }}">
+                    <a href="{{ route('absensi') }}" class='sidebar-link'>
+                        <i class="fas fa-address-book me-2"></i>
+                        <span>Absensi</span>
                     </a>
                 </li>
             </ul>
@@ -69,9 +73,7 @@
                     </form>
                 </li>
             </ul>
-
         </div>
-        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
     </div>
 </div>
 

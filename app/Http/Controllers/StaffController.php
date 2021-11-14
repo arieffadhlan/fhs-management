@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absence;
+use App\Models\PenjualanStaff;
 use Illuminate\Http\Request;
+use App\Models\Stock;
 
-class AbsenceController extends Controller
+class StaffController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class AbsenceController extends Controller
      */
     public function index()
     {
-        $data = Absence::all();
-        return view('absen/index', compact('data'));
+        $stocks = Stock::get();
+        return view('penjualan.staff', compact('stocks'));
     }
 
     /**
@@ -25,7 +26,7 @@ class AbsenceController extends Controller
      */
     public function create()
     {
-        return view('adm/add');
+        //
     }
 
     /**
@@ -36,8 +37,27 @@ class AbsenceController extends Controller
      */
     public function store(Request $request)
     {
-        Absence::create($request->all());
-        return redirect('admin')->with('Kirim', 'Data Sukses Dikirim');
+        $messages = [
+            'required' => 'Harap masukkan :attribute!',
+            'image' => 'File harus dalam bentuk gambar!',
+            'max' => 'Ukuran file maxsimal 2mb!'
+        ];
+
+        $this->validate($request, [
+            'nama_staff' => 'required',
+            'nama_barang' => 'required',
+            'jumlah_penjualan'  => 'required',
+            'tanggal_penjualan' => 'required|date',
+        ], $messages);
+
+        PenjualanStaff::create([
+            'nama_staff' => $request->nama_staff,
+            'nama_barang' => $request->nama_barang,
+            'jumlah_penjualan'  => $request->jumlah_penjualan,
+            'tanggal_penjualan' => $request->tanggal_penjualan,
+        ]);
+        
+        return redirect('/management/penjualan')->with('success', 'Data penjualan staff telah berhasil ditambahkan!');
     }
 
     /**
@@ -59,8 +79,7 @@ class AbsenceController extends Controller
      */
     public function edit($id)
     {
-        $data = Absence::findOrFail($id);
-        return view('adm/edit', compact('data'));
+        //
     }
 
     /**
@@ -72,10 +91,7 @@ class AbsenceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Absence::findOrFail($id);
-        $data->update($request->all());
-
-        return redirect('admin')->with('Edit', 'Data Sukses Di Edit');
+        //
     }
 
     /**
@@ -86,8 +102,6 @@ class AbsenceController extends Controller
      */
     public function destroy($id)
     {
-        $data = Absence::findOrFail($id);
-        $data->delete($request->all());
-        return redirect('admin')->with('hapus', 'Data Telah Di Hapus');
+        //
     }
 }

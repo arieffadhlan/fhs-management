@@ -6,6 +6,8 @@ use App\Models\Penjualan;
 use App\Models\Customer;
 use App\Models\Pembelian;
 use App\Models\Stock;
+use App\Models\PenjualanBarang;
+use App\Models\PenjualanStaff;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -16,9 +18,11 @@ class PenjualanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         $customer = Customer::All();
-        return view('penjualan.index', ['customer' => $customer]);
+        $penjualan = PenjualanBarang::get();
+        $penjualanStaff = PenjualanStaff::get();
+        return view('penjualan.index', compact('penjualan','penjualanStaff','customer'));
     }
 
     /**
@@ -48,6 +52,7 @@ class PenjualanController extends Controller
 
         $this->validate($request, [
             'nama_barang' => 'required',
+            'nama_barang' => 'required',
             'kategori_barang' => 'required',
             'deskripsi_barang' => 'required',
             'jumlah_barang' => 'required|numeric',
@@ -65,7 +70,28 @@ class PenjualanController extends Controller
 
         return redirect('/management/stock')->with('success', 'Penambahan Barang telah Berhasil!');
     }
+    public function store2(Request $request)
+    {
+        $messages = [
+            'required' => 'Harap masukkan :attribute!',
+            'image' => 'File harus dalam bentuk gambar!',
+            'max' => 'Ukuran file maxsimal 2mb!'
+        ];
 
+        $this->validate($request, [
+            'nama_barang' => 'required',
+            'jumlah_barang'  => 'required',
+            'tanggal_keluar' => 'required|date',
+        ], $messages);
+
+        PenjualanBarang::create([
+            'nama_barang' => $request->nama_barang,
+            'jumlah_barang'  => $request->jumlah_barang,
+            'tanggal_keluar' => $request->tanggal_keluar,
+        ]);
+        
+        return redirect('/management/penjualan')->with('success', 'Pembelian Customer telah berhasil ditambahkan!');
+    }
     /**
      * Display the specified resource.
      *

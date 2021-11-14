@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="AccountImageClose()"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                     @method('put')
                     @csrf
                     <div class="mt-2 mb-2">
@@ -16,8 +16,8 @@
                     </div>
             </div>
             <div class="modal-footer d-flex justify-content-between align-items-center">
-                <button type="reset" onclick="clearAccountImage()" class="btn btn-danger">Reset</button>
-                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" onclick="clearAccountImage()" class="btn btn-danger px-2 py-1">Hapus Foto</button>
+                <button type="submit" name="submit" class="btn btn-primary px-2 py-1">Kirim</button>
                 </form>
             </div>
         </div>

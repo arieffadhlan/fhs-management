@@ -187,7 +187,7 @@ function password_confirm_show_hide() {
   }
 }
 
-// Account Image 
+// Preview Account Image
 function readURL(input) {
   console.log(input);
   if (input.files && input.files[0]) {
@@ -200,15 +200,17 @@ function readURL(input) {
 
       reader.readAsDataURL(input.files[0]);
       previewImage.style.display = "flex";
-      previewImage.style.width = "300px";
+      previewImage.style.width = "250px";
   }
 }
 
+// Reset Preview Account Image
 function clearAccountImage() {
   let previewImage = document.getElementById("preview-account-image");
   previewImage.src = "";
 }
 
+// Reset Modal Input Account Image
 function AccountImageClose() {
   let accountImageInput = document.getElementById("account-image");
   let previewImage = document.getElementById("preview-account-image");
