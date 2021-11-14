@@ -8,6 +8,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\CustomerController;
 
 Auth::routes();
 Route::view('/', 'welcome');
@@ -27,3 +28,7 @@ Route::delete('/admin/{id}/hapus', [AbsenceController::class, 'destroy']);
 
 Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
 Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang');
+
+Route::get('management/penjualan/customer', [CustomerController::class, 'index'])->name('pembelianCustomer');
+Route::post('management/penjualan/customer/store', [CustomerController::class, 'store'])->name('customer.store');
+Route::post('management/penjualan/customer/store2', [CustomerController::class, 'store2'])->name('customer.store2');

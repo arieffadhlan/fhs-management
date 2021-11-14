@@ -11,9 +11,13 @@
             @enderror
             <br>
 
-            <label for="nama_barang" class="form-label @error('name') is-invalid @enderror">Nama Barang</label>
-            <input type="text" name="nama_barang" value="{{ old('nama_barang') }}" class="form-control"
-                id="nama_barang" placeholder="">
+            <label for="inputAddress" class="form-label">Nama barang</label>
+            <select name="nama_barang" value="{{ old('nama_barang') }}" class="form-select" id="inputGroupSelect01">
+                <option selected>Pilih Barang</option>
+                @foreach($stock as $stock)
+                    <option value="{{$stock->nama_barang}}">{{$stock->nama_barang}}</option>
+                @endforeach
+            </select>
             @error('nama_barang')
             <div class="alert alert-danger mt-2">{{ $message }}</div>
             @enderror

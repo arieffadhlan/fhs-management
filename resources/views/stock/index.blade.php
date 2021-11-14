@@ -22,7 +22,7 @@
                         <th>Kategori</th>
                         <th>Deksripsi</th>
                         <th>Gambar</th>
-                        <th>Jumlah Stock</th>
+                        <th>Jumlah Barang Masuk</th>
                         <th>Action</th>
                     </tr>
                 </thead>

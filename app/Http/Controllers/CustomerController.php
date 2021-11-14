@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penjualan;
 use App\Models\Customer;
-use App\Models\Pembelian;
-use App\Models\Stock;
 use Illuminate\Http\Request;
+use App\Models\Stock;
+use App\Models\Pembelian;
 
-class PenjualanController extends Controller
+class CustomerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,9 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        $customer = Customer::All();
-        return view('penjualan.index', ['customer' => $customer]);
+        $stocks = Stock::get();
+        $customers = Customer::get();
+        return view('penjualan.customer', compact('customers', 'stocks'));
     }
 
     /**
@@ -28,8 +28,7 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        $stock = Stock::get();
-        return view('penjualan.create', compact('stock'));
+        //
     }
 
     /**
@@ -47,23 +46,44 @@ class PenjualanController extends Controller
         ];
 
         $this->validate($request, [
-            'nama_barang' => 'required',
-            'kategori_barang' => 'required',
-            'deskripsi_barang' => 'required',
-            'jumlah_barang' => 'required|numeric',
-            'image' => 'image|max:2048'
+            'nama_customer' => 'required',
+            'kategori_daerah' => 'required',
+            'alamat_customer' => 'required',
+            'telp_customer' => 'required|numeric',
         ], $messages);
 
-        $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : null;
-        Penjualan::create([
-            'nama_barang' => $request->nama_barang,
-            'kategori_barang' => $request->kategori_barang,
-            'deskripsi_barang' => $request->deskripsi_barang,
-            'jumlah_barang' => $request->jumlah_barang,
-            'image' => $request->image->getClientOriginalName() ?? null,
+        Customer::create([
+            'nama_customer' => $request->nama_customer,
+            'kategori_daerah' => $request->kategori_daerah,
+            'alamat_customer' => $request->alamat_customer,
+            'telp_customer' => $request->telp_customer,
         ]);
+        
+        return redirect('/management/penjualan/customer')->with('success', 'Data Customer telah berhasil ditambahkan!');
+    }
 
-        return redirect('/management/stock')->with('success', 'Penambahan Barang telah Berhasil!');
+    public function store2(Request $request)
+    {
+        $messages = [
+            'required' => 'Harap masukkan :attribute!',
+            'image' => 'File harus dalam bentuk gambar!',
+            'max' => 'Ukuran file maxsimal 2mb!'
+        ];
+
+        $this->validate($request, [
+            'nama_barang' => 'required',
+            'jumlah_pembelian'  => 'required',
+            'tanggal_masuk' => 'required|date',
+        ], $messages);
+
+        Pembelian::create([
+            'customer_id' => $request->customer_id,
+            'nama_barang' => $request->nama_barang,
+            'jumlah_pembelian'  => $request->jumlah_pembelian,
+            'tanggal_masuk' => $request->tanggal_masuk,
+        ]);
+        
+        return redirect('/management/penjualan')->with('success', 'Pembelian Customer telah berhasil ditambahkan!');
     }
 
     /**
