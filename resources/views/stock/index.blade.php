@@ -1,59 +1,65 @@
 <x-app-layout title="Stock">
-<<<<<<< HEAD
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center" role="alert">
-            {{ session()->get('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            @php
-                session()->forget('success');
-            @endphp
-        </div>
-    @endif
-=======
     <x-alert-success></x-alert-success>
-
->>>>>>> origin/master
-    <div class="stock-header d-flex flex-wrap justify-content-between align-items-center mb-3">
-        <h2 class="m-0">Pendataan Stock Barang</h2>
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Stock Barang</h2>
         <a class="btn btn-primary" href="{{ route('tambah') }}" role="button">Tambah Stock</a>
     </div>
-    @if ($stocks->isNotEmpty())
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped mb-0">
-                <thead class="text-center">
-                    <tr class="table-dark">
-                        <th>Nama Barang</th>
-                        <th>Kategori</th>
-                        <th>Deksripsi</th>
-                        <th>Gambar</th>
-                        <th>Jumlah Barang Masuk</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                @foreach ($stocks as $stock)
-                    <tbody>
-                        <tr class="text-center">
-                            <td>{{ $stock->nama_barang }}</td>
-                            <td>{{ $stock->kategori_barang }}</td>
-                            <td>{!! nl2br(Str::limit($stock->deskripsi_barang, 150)) !!}</td>
-                            <td>
-                                <img style="width: 150px" src="{{ asset('storage/images/' . $stock->image) }}" alt="">
-                            </td>
-                            <td>{{ $stock->jumlah_barang }}</td>
-                            <td>
-                                <button class="badge bg-success border-0">Edit</button>
-                                <button class="badge bg-danger border-0">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                @endforeach
-            </table>
-        </div>
-    @else
-        <div class="col-12">
-            <div class="alert alert-primary">
-                Data barang tidak ditemukan.
+    <div class="col-12">
+                    <x-form-card>
+                    <x-slot name="title">
+                        Data Stock Barang
+                    </x-slot>
+                        @if ($stocks->isNotEmpty())
+                            <section class="section">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <table class="table table-striped" id="table4">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama Barang</th>
+                                                    <th>Kategori</th>
+                                                    <th>Deksripsi</th>
+                                                    <th>Gambar</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            @php $no = 1; @endphp
+                                            <tbody>
+                                                @foreach ($stocks as $stock)
+                                                    <tr class="text-center">
+                                                        <td style="width: 10%;">{{ $no++ }}</td>
+                                                        <td class="text-wrap">{{ $stock->nama_barang }}</td>
+                                                        <td>{{ $stock->kategori_barang }}</td>
+                                                        <td>{!! nl2br(Str::limit($stock->deskripsi_barang, 150)) !!}</td>
+                                                        <td>
+                                                            <img style="width: 100px" src="{{ asset('storage/images/' . $stock->image) }}" alt="">
+                                                        </td>
+                                                        @if ($stock->jumlah_barang == 0)
+                                                            <td>Stock barang kosong.</td>
+                                                        @else
+                                                            <td>{{ $stock->jumlah_barang }}</td>
+                                                        @endif
+                                                        <td>
+                                                        <a class="badge bg-success border-0" href="{{ route('stock.edit', $stock->id) }}" role="button">Edit</button>
+                                                        <a class="badge bg-danger border-0" href="{{ route('stock.delete', $stock->id) }}" role="button">Delete</button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                        @else
+                            <div class="col-12">
+                                <div class="alert alert-primary">
+                                    Data barang tidak ditemukan.
+                                </div>
+                            </div>
+                        @endif
+                </x-form-card>
             </div>
-        </div>
-    @endif
+    </div>
 </x-app-layout>

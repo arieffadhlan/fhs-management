@@ -10,9 +10,13 @@ class PenjualanStaff extends Model
     use HasFactory;
             
     protected $fillable = [
-            'nama_staff',
+            'staff_id',
             'nama_barang',
             'jumlah_penjualan',
             'tanggal_penjualan',
     ];
+
+    public function staffs() {
+        return $this->belongsTo(Staff::class);
+    }
 }

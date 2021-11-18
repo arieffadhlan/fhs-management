@@ -48,7 +48,10 @@
                             <a href="{{ route('penjualan') }}">Penjualan</a>
                         </li>
                         <li class="submenu-item">
-                            <a href="component-breadcrumb.html">Data Barang</a>
+                            <a href="{{ route('DataStaff') }}">Staff</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a href="{{ route('dataCustomer') }}">Customer</a>
                         </li>
                     </ul>
                 </li>

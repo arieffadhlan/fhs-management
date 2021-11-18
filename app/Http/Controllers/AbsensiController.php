@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absensi;
+use App\Models\Absence;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
@@ -15,8 +15,8 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $absensis = Absensi::get();
-        return view('absensi/index', compact('absensis'));
+        $data = Absence::all();
+        return view('absensi.index', compact('data'));
     }
 
     /**
@@ -26,7 +26,7 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        return view('absensi.create');
+        return view('adm/add');
     }
 
     /**
@@ -37,15 +37,23 @@ class AbsensiController extends Controller
      */
     public function store(Request $request)
     {
-        Auth::user()->absensi()->create([
-            'user_id' => Auth::user()->id,
-            'nama' => Auth::user()->fullname,
-            'tanggal' => date('Y-m-d 08:00:00'),
-            'kehadiran' => now(),
-            'status' => $request->status
+        $tanggal = Carbon::parse($request->tanggal)->format('Y-m-d H:i:s');
+
+        if ($tanggal > Carbon::createFromTime(9, 0, 0))
+        {
+            $keterangan = 'Terlambat';
+        } else {
+            $keterangan = 'Tepat Waktu';
+        }
+
+        Absence::create([
+            'nama' => $request->nama,
+            'tanggal' => $tanggal,
+            'kehadiran'  => $request->kehadiran,
+            'keterangan' => $keterangan,
         ]);
 
-        return redirect('/absensi')->with('success', 'Absensi telah disimpan!');
+        return redirect('/absensi')->with('Kirim', 'Data Sukses Dikirim');
     }
 
     /**
@@ -67,7 +75,7 @@ class AbsensiController extends Controller
      */
     public function edit($id)
     {
-        $data = Absensi::findOrFail($id);
+        $data = Absence::findOrFail($id);
         return view('adm/edit', compact('data'));
     }
 
@@ -80,7 +88,7 @@ class AbsensiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Absensi::findOrFail($id);
+        $data = Absence::findOrFail($id);
         $data->update($request->all());
 
         return redirect('admin')->with('Edit', 'Data Sukses Di Edit');
@@ -89,14 +97,13 @@ class AbsensiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $data = Absensi::findOrFail($id);
-        $data->delete($request->all());
+        $data = Absence::findOrFail($id);
+        // $data->delete($request->all());
         return redirect('admin')->with('hapus', 'Data Telah Di Hapus');
     }
 }

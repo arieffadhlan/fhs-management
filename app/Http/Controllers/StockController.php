@@ -81,7 +81,8 @@ class StockController extends Controller
      */
     public function edit($id)
     {
-        //
+        $stocks = Stock::find($id);
+        return view('stock.edit', compact('stocks'));
     }
 
     /**
@@ -93,7 +94,37 @@ class StockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $stocks = Stock::whereId($id)->first();
+
+        if($request->image == '')
+        {
+            $stocks->update([
+                'nama_barang' => $request->nama_barang,
+                'kategori_barang' => $request->kategori_barang,
+                'deskripsi_barang' => $request->deskripsi_barang,
+                'jumlah_barang' => $request->jumlah_barang,
+            ]);
+
+            return redirect('/management/stock')->with('success', 'Perubahan Data Stock telah Berhasil!');
+        }
+
+        else
+        {
+            $fileName=$request->image->getClientOriginalName().'.'.$request->image->extension();
+            $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : null;        
+
+            $stocks->update([
+                'nama_barang' => $request->nama_barang,
+                'kategori_barang' => $request->kategori_barang,
+                'deskripsi_barang' => $request->deskripsi_barang,
+                'jumlah_barang' => $request->jumlah_barang,
+                'image' => $fileName,
+            ]);
+
+            return redirect('/management/stock')->with('success', 'Perubahan Data Stock telah Berhasil!');
+        }
+
+        
     }
 
     /**
@@ -104,6 +135,10 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $stocks = Stock::whereId($id)->first();
+        $stock = Stock::find($id);
+        $stock->delete();
+
+        return redirect('/management/stock')->with('success', 'Penghapusan Data Stock telah Berhasil!');
     }
 }

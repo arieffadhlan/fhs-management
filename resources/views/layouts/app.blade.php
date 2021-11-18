@@ -21,6 +21,7 @@
         rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
     @if (request()->route()->uri !== 'login' && request()->route()->uri !== 'register')
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -73,6 +74,27 @@
     <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
+    <script>
+        let table5 = document.querySelector('#table5');
+        let dataTable5 = new simpleDatatables.DataTable(table5);
+    </script>
+    <script>
+        let table4 = document.querySelector('#table4');
+        let dataTable4 = new simpleDatatables.DataTable(table4);
+    </script>
+    <script>
+        let table3 = document.querySelector('#table3');
+        let dataTable3 = new simpleDatatables.DataTable(table3);
+    </script>
+    <script>
+        let table2 = document.querySelector('#table2');
+        let dataTable2 = new simpleDatatables.DataTable(table2);
+    </script>
+    <script>
+        let table1 = document.querySelector('#table1');
+        let dataTable1 = new simpleDatatables.DataTable(table1);
+    </script>
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 

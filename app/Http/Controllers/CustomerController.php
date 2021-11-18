@@ -21,6 +21,13 @@ class CustomerController extends Controller
         return view('penjualan.customer', compact('customers', 'stocks'));
     }
 
+    public function index2()
+    {
+        $stocks = Stock::get();
+        $customers = Customer::get();
+        return view('Customer.index', compact('customers', 'stocks'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -105,7 +112,17 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pembelians = Pembelian::whereId($id)->first();
+        $stocks = Stock::get();
+        $customers = Customer::get();
+        return view('penjualan.editCustomer', compact('customers', 'stocks', 'pembelians'));
+    }
+
+    public function editData($id)
+    {
+        // $stocks = Stock::get();
+        $customers = Customer::whereId($id)->first();
+        return view('Customer.edit', compact('customers'));
     }
 
     /**
@@ -117,7 +134,30 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $pembelians = Pembelian::whereId($id)->first();
+        
+        $pembelians->update([
+            'customer_id' => $request->customer_id,
+            'nama_barang' => $request->nama_barang,
+            'jumlah_pembelian'  => $request->jumlah_pembelian,
+            'tanggal_masuk' => $request->tanggal_masuk,
+        ]);
+
+        return redirect('/management/penjualan')->with('success', 'Data Pembelian Customer telah berhasil diubah!');
+    }
+
+    public function updateData(Request $request, $id)
+    {
+        $customers = Customer::whereId($id)->first();
+        
+        $customers->update([
+            'nama_customer' => $request->nama_customer,
+            'kategori_daerah' => $request->kategori_daerah,
+            'alamat_customer' => $request->alamat_customer,
+            'telp_customer' => $request->telp_customer,
+        ]);
+
+        return redirect('/management/customer')->with('success', 'Data Customer telah berhasil diubah!');
     }
 
     /**
@@ -128,6 +168,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pembelians=Pembelian::find($id);
+        $pembelians->delete();
+
+        return redirect('/management/penjualan')->with('success', 'Data Pembelian Customer telah berhasil dihapus!');
     }
 }

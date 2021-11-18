@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAbsensisTable extends Migration
+class CreateStaffTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateAbsensisTable extends Migration
      */
     public function up()
     {
-        Schema::create('absensis', function (Blueprint $table) {
+        Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('nama');
-            $table->dateTime('tanggal');
-            $table->dateTime('kehadiran');
-            $table->enum('status', ['hadir', 'absen']);
+            $table->string('nama_staff');
+            $table->string('jenis_kelamin');
+            $table->date('tanggal_lahir');
+            $table->string('alamat_staff');
+            $table->string('email_staff')->unique();
+            $table->string('telp_staff', 20);
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateAbsensisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('absensis');
+        Schema::dropIfExists('staff');
     }
 }

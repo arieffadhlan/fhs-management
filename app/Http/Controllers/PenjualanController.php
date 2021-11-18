@@ -8,6 +8,7 @@ use App\Models\Pembelian;
 use App\Models\Stock;
 use App\Models\PenjualanBarang;
 use App\Models\PenjualanStaff;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -19,10 +20,11 @@ class PenjualanController extends Controller
      */
     public function index()
     { 
+        $staffs = Staff::All();
         $customer = Customer::All();
         $penjualan = PenjualanBarang::get();
         $penjualanStaff = PenjualanStaff::get();
-        return view('penjualan.index', compact('penjualan','penjualanStaff','customer'));
+        return view('penjualan.index', compact('penjualan','penjualanStaff','customer','staffs'));
     }
 
     /**
@@ -89,8 +91,12 @@ class PenjualanController extends Controller
             'jumlah_barang'  => $request->jumlah_barang,
             'tanggal_keluar' => $request->tanggal_keluar,
         ]);
+
+        Stock::where('nama_barang', $request->nama_barang)->update([
+            'jumlah_barang' => Stock::where('nama_barang', $request->nama_barang)->first()->jumlah_barang - $request->jumlah_barang
+        ]);
         
-        return redirect('/management/penjualan')->with('success', 'Pembelian Customer telah berhasil ditambahkan!');
+        return redirect('/management/penjualan')->with('success', 'Data penjualan telah berhasil ditambahkan!');
     }
     /**
      * Display the specified resource.
@@ -109,9 +115,11 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editBarang($id)
     {
-        //
+        $penjualans = PenjualanBarang::find($id);
+        $stock = Stock::get();
+        return view('penjualan.editBarang', compact('penjualans', 'stock'));
     }
 
     /**
@@ -121,9 +129,18 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    
+    public function updateBarang(Request $request, $id)
     {
-        //
+        $penjualans = PenjualanBarang::whereId($id)->first();
+
+        $penjualans->update([
+            'nama_barang' => $request->nama_barang,
+            'jumlah_barang'  => $request->jumlah_barang,
+            'tanggal_keluar' => $request->tanggal_keluar,
+        ]);
+
+        return redirect('/management/penjualan')->with('success', 'Data penjualan telah berhasil diubah!');
     }
 
     /**
@@ -132,8 +149,12 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyBarang($id)
     {
-        //
+        $penjualan = PenjualanBarang::whereId($id)->first();
+        $penjualans = PenjualanBarang::find($id);
+        $penjualans->delete();
+
+        return redirect('/management/penjualan')->with('success', 'Data penjualan telah berhasil dihapus!');
     }
 }

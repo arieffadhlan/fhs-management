@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class PenjualanBarang extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'nama_barang',
         'jumlah_barang',
         'tanggal_keluar',
     ];
-    use HasFactory;
+
     protected $table = 'penjualan_barang';
 }
