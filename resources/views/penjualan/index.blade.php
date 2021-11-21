@@ -1,12 +1,9 @@
-<x-app-layout title="Stock">
+<x-app-layout title="Penjualan">
     <x-alert-success></x-alert-success>
-
-    <!-- <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script> -->
+    <x-alert-error></x-alert-error>
 
     <div class="stock-header d-flex flex-wrap justify-content-between align-items-center mb-3">
-        <h2 class="m-0">Data penjualan Barang</h2>
+        <h2 class="m-0">Penjualan</h2>
     </div>
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -24,196 +21,194 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="barang" role="tabpanel" aria-labelledby="home-tab">
             <br>
-            @if ($penjualan->isNotEmpty())
-                <section class="section">
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-striped" id="table3">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>Nama Barang</th>
-                                        <th>Jumlah Barang keluar</th>
-                                        <th>Tanggal Keluar</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                @foreach ($penjualan as $penjualan)
-                                    <tr class="text-center">
-                                        <td>{{ $penjualan->nama_barang }}</td>
-                                        <td>{{ $penjualan->jumlah_barang }} dus</td>
-                                        <td>{{ $penjualan->tanggal_keluar }}</td>
-                                        <td>
-                                            <a class="badge bg-success border-0" href="{{ route('penjualanBarang.edit', $penjualan->id) }}" role="button">Edit</a>
-                                            <a class="badge bg-danger border-0" href="{{ route('penjualanBarang.delete', $penjualan->id) }}" role="button">Delete</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+            <x-form-card>
+                <x-slot name="title">
+                    <div class="d-flex justify-content-between align-items-center">
+                        Data Penjualan Barang
+                        <a class="btn btn-primary" href="{{ route('penjualanBarang.create') }}" role="button">
+                            <i class="fas fa-fw fa-plus"></i>
+                            Tambah Data
+                        </a>
+                    </div>     
+                </x-slot>
+                
+                {{-- Penjualan Barang --}}
+                @if ($penjualans->isNotEmpty())
+                    <section class="sectionPenjualanBarang">
+                        <table class="table table-hover table-striped table-bordered" id="tablePenjualanBarang">
+                            <thead class="text-center">
+                                <tr class="table-secondary">
+                                    <th>Nama Barang</th>
+                                    <th>Jumlah Barang keluar</th>
+                                    <th>Tanggal Keluar</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                            @foreach ($penjualans as $penjualan)
+                                <tr class="text-center">
+                                    <td>{{ $penjualan->nama_barang }}</td>
+                                    <td>{{ $penjualan->jumlah_barang }} dus</td>
+                                    <td>{{ date("d-m-Y", strtotime($penjualan->tanggal_keluar)) }}</td>
+                                    <td>
+                                        <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('penjualanBarang.edit', $penjualan->id) }}" role="button">
+                                            <i class="fa fa-edit"></i>
+                                            Ubah
+                                        </a>
+                                        <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $penjualan->id }}">
+                                            <i class="fa fa-trash"></i>
+                                            Hapus
+                                        </button>
+                                        <x-modal-delete-penjualan-barang>
+                                            <x-slot name="penjualan_barang_id">
+                                                {{ $penjualan->id }}
+                                            </x-slot>
+                                            <x-slot name="penjualan_barang_name">
+                                                {{ $penjualan->nama_barang }}
+                                            </x-slot>
+                                        </x-modal-delete-penjualan-barang>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </section>
+                @else
+                    <div class="col-12">
+                        <div class="alert alert-primary">
+                            Data penjualan barang kosong.
                         </div>
                     </div>
-                </section>
-            @else
-                <div class="col-12">
-                    <div class="alert alert-primary">
-                        Data barang tidak ditemukan.
-                    </div>
-                </div>
-            @endif
-            <a class="btn btn-primary" href="{{ route('penjualanBarang') }}" role="button">Tambah Data Penjualan</a>
-            
-            
-            <!-- <script>
-                // Simple Datatable
-                let table3 = document.querySelector('#table3');
-                let dataTable = new simpleDatatables.DataTable(table3);
-            </script> -->
-            
+                @endif
+            </x-form-card>
         </div>
 
+        {{-- Pembelian Customer --}}
         <div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="profile-tab">
             <br>
-            @if ($customer->isNotEmpty())
-                <section class="section">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="table-responsive-md">
-                            <table class="table table-striped" id="table2">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>Customer</th>
-                                        <th>Daerah</th>
-                                        <th>Alamat</th>
-                                        <th>No Telp</th>
-                                        <th>Tgl Pembelian</th>
-                                        <th>Barang</th>
-                                        <th>Jumlah</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                @foreach ($customer as $customer)
-                                    <tr class="text-center">
-                                        <td>{{ $customer->nama_customer }}</td>
-                                        <td>{{ $customer->kategori_daerah }}</td>
-                                        <td>{{ $customer->alamat_customer }}</td>
-                                        <td>{{ $customer->telp_customer }}</td>
-                                        <td>
-                                            @foreach($customer->pembelian as $pembelian)
-                                            <ol>{{ $pembelian->tanggal_masuk}}</ol>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach($customer->pembelian as $pembelian)
-                                            <ol>{{ $pembelian->nama_barang}}</ol>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach($customer->pembelian as $pembelian)
-                                            <ol>{{ $pembelian->jumlah_pembelian}} dus</ol>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                        @foreach($customer->pembelian as $pembelianCust)
-                                            <ol>
-                                                <a class="badge bg-success border-0" href="{{ route('customer.edit', $pembelianCust->id) }}" role="button">Edit</a>
-                                                <a class="badge bg-danger border-0" href="" role="button">Delete</a>
-                                            </ol>
-                                        @endforeach
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                            </div>
+            <x-form-card>
+                <x-slot name="title">
+                    <div class="d-flex justify-content-between align-items-center">
+                        Data Pembelian Customer
+                        <a class="btn btn-primary" href="{{ route('pembelianCustomer.create') }}" role="button">
+                            <i class="fas fa-fw fa-plus"></i>
+                            Tambah Data
+                        </a>
+                    </div>     
+                </x-slot>
+
+                @if ($customers->isNotEmpty())
+                    <section class="sectionPembelianCustomer">
+                        <table class="table table-hover table-striped table-bordered" id="tablePembelianCustomer">
+                            <thead class="text-center">
+                                <tr class="table-secondary">
+                                    <th>Customer</th>
+                                    <th>Daerah</th>
+                                    <th>Alamat</th>
+                                    <th>No Telp</th>
+                                    <th>Tgl Pembelian</th>
+                                    <th>Barang</th>
+                                    <th>Jumlah</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                            @foreach ($customers as $customer)
+                                <tr class="text-center">
+                                    <td>{{ $customer->nama_customer }}</td>
+                                    <td>{{ $customer->kategori_daerah }}</td>
+                                    <td>{{ $customer->alamat_customer }}</td>
+                                    <td>{{ $customer->telp_customer }}</td>
+                                    @foreach($customer->pembelian as $pembelian)
+                                    <td>{{ date("d-m-Y", strtotime($pembelian->tanggal_masuk)) }}</td>
+                                    <td>{{ $pembelian->nama_barang}}</td>
+                                    <td>{{ $pembelian->jumlah_pembelian}} dus</td>
+                                    @endforeach
+                                    <td>
+                                    @foreach($customer->pembelian as $pembelianCust)
+                                        <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('pembelianCustomer.edit', $pembelianCust->id) }}" role="button">
+                                            <i class="fa fa-edit"></i>
+                                            Ubah
+                                        </a>
+                                        <a class="badge bg-danger border-0 text-white fw-normal" href="" role="button">
+                                            <i class="fa fa-trash"></i>
+                                            Delete
+                                        </a>
+                                    @endforeach
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </section>
+                @else
+                    <div class="col-12">
+                        <div class="alert alert-primary">
+                            Data pembalian customer kosong.
                         </div>
                     </div>
-                </section>
-            @else
-                <div class="col-12">
-                    <div class="alert alert-primary">
-                        Data barang tidak ditemukan.
-                    </div>
-                </div>
-            @endif
-            <a class="btn btn-primary" href="{{ route('pembelianCustomer') }}" role="button">Tambah Data Pembelian</a>
+                @endif
+            </x-form-card>
         </div>
-    
-        <!-- <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-        <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('vendors/simple-datatables2/simple-datatables.js') }}"></script>
-        <script>
-            // Simple Datatable
-            let table2 = document.querySelector('#table2');
-            let dataTable = new simpleDatatables.DataTable(table2);
-        </script> -->
 
+        {{-- Penjualan Staff --}}
         <div class="tab-pane fade" id="staff" role="tabpanel" aria-labelledby="profile-tab">
             <br>
-            @if ($staffs->isNotEmpty())
-                    <div class="card">
-                        <div class="card-body">
-                            <table class="table table-striped" id="table1">
-                                <thead class="text-center">
-                                    <tr>
-                                        <th>Nama</th>
-                                        <th>Tanggal</th>
-                                        <th>Nama Barang</th>
-                                        <th>Jumlah</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-center">
-                                    @foreach ($staffs as $penjualan)
-                                    <tr>
-                                        <td>{{ $penjualan->nama_staff }}</td>
-                                        <td>
-                                            @foreach($penjualan->PenjualanStaff as $pembelian)
-                                                <ol>{{ $pembelian->tanggal_penjualan}}</ol>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach($penjualan->PenjualanStaff as $pembelian)
-                                                <ol>{{ $pembelian->nama_barang}}</ol>
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                        @foreach($penjualan->PenjualanStaff as $pembelian)
-                                            <ol>{{ $pembelian->jumlah_penjualan}} dus</ol>
-                                        @endforeach
-                                        </td>
-                                        <td>
-                                        @foreach($penjualan->PenjualanStaff as $pembelian)
-                                        <ol>
-                                            <a class="badge bg-success border-0" href="{{ route('penjualanStaff.edit', $pembelian->id) }}" role="button">Edit</a>
-                                            <a class="badge bg-danger border-0" href="{{ route('penjualanStaff.delete', $pembelian->id) }}" role="button">Delete</a>
-                                        </ol>
-                                        @endforeach
-                                        </td>
-                                    </tr>
+            <x-form-card>
+                <x-slot name="title">
+                    <div class="d-flex justify-content-between align-items-center">
+                        Data Penjualan Staff
+                        <a class="btn btn-primary" href="{{ route('penjualanStaff.create') }}" role="button">
+                            <i class="fas fa-fw fa-plus"></i>
+                            Tambah Data
+                        </a>
+                    </div>     
+                </x-slot>
+
+                @if ($staffs->isNotEmpty())
+                <section class="sectionPenjualanStaff">
+                    <table class="table table-hover table-striped table-bordered" id="tablePenjualanStaff">
+                        <thead class="text-center">
+                            <tr class="table-secondary">
+                                <th>Nama</th>
+                                <th>Tanggal</th>
+                                <th>Nama Barang</th>
+                                <th>Jumlah</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($staffs as $staff)
+                                <tr class="text-center">
+                                    <td>{{ $staff->nama_staff }}</td>
+                                    @foreach($staff->PenjualanStaff as $pembelian)
+                                    <td>{{ date("d-m-Y", strtotime($pembelian->tanggal_penjualan)) }}</td>
+                                    <td>{{ $pembelian->nama_barang }}</td>
+                                    <td>{{ $pembelian->jumlah_penjualan}} dus</td>
+                                    <td>
+                                        <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('penjualanStaff.edit', $pembelian->id) }}" role="button">
+                                            <i class="fa fa-edit"></i>
+                                            Ubah
+                                        </a>
+                                        <a class="badge bg-danger border-0 text-white fw-normal" href="{{ route('penjualanStaff.delete', $pembelian->id) }}" role="button">
+                                            <i class="fa fa-trash"></i>
+                                            Delete
+                                        </a>
+                                    </td>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </section>
+                @else
+                    <div class="col-12">
+                        <div class="alert alert-primary">
+                            Data penjualan staff kosong.
                         </div>
                     </div>
-            @else
-                <div class="col-12">
-                    <div class="alert alert-primary">
-                        Data barang tidak ditemukan.
-                    </div>
-                </div>
-            @endif
-            <a class="btn btn-primary" href="{{ route('penjualanStaff') }}" role="button">Tambah Penjualan Staff</a>
+                @endif
+            </x-form-card>
         </div>
     </div>
-    
-    <!-- <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#table1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script> -->
 </x-app-layout>

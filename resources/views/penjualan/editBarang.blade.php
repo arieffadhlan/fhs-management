@@ -1,52 +1,55 @@
-<x-app-layout title="Edit Barang">
-    <h2>Pengubahan Data Penjualan Barang</h2>
-    <form method="POST" action="{{ route('penjualanBarang.update', $penjualans->id) }}" enctype="multipart/form-data" class="row g-3">
-        @csrf
-        <div class="col-6">
-            <label for="tanggal_keluar" class="form-label mt-3">Tanggal Keluar</label>
-            <input type="date" min="1" value="{{ old('tanggal_keluar', $penjualans->tanggal_keluar) }}" name="tanggal_keluar" class="form-control"
-                id="tanggal_masuk" placeholder="">
-            @error('tanggal_keluar')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
+<x-app-layout title="Ubah Data Penjualan Barang">
+    <h2>Perubahan Data Penjualan Barang</h2>
+    <x-form-card>
+        <x-slot name="title">
+            Form
+        </x-slot>
+        
+        <form method="POST" action="{{ route('penjualanBarang.update', $penjualan->id) }}" enctype="multipart/form-data" class="row g-3">
+            @method('put')
+            @csrf
+            <div class="col-md-9">
+                <div class="container-fluid">
+                    <label for="tanggal_keluar" class="form-label fw-bold">
+                        Tanggal Keluar<sup style="color: red">*</sup>
+                    </label>
+                    <input type="date" value="{{ old('tanggal_keluar', $penjualan->tanggal_keluar) }}" name="tanggal_keluar" class="form-control" id="tanggal_masuk">
+                    @error('tanggal_keluar')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-            <label for="inputAddress" class="form-label">Nama barang</label>
-            <select name="nama_barang" value="{{ old('nama_barang'), $penjualans->nama_barang }}" class="form-select" id="inputGroupSelect01">
-                <option selected>Pilih Barang</option>
-                @foreach($stock as $stock)
-                    @if($penjualans->nama_barang == $stock->nama_barang)
-                    <option value="{{$stock->nama_barang}}" selected>{{$stock->nama_barang}}</option>
-                    @else
-                    <option value="{{$stock->nama_barang}}" >{{$stock->nama_barang}}</option>
-                    @endif
-                @endforeach
-            </select>
-            @error('nama_barang')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
+                    <label for="inputAddress" class="form-label fw-bold mt-2">
+                        Nama barang<sup style="color: red">*</sup>
+                    </label>
+                    <select name="nama_barang" class="form-select form-select-sm" aria-label=".form-select-sm">
+                        @foreach($stocks as $stock)
+                            @if($penjualan->nama_barang == $stock->nama_barang)
+                            <option value="{{$stock->nama_barang}}" selected>{{$stock->nama_barang}}</option>
+                            @else
+                            <option value="{{$stock->nama_barang}}">{{$stock->nama_barang}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    @error('nama_barang')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-            <script>
-                ClassicEditor
-                    .create(document.querySelector('.editor'))
-                    .catch(error => {
-                        console.error(error);
-                    });
-            </script>
-            <br>
-            <label for="jumlah_barang" class="form-label">Jumlah barang yang keluar</label>
-            <input type="number" min="1" value="{{ old('jumlah_barang', $penjualans->jumlah_barang) }}" name="jumlah_barang" class="form-control"
-                id="jumlah_barang" placeholder="">
-            @error('jumlah_barang')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
-        </div>
-        </script>
+                    <label for="jumlah_barang" class="form-label fw-bold mt-2">
+                        Jumlah barang yang keluar<sup style="color: red">*</sup>
+                    </label>
+                    <input type="number" min="1" value="{{ old('jumlah_barang', $penjualan->jumlah_barang) }}" name="jumlah_barang" class="form-control" id="jumlah_barang">
+                    @error('jumlah_barang')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Edit Data</button>
-        </div>
-    </form>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary">Ubah Data</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </x-form-card>
 </x-app-layout>

@@ -4,77 +4,55 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card shadow">
-                    <div class="card-header fs-5 fw-bold">Register Form<sup style="color: red">*</div>
+                    <div class="card-header fs-5 fw-bold">Register Form</div>
                     <div class="card-body p-4">
                         <form method="POST" action="{{ route('register') }}" class="d-flex flex-column">
                             @csrf
                             <div class="form-group row">
-                                <div class="col-12 mb-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text pt-1 pb-1" id="basic-addon1">
-                                           <i class="fas fa-user"></i>
-                                        </span>
-                                        <input id="fullname" name="fullname" type="text" value="{{ old('fullname') }}" class="input form-control @error('fullname') is-invalid @enderror" placeholder="Full Name" aria-label="fullname" aria-describedby="basic-addon1" required autofocus autocomplete="off" />
-                                        
-                                        @error('fullname')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>      
+                                <div class="col-12 mb-1">
+                                    <label for="fullname" class="form-label fw-bold">
+                                        Nama Lengkap<sup style="color: red">*</sup>
+                                    </label>
+                                    <input id="fullname" name="fullname" type="text" value="{{ old('fullname') }}" class="input form-control" aria-label="fullname" aria-describedby="basic-addon1" required autofocus autocomplete="off" />                    
+                                    @error('fullname')
+                                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                                    @enderror 
 
-                                <div class="col-12 mb-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text pt-1 pb-1" id="basic-addon1">
-                                           <i class="fas fa-user"></i>
-                                        </span>
-                                        <input id="username" name="username" type="text" value="{{ old('username') }}" class="input form-control @error('username') is-invalid @enderror" placeholder="Username (at least 3 characters)" aria-label="name" aria-describedby="basic-addon1" required autocomplete="off" />
-                                        
-                                        @error('username')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+                                    <label for="username" class="form-label fw-bold mt-4">
+                                        Username<sup style="color: red">*</sup>
+                                    </label>
+                                    <input id="username" name="username" type="text" value="{{ old('username') }}" class="input form-control" placeholder="(minimal 3 karakter)" aria-label="name" aria-describedby="basic-addon1" required autocomplete="off" />
+                                    @error('username')
+                                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                                    @enderror
 
-                                <div class="col-12 mb-3">
-                                    <div class="input-group">
-                                        <span class="input-group-text pt-1 pb-1" id="basic-addon1">
-                                           <i class="fas fa-envelope"></i>
-                                        </span>
-                                        <input id="email" name="email" type="email" value="{{ old('email') }}" class="input form-control @error('email') is-invalid @enderror" placeholder="E-Mail Address" aria-label="email" aria-describedby="basic-addon1" required autocomplete="off" />
+                                    <label for="email" class="form-label fw-bold mt-4">
+                                        Alamat Email<sup style="color: red">*</sup>
+                                    </label>
+                                    <input id="email" name="email" type="email" value="{{ old('email') }}" class="input form-control" aria-label="email" aria-describedby="basic-addon1" required autocomplete="off" />
+                                    @error('email')
+                                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                                    @enderror
 
-                                        @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                <div class="col-12 mb-3">
+                                    <label for="password" class="form-label fw-bold mt-4">
+                                        Password<sup style="color: red">*</sup>
+                                    </label>
                                     <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
-                                        <input id="password" name="password" type="password" class="input form-control @error('password') is-invalid @enderror" placeholder="Password (at least 8 characters)" aria-label="password" aria-describedby="basic-addon1" required autocomplete="off" />
+                                        <input id="password" name="password" type="password" class="input form-control" placeholder="(minimal 8 karakter)" aria-label="password" aria-describedby="basic-addon1" required autocomplete="off" />
                                         <span class="input-group-text" onclick="password_show_hide();">
                                             <i class="fas fa-eye" id="show_eye"></i>
                                             <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
                                         </span>
-                                        
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
-                                </div>
+                                    @error('password')
+                                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                                    @enderror
 
-                                <div class="col-12 mb-3">
+                                    <label for="password_confirmation" class="form-label fw-bold mt-4">
+                                        Konfirmasi Password<sup style="color: red">*</sup>
+                                    </label>
                                     <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-lock"></i></span>
-                                        <input id="password-confirm" name="password_confirmation" type="password" class="input form-control" placeholder="Confirm Password" aria-label="password-confirm" aria-describedby="basic-addon1" required autocomplete="off">
+                                        <input id="password-confirm" name="password_confirmation" type="password" class="input form-control" aria-label="password-confirm" aria-describedby="basic-addon1" required autocomplete="off">
                                         <span class="input-group-text" onclick="password_confirm_show_hide();">
                                             <i class="fas fa-eye" id="confirm_show_eye"></i>
                                             <i class="fas fa-eye-slash d-none" id="confirm_hide_eye"></i>
@@ -83,12 +61,16 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row mb-0 align-self-end">
-                                <div class="col-md-8">
-                                    <button type="submit" class="btn btn-primary">
+                            <div class="form-group row mt-4 mb-0">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary w-100">
                                         {{ __('Register') }}
                                     </button>
                                 </div>
+                            </div>
+
+                            <div class="mt-3 text-center">
+                                Sudah punya akun? Silakan <a class="btn btn-link text-decoration-none p-0 border-0" href="{{ route('login') }}">{{ __('login') }}</a>
                             </div>
                         </form>
                     </div>

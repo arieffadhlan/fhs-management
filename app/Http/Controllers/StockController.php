@@ -59,7 +59,7 @@ class StockController extends Controller
             'image' => $request->image->getClientOriginalName() ?? null,
         ]);
 
-        return redirect('/management/stock')->with('success', 'Penambahan Barang telah Berhasil!');
+        return redirect('/management/stock')->with('success', 'Penambahan data stok telah berhasil!');
     }
 
     /**
@@ -81,8 +81,8 @@ class StockController extends Controller
      */
     public function edit($id)
     {
-        $stocks = Stock::find($id);
-        return view('stock.edit', compact('stocks'));
+        $stock = Stock::find($id);
+        return view('stock.edit', compact('stock'));
     }
 
     /**
@@ -96,22 +96,33 @@ class StockController extends Controller
     {
         $stocks = Stock::whereId($id)->first();
 
-        if($request->image == '')
-        {
+        $messages = [
+            'required' => 'Harap masukkan :attribute!',
+            'image' => 'File harus dalam bentuk gambar!',
+            'max' => 'Ukuran file maxsimal 2mb!'
+        ];
+
+        $this->validate($request, [
+            'nama_barang' => 'required',
+            'kategori_barang' => 'required',
+            'deskripsi_barang' => 'required',
+            'jumlah_barang' => 'required|numeric',
+            'image' => 'image|max:2048'
+        ], $messages);
+
+        if ($request->image == '') {
             $stocks->update([
                 'nama_barang' => $request->nama_barang,
                 'kategori_barang' => $request->kategori_barang,
                 'deskripsi_barang' => $request->deskripsi_barang,
                 'jumlah_barang' => $request->jumlah_barang,
+                'image' => null,
             ]);
 
-            return redirect('/management/stock')->with('success', 'Perubahan Data Stock telah Berhasil!');
-        }
-
-        else
-        {
-            $fileName=$request->image->getClientOriginalName().'.'.$request->image->extension();
-            $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : null;        
+            return redirect('/management/stock')->with('success', 'Perubahan data stok telah berhasil!');
+        } else {
+            $fileName = $request->image->getClientOriginalName();
+            $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : null;
 
             $stocks->update([
                 'nama_barang' => $request->nama_barang,
@@ -121,10 +132,8 @@ class StockController extends Controller
                 'image' => $fileName,
             ]);
 
-            return redirect('/management/stock')->with('success', 'Perubahan Data Stock telah Berhasil!');
+            return redirect('/management/stock')->with('success', 'Perubahan data stok telah berhasil!');
         }
-
-        
     }
 
     /**
@@ -135,10 +144,9 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        $stocks = Stock::whereId($id)->first();
         $stock = Stock::find($id);
         $stock->delete();
 
-        return redirect('/management/stock')->with('success', 'Penghapusan Data Stock telah Berhasil!');
+        return redirect('/management/stock')->with('success', 'Penghapusan data stok telah berhasil!');
     }
 }

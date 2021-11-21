@@ -35,26 +35,112 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item has-sub {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
-                    <a href="{{ route('stock') }}" class='sidebar-link'>
-                        <i class="fas fa-layer-group me-2"></i>
-                        <span>Management</span>
-                    </a>
-                    <ul class="submenu {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
-                        <li class="submenu-item {{ request()->route()->uri === 'management/stock' ? 'active' : '' }}">
-                            <a href="{{ route('stock') }}">Stock</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('penjualan') }}">Penjualan</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('DataStaff') }}">Staff</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="{{ route('dataCustomer') }}">Customer</a>
-                        </li>
-                    </ul>
-                </li>
+                @if (request()->route()->uri === 'management/stock')
+                    <li class="sidebar-item has-sub active">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-layer-group" style="margin-right: 6px"></i>
+                            <span>Manajemen</span>
+                        </a>
+                        <ul class="submenu active">
+                            <li class="submenu-item active">
+                                <a href="{{ route('stock') }}">Stock</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('penjualan') }}">Penjualan</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('DataStaff') }}">Staff</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('dataCustomer') }}">Customer</a>
+                            </li>
+                        </ul>
+                    </li>
+                @elseif (request()->route()->uri === 'management/penjualan')
+                    <li class="sidebar-item has-sub active">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-layer-group" style="margin-right: 6px"></i>
+                            <span>Manajemen</span>
+                        </a>
+                        <ul class="submenu active">
+                            <li class="submenu-item">
+                                <a href="{{ route('stock') }}">Stock</a>
+                            </li>
+                            <li class="submenu-item active">
+                                <a href="{{ route('penjualan') }}">Penjualan</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('DataStaff') }}">Staff</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('dataCustomer') }}">Customer</a>
+                            </li>
+                        </ul>
+                    </li>
+                @elseif (request()->route()->uri === 'management/staff')
+                    <li class="sidebar-item has-sub active">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-layer-group" style="margin-right: 6px"></i>
+                            <span>Manajemen</span>
+                        </a>
+                        <ul class="submenu active">
+                            <li class="submenu-item">
+                                <a href="{{ route('stock') }}">Stock</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('penjualan') }}">Penjualan</a>
+                            </li>
+                            <li class="submenu-item active">
+                                <a href="{{ route('DataStaff') }}">Staff</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('dataCustomer') }}">Customer</a>
+                            </li>
+                        </ul>
+                    </li>
+                @elseif (request()->route()->uri === 'management/customer')
+                    <li class="sidebar-item has-sub active">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-layer-group" style="margin-right: 6px"></i>
+                            <span>Manajemen</span>
+                        </a>
+                        <ul class="submenu active">
+                            <li class="submenu-item">
+                                <a href="{{ route('stock') }}">Stock</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('penjualan') }}">Penjualan</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('DataStaff') }}">Staff</a>
+                            </li>
+                            <li class="submenu-item active">
+                                <a href="{{ route('dataCustomer') }}">Customer</a>
+                            </li>
+                        </ul>
+                    </li>
+                @else
+                    <li class="sidebar-item has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-layer-group" style="margin-right: 6px"></i>
+                            <span>Manajemen</span>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a href="{{ route('stock') }}">Stock</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('penjualan') }}">Penjualan</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('DataStaff') }}">Staff</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a href="{{ route('dataCustomer') }}">Customer</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
 
                 <li class="sidebar-item {{ request()->route()->uri === 'absensi' ? 'active' : '' }}">
                     <a href="{{ route('absensi') }}" class='sidebar-link'>
@@ -66,19 +152,12 @@
 
             <ul class="menu">
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
+                    <a href="#modalLogout" class="sidebar-link" data-bs-toggle="modal">
+                        <i class="fas fa-door-open" style="margin-right: 18px"></i>
+                        Logout
                     </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-
-{{-- Modal Account Image --}}
-<x-modal-account-image></x-modal-account-image>

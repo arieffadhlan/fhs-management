@@ -16,7 +16,8 @@
                     @endisset
                     <div class="profile-photo d-flex flex-column justify-content-start align-items-start mt-4">
                         <button type="button" class="badge bg-primary border-0 fs-6 fw-normal px-3 py-2" data-bs-toggle="modal" data-bs-target="#edit-foto">
-                                Edit Foto
+                            <i class="fa fa-edit"></i>
+                            Edit Foto
                         </button>
                         <small class="mt-2" style="font-size: 13px;">Foto sebaiknya berukuran tidak lebih dari 2mb.</small>
                         @error('image')

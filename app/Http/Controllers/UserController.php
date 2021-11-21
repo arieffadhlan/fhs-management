@@ -80,7 +80,7 @@ class UserController extends Controller
                 'string' => ':Attribute tidak boleh lebih dari :max karakter!',
             ],
             'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
-            'required' => ':Attribute harus diisi!',
+            'required' => 'Harap masukkan :attribute!',
             'unique' => ':Attribute sudah ada!',
         ];
 
@@ -88,7 +88,7 @@ class UserController extends Controller
             'fullname' => 'string|max:225',
             'username' => 'alpha_num|min:3|max:25|unique:users',
             'password' => 'string|min:8|confirmed',
-            'email' => 'string|email|max:225|unique:users',
+            'email' => 'string|email:rfc,dns|max:225|unique:users',
             'image' => 'image|max:2048'
         ], $messages);
 

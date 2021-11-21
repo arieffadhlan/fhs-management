@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PenjualanBarang;
-use App\Models\PenjualanStaff;
-use Illuminate\Http\Request;
-use App\Models\Stock;
 use App\Models\Staff;
+use Illuminate\Http\Request;
 
 class StaffController extends Controller
 {
@@ -19,13 +16,6 @@ class StaffController extends Controller
     {
         $staffs = Staff::get();
         return view('staff.index', compact('staffs'));
-    }
-
-    public function penjualan()
-    {
-        $stocks = Stock::get();
-        $staffs = Staff::get();
-        return view('penjualan.staff', compact('stocks', 'staffs'));
     }
 
     /**
@@ -44,46 +34,23 @@ class StaffController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storePenjualan(Request $request)
+    public function store(Request $request)
     {
         $messages = [
             'required' => 'Harap masukkan :attribute!',
-            'image' => 'File harus dalam bentuk gambar!',
-            'max' => 'Ukuran file maxsimal 2mb!'
-        ];
-
-        $this->validate($request, [
-            'staff_id' => 'required',
-            'nama_barang' => 'required',
-            'jumlah_penjualan'  => 'required',
-            'tanggal_penjualan' => 'required|date',
-        ], $messages);
-
-        PenjualanStaff::create([
-            'staff_id' => $request->staff_id,
-            'nama_barang' => $request->nama_barang,
-            'jumlah_penjualan'  => $request->jumlah_penjualan,
-            'tanggal_penjualan' => $request->tanggal_penjualan,
-        ]);
-        
-        return redirect('/management/penjualan')->with('success', 'Data penjualan staff telah berhasil ditambahkan!');
-    }
-
-    public function storeStaff(Request $request)
-    {
-        $messages = [
-            'required' => 'Harap masukkan :attribute!',
-            'image' => 'File harus dalam bentuk gambar!',
-            'max' => 'Ukuran file maxsimal 2mb!'
+            'email' => 'Format email harus valid!',
+            'max' => [
+                'string' => ':Attribute tidak boleh lebih dari :max karakter!',
+            ]
         ];
 
         $this->validate($request, [
             'nama_staff' => 'required',
-            'jenis_kelamin'=> 'required',
-            'tanggal_lahir'=> 'required|date',
-            'alamat_staff'=> 'required',
-            'email_staff'=> 'string|email|max:225',
-            'telp_staff'=> 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|date',
+            'alamat_staff' => 'required',
+            'email_staff' => 'required|email:rfc,dns|max:225',
+            'telp_staff' => 'required',
         ], $messages);
 
         Staff::create([
@@ -94,7 +61,7 @@ class StaffController extends Controller
             'email_staff' => $request->email_staff,
             'telp_staff' => $request->telp_staff,
         ]);
-        
+
         return redirect('/management/staff')->with('success', 'Data staff staff telah berhasil ditambahkan!');
     }
 
@@ -115,18 +82,10 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editStaff($id)
+    public function edit($id)
     {
-        $staffs = Staff::find($id);
-        return view('staff.edit', compact('staffs'));
-    }
-
-    public function editPenjualan($id)
-    {
-        $stocks = Stock::get();
-        $staffs = Staff::get();
-        $penjualans = PenjualanStaff::whereId($id)->first();
-        return view('penjualan.editStaff', compact('stocks', 'staffs', 'penjualans'));
+        $staff = Staff::find($id);
+        return view('staff.edit', compact('staff'));
     }
 
     /**
@@ -136,11 +95,27 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateStaff(Request $request, $id)
+    public function update(Request $request, $id)
     {
-        $staffs = Staff::whereId($id)->first();
-        
-        $staffs->update([
+        $messages = [
+            'required' => 'Harap masukkan :attribute!',
+            'email' => 'Format email harus valid!',
+            'max' => [
+                'string' => ':Attribute tidak boleh lebih dari :max karakter!',
+            ]
+        ];
+
+        $this->validate($request, [
+            'nama_staff' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required|date',
+            'alamat_staff' => 'required',
+            'email_staff' => 'required|email:rfc,dns|max:225',
+            'telp_staff' => 'required',
+        ], $messages);
+
+        $staff = Staff::whereId($id)->first();
+        $staff->update([
             'nama_staff' => $request->nama_staff,
             'jenis_kelamin' => $request->jenis_kelamin,
             'tanggal_lahir'  => $request->tanggal_lahir,
@@ -148,22 +123,8 @@ class StaffController extends Controller
             'email_staff' => $request->email_staff,
             'telp_staff' => $request->telp_staff,
         ]);
-        
+
         return redirect('/management/staff')->with('success', 'Data staff telah berhasil diubah!');
-    }
-
-    public function updatePenjualan(Request $request, $id)
-    {
-        $penjualans = PenjualanStaff::whereId($id)->first();
-
-        $penjualans->update([
-            'staff_id' => $request->staff_id,
-            'nama_barang' => $request->nama_barang,
-            'jumlah_penjualan'  => $request->jumlah_penjualan,
-            'tanggal_penjualan' => $request->tanggal_penjualan,
-        ]);
-
-        return redirect('/management/penjualan')->with('success', 'Data penjualan staff telah berhasil diubah!');
     }
 
     /**
@@ -172,20 +133,11 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroyStaff($id)
+    public function destroy($id)
     {
-        $staff = Staff::whereId($id)->first();
-        $staffs = Staff::find($id);
-        $staffs->delete();
-        
+        $staff = Staff::find($id);
+        $staff->delete();
+
         return redirect('/management/staff')->with('success', 'Data staff telah berhasil dihapus!');
-    }
-
-    public function destroyPenjualan($id)
-    {
-        $penjualans = PenjualanStaff::find($id);
-        $penjualans->delete();
-
-        return redirect('/management/penjualan')->with('success', 'Data penjualan staff telah berhasil dihapus!');
     }
 }

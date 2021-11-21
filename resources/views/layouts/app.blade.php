@@ -57,6 +57,9 @@
                     </div>
                 </div>
             </nav>
+            <main>
+                @yield('content')
+            </main>
         @else
             <x-sidebar></x-sidebar>
             <div id="main">
@@ -64,37 +67,48 @@
                 {{ $slot }}
                 <x-footer></x-footer>
             </div>
+            <x-modal-logout></x-modal-logout>
+            @if (request()->route()->uri == 'profile')
+                <x-modal-account-image></x-modal-account-image>
+            @endif 
         @endguest
-
-        <main>
-            @yield('content')
-        </main>
     </div>
 
     <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
+
+    @if (request()->route()->uri == 'management/stock')        
+        <script>
+            let tableStok = document.querySelector('#tableStok');
+            let dataTableStok = new simpleDatatables.DataTable(tableStok);
+        </script>
+    @elseif (request()->route()->uri == 'management/penjualan')
     <script>
-        let table5 = document.querySelector('#table5');
-        let dataTable5 = new simpleDatatables.DataTable(table5);
+        let tablePenjualanBarang = document.querySelector('#tablePenjualanBarang');
+        let tablePembelianCustomer = document.querySelector('#tablePembelianCustomer');
+        let tablePenjualanStaff = document.querySelector('#tablePenjualanStaff');
+        let dataTablePenjualanBarang = new simpleDatatables.DataTable(tablePenjualanBarang);
+        let dataTablePembelianCustomer = new simpleDatatables.DataTable(tablePembelianCustomer);
+        let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
     </script>
-    <script>
-        let table4 = document.querySelector('#table4');
-        let dataTable4 = new simpleDatatables.DataTable(table4);
-    </script>
-    <script>
-        let table3 = document.querySelector('#table3');
-        let dataTable3 = new simpleDatatables.DataTable(table3);
-    </script>
-    <script>
-        let table2 = document.querySelector('#table2');
-        let dataTable2 = new simpleDatatables.DataTable(table2);
-    </script>
-    <script>
-        let table1 = document.querySelector('#table1');
-        let dataTable1 = new simpleDatatables.DataTable(table1);
-    </script>
+    @elseif (request()->route()->uri == 'management/staff')
+        <script>
+            let tableStaff = document.querySelector('#tableStaff');
+            let dataTableStaff = new simpleDatatables.DataTable(tableStaff);
+        </script>
+    @elseif (request()->route()->uri == 'management/customer')
+        <script>
+            let tableCustomer = document.querySelector('#tableCustomer');
+            let dataTableCustomer = new simpleDatatables.DataTable(tableCustomer);
+        </script>
+    @elseif (request()->route()->uri == 'absensi')
+        <script>
+            let tableAbsensi = document.querySelector('#tableAbsensi');
+            let dataTableAbsensi = new simpleDatatables.DataTable(tableAbsensi);
+        </script>
+    @endif
     <script src="{{ asset('js/main.js') }}"></script>
 </body>
 

@@ -1,63 +1,61 @@
-<x-app-layout title="Tambah Penjualan Staff">
-    <h2>Penambahan Data Penjualan Staff</h2>
-    <form method="POST" action="{{ route('staff.store') }}" enctype="multipart/form-data" class="row g-3">
-        @csrf
-        <div class="col-6">
+<x-app-layout title="Pendataan Penjualan Staff">
+    <h2>Pendataan Penjualan Staff</h2>
+    <x-form-card>
+        <x-slot name="title">
+            Form
+        </x-slot>
+        
+        <form method="POST" action="{{ route('penjualanStaff.store') }}" enctype="multipart/form-data" class="row g-3">
+            @csrf
+            <div class="col-md-9">
+                <div class="container-fluid">
+                    <label class="form-label fw-bold">Nama Staff<sup style="color: red">*</sup></label>
+                    <select name="staff_id" value="{{ old('staff_id') }}" class="form-select form-select-sm" aria-label=".form-select-sm" required>
+                        <option value="" selected disabled>Pilih Staff</option>
+                        @foreach($staffs as $staff)
+                            <option value="{{ $staff->id }}">{{ $staff->nama_staff }}</option>
+                        @endforeach
+                    </select>
+                    @error('staff_id')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-            <label for="staff_id" class="form-label @error('staff_id') is-invalid @enderror">Nama Staff</label>
-            <select name="staff_id" value="{{ old('staff_id') }}" class="form-select" id="inputGroupSelect01">
-                    <option selected>Pilih Staff</option>
-                @foreach($staffs as $staff)
-                    <option value="{{$staff->id}}">{{$staff->nama_staff}}</option>
-                @endforeach
-            </select>
-            @error('staff_id')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
+                    <label class="form-label fw-bold mt-2">Nama Barang<sup style="color: red">*</sup></label>
+                    <select name="nama_barang" value="{{ old('nama_barang') }}" class="form-select form-select-sm" aria-label=".form-select-sm">
+                        <option value="" selected disabled>Pilih barang</option>
+                        @foreach($stocks as $stock)
+                            <option value="{{ $stock->nama_barang }}">{{ $stock->nama_barang }}</option>
+                        @endforeach
+                    </select>
+                    @error('nama_barang')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
+                    
+                    <label for="jumlah_penjualan" class="form-label fw-bold mt-2">
+                        Jumlah Penjualan<sup style="color: red">*</sup>
+                    </label>
+                    <input type="number" min="1" value="{{ old('jumlah_penjualan') }}" name="jumlah_penjualan" class="form-control" id="jumlah_penjualan">
+                    @error('jumlah_penjualan')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-            <label for="inputAddress" class="form-label">Nama Barang</label>
-            <select name="nama_barang" value="{{ old('nama_barang') }}" class="form-select" id="inputGroupSelect01">
-                <option selected>Pilih barang</option>
-                    @foreach($stocks as $stock)
-                        <option value="{{$stock->nama_barang}}">{{$stock->nama_barang}}</option>
-                    @endforeach
-            </select>
-            @error('nama_barang')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
+                    <label for="tanggal_penjualan" class="form-label fw-bold mt-2">
+                        Tanggal Penjualan<sup style="color: red">*</sup>
+                    </label>
+                    <input type="date" name="tanggal_penjualan" value="{{ old('tanggal_penjualan') }}" class="form-control" id="tanggal_penjualan">
+                    @error('tanggal_penjualan')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-            <label for="jumlah_penjualan" class="form-label @error('jumlah_penjualan') is-invalid @enderror">Jumlah Penjualan</label>
-            <input type="number" min="1" value="{{ old('jumlah_penjualan') }}" name="jumlah_penjualan" class="form-control"
-                id="jumlah_penjualan" placeholder="">
-            @error('jumlah_penjualan')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
-
-            <label for="tanggal_penjualan" class="form-label @error('tanggal_penjualan') is-invalid @enderror">Tanggal Penjualan</label>
-            <input type="date" name="tanggal_penjualan" value="{{ old('tanggal_penjualan') }}" class="form-control"
-                id="tanggal_penjualan" placeholder="">
-            @error('tanggal_penjualan')
-            <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
-            <br>
-
-
-        <!-- untuk preview dan hapus image -->
-        <script>
-            function preview() {
-                frame.src = URL.createObjectURL(event.target.files[0]);
-            }
-
-            function clearImage() {
-                frame.src = "";
-            }
-        </script>
-
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Tambahkan Data</button>
-        </div>
-    </form>
+                    <div class="mt-2">
+                        <button type="submit" class="btn btn-primary">Tambahkan Data</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </x-form-card>
 </x-app-layout>

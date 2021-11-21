@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absence;
 use Carbon\Carbon;
+use App\Models\Absence;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
@@ -15,8 +16,9 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $data = Absence::all();
-        return view('absensi.index', compact('data'));
+        $absensis = Absence::get();
+        $userAbsensis = Absence::where('nama', Auth::user()->fullname)->get();
+        return view('absensi.index', compact('absensis', 'userAbsensis'));
     }
 
     /**
@@ -26,7 +28,7 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        return view('adm/add');
+        //
     }
 
     /**
@@ -39,8 +41,7 @@ class AbsensiController extends Controller
     {
         $tanggal = Carbon::parse($request->tanggal)->format('Y-m-d H:i:s');
 
-        if ($tanggal > Carbon::createFromTime(9, 0, 0))
-        {
+        if ($tanggal > Carbon::createFromTime(9, 0, 0)) {
             $keterangan = 'Terlambat';
         } else {
             $keterangan = 'Tepat Waktu';
@@ -53,7 +54,7 @@ class AbsensiController extends Controller
             'keterangan' => $keterangan,
         ]);
 
-        return redirect('/absensi')->with('Kirim', 'Data Sukses Dikirim');
+        return redirect('/absensi')->with('success', 'Absensi telah berhasil diisi!');
     }
 
     /**
@@ -75,8 +76,8 @@ class AbsensiController extends Controller
      */
     public function edit($id)
     {
-        $data = Absence::findOrFail($id);
-        return view('adm/edit', compact('data'));
+        $absensi = Absence::find($id);
+        return view('absensi.edit', compact('absensi'));
     }
 
     /**
@@ -88,10 +89,12 @@ class AbsensiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Absence::findOrFail($id);
-        $data->update($request->all());
+        $absensi = Absence::find($id);
+        $absensi->update([
+            'kehadiran'  => $request->kehadiran
+        ]);
 
-        return redirect('admin')->with('Edit', 'Data Sukses Di Edit');
+        return redirect('/absensi')->with('success', 'Data absensi telah berhasil diubah');
     }
 
     /**
@@ -102,8 +105,8 @@ class AbsensiController extends Controller
      */
     public function destroy($id)
     {
-        $data = Absence::findOrFail($id);
-        // $data->delete($request->all());
-        return redirect('admin')->with('hapus', 'Data Telah Di Hapus');
+        $absensi = Absence::find($id);
+        $absensi->delete();
+        return redirect('absensi')->with('success', 'Data absensi telah berhasil dihapus');
     }
 }
