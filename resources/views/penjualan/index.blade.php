@@ -106,7 +106,7 @@
                                     <th>Daerah</th>
                                     <th>Alamat</th>
                                     <th>No Telp</th>
-                                    <th>Tgl Pembelian</th>
+                                    <th>Tanggal</th>
                                     <th>Barang</th>
                                     <th>Jumlah</th>
                                     <th>Aksi</th>
@@ -130,10 +130,15 @@
                                             <i class="fa fa-edit"></i>
                                             Ubah
                                         </a>
-                                        <a class="badge bg-danger border-0 text-white fw-normal" href="" role="button">
+                                        <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $pembelianCust->id }}">
                                             <i class="fa fa-trash"></i>
-                                            Delete
-                                        </a>
+                                            Hapus
+                                        </button>
+                                        <x-modal-delete-pembelian-customer>
+                                            <x-slot name="pembelianCustomer_id">
+                                                {{ $pembelianCust->id }}
+                                            </x-slot>
+                                        </x-modal-delete-pembelian-customer>
                                     @endforeach
                                     </td>
                                 </tr>
@@ -179,24 +184,29 @@
                         </thead>
                         <tbody>
                             @foreach ($staffs as $staff)
-                                <tr class="text-center">
-                                    <td>{{ $staff->nama_staff }}</td>
-                                    @foreach($staff->PenjualanStaff as $pembelian)
-                                    <td>{{ date("d-m-Y", strtotime($pembelian->tanggal_penjualan)) }}</td>
-                                    <td>{{ $pembelian->nama_barang }}</td>
-                                    <td>{{ $pembelian->jumlah_penjualan}} dus</td>
-                                    <td>
-                                        <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('penjualanStaff.edit', $pembelian->id) }}" role="button">
-                                            <i class="fa fa-edit"></i>
-                                            Ubah
-                                        </a>
-                                        <a class="badge bg-danger border-0 text-white fw-normal" href="{{ route('penjualanStaff.delete', $pembelian->id) }}" role="button">
-                                            <i class="fa fa-trash"></i>
-                                            Delete
-                                        </a>
-                                    </td>
-                                    @endforeach
-                                </tr>
+                                @foreach($staff->PenjualanStaff as $penjualan)
+                                    <tr class="text-center">
+                                        <td>{{ $staff->nama_staff }}</td>
+                                        <td>{{ date("d-m-Y", strtotime($penjualan->tanggal_penjualan)) }}</td>
+                                        <td>{{ $penjualan->nama_barang }}</td>
+                                        <td>{{ $penjualan->jumlah_penjualan}} dus</td>
+                                        <td>
+                                            <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('penjualanStaff.edit', $penjualan->id) }}" role="button">
+                                                <i class="fa fa-edit"></i>
+                                                Ubah
+                                            </a>
+                                            <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $penjualan->id }}">
+                                                <i class="fa fa-trash"></i>
+                                                Hapus
+                                            </button>
+                                            <x-modal-delete-penjualan-staff>
+                                                <x-slot name="penjualanStaff_id">
+                                                    {{ $penjualan->id }}
+                                                </x-slot>
+                                            </x-modal-delete-penjualan-staff>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
                         </tbody>
                     </table>

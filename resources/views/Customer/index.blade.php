@@ -40,10 +40,6 @@
                                         <i class="fa fa-edit"></i>
                                         Ubah
                                     </a>
-                                    <a class="badge bg-danger border-0 text-white fw-normal" href="{{ route('DataStaff.delete', $customer->id) }}" role="button">
-                                        <i class="fa fa-trash"></i>
-                                        Delete
-                                    </a>
                                 </td>
                             </tr>
                         @endforeach

@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="formModalLabel">Edit Photo</h5>
+                <h5 class="modal-title" id="formModalLabel">Edit Foto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="AccountImageClose()"></button>
             </div>
             <div class="modal-body">
@@ -16,8 +16,8 @@
                     </div>
             </div>
             <div class="modal-footer d-flex justify-content-between align-items-center">
-                <button type="reset" onclick="clearAccountImage()" class="btn btn-danger px-2 py-1">Hapus Foto</button>
-                <button type="submit" name="submit" class="btn btn-primary px-2 py-1">Kirim</button>
+                <button type="reset" onclick="clearAccountImage()" class="btn btn-sm btn-danger">Hapus Foto</button>
+                <button type="submit" name="submit" class="btn btn-sm btn-primary">Kirim</button>
                 </form>
             </div>
         </div>

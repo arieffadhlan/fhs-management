@@ -40,6 +40,7 @@ Route::group(['middleware' => ['admin', 'auth']], function () {
     Route::post('management/penjualan/customer/store', [PenjualanController::class, 'storeCustomer'])->name('pembelianCustomer.store');
     Route::get('management/penjualan/customer/{id}/edit', [PenjualanController::class, 'editCustomer'])->name('pembelianCustomer.edit');
     Route::put('management/penjualan/customer/{id}/edit', [PenjualanController::class, 'updateCustomer'])->name('pembelianCustomer.update');
+    Route::delete('management/penjualan/customer/{id}/delete', [PenjualanController::class, 'destroyCustomer'])->name('pembelianCustomer.delete');
 
     Route::get('management/penjualan/staff/create', [PenjualanController::class, 'createStaff'])->name('penjualanStaff.create');
     Route::post('management/penjualan/staff/store', [PenjualanController::class, 'storeStaff'])->name('penjualanStaff.store');

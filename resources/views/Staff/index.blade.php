@@ -42,18 +42,6 @@
                                                 <i class="fa fa-edit"></i>
                                                 Ubah
                                             </a>
-                                            <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $staff->id }}">
-                                                <i class="fa fa-trash"></i>
-                                                Hapus
-                                            </button>
-                                            <x-modal-delete-staff>
-                                                <x-slot name="staff_id">
-                                                    {{ $staff->id }}
-                                                </x-slot>
-                                                <x-slot name="staff_name">
-                                                    {{ $staff->nama_staff }}
-                                                </x-slot>
-                                            </x-modal-delete-staff>
                                         </td>
                                     </tr>
                                 @endforeach

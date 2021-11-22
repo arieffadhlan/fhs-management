@@ -9,7 +9,7 @@ class Absence extends Model
 {
     use HasFactory;
 
-    protected $table = "absence";
+    protected $table = "absences";
 
     protected $fillable = [
         'nama',

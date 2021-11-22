@@ -27,7 +27,7 @@
                             @if ($absensis->isNotEmpty())
                                 @foreach ($userAbsensis as $userAbsensi)
                                     @if (date('d-m-Y', strtotime($userAbsensi->tanggal)) == date('d-m-Y', strtotime('today')))
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
                                             <i class="fas fa-fw fa-plus"></i>
                                             Isi Absensi
                                         </button>
@@ -36,12 +36,12 @@
                                     
                                     @if ($loop->last && date('d-m-Y', strtotime($userAbsensi->tanggal)) != date('d-m-Y', strtotime('today')))
                                         @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen)
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
                                                 <i class="fas fa-fw fa-plus"></i>
                                                 Isi Absensi
                                             </button>
                                         @else
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
                                                 <i class="fas fa-fw fa-plus"></i>
                                                 Isi Absensi
                                             </button>
@@ -50,12 +50,12 @@
                                 @endforeach
                             @else
                                 @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen)
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
                                         <i class="fas fa-fw fa-plus"></i>
                                         Isi Absensi
                                     </button>
                                 @else
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
                                         <i class="fas fa-fw fa-plus"></i>
                                         Isi Absensi
                                     </button>
