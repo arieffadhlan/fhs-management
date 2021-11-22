@@ -108,6 +108,11 @@
             let tableAbsensi = document.querySelector('#tableAbsensi');
             let dataTableAbsensi = new simpleDatatables.DataTable(tableAbsensi);
         </script>
+    @elseif (request()->route()->uri == 'penjualan-staff')
+        <script>
+            let tablePenjualanStaff = document.querySelector('#tablePenjualanStaff');
+            let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
+        </script>
     @endif
     <script src="{{ asset('js/main.js') }}"></script>
 </body>

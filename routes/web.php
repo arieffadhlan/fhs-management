@@ -19,14 +19,8 @@ Route::middleware('guest')->group(function () {
     Route::put('/reset-password/edit', [LupaPasswordController::class, 'update'])->name('resetPassword.update');
 });
 
-// Route::group(['middleware' => ['admin', 'auth']], function () {
-// });
-
-Route::middleware('auth')->group(function () {
-    Route::get('dashboard', DashboardController::class)->name('dashboard');
-    Route::get('profile', [UserController::class, 'index'])->name('profile');
-    Route::put('profile/edit', [UserController::class, 'update'])->name('profile.update');
-
+Route::group(['middleware' => ['admin', 'auth']], function () {
+    // Stok
     Route::get('management/stock', [StockController::class, 'index'])->name('stock');
     Route::get('management/stock/create', [StockController::class, 'create'])->name('stock.create');
     Route::post('management/stock/store', [StockController::class, 'store'])->name('stock.store');
@@ -34,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::put('management/stock/{id}/edit', [StockController::class, 'update'])->name('stock.update');
     Route::delete('management/stock/{id}/delete', [StockController::class, 'destroy']);
 
+    // Penjualan
     Route::get('management/penjualan', [PenjualanController::class, 'index'])->name('penjualan');
     Route::get('management/penjualan/create', [PenjualanController::class, 'create'])->name('penjualanBarang.create');
     Route::post('management/penjualan/store', [PenjualanController::class, 'store'])->name('penjualanBarang.store');
@@ -52,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::put('management/penjualan/staff/{id}/edit', [PenjualanController::class, 'updateStaff'])->name('penjualanStaff.update');
     Route::delete('management/penjualan/staff/{id}/delete', [PenjualanController::class, 'destroyStaff'])->name('penjualanStaff.delete');
 
+    // Staff
     Route::get('management/staff', [StaffController::class, 'index'])->name('DataStaff');
     Route::get('management/staff/create', [StaffController::class, 'create'])->name('DataStaff.create');
     Route::post('management/staff/store', [StaffController::class, 'store'])->name('DataStaff.store');
@@ -59,6 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::put('management/staff/{id}/edit', [StaffController::class, 'update'])->name('DataStaff.update');
     Route::delete('management/staff/{id}/delete', [StaffController::class, 'destroy'])->name('DataStaff.delete');
 
+    // Customer
     Route::get('management/customer', [CustomerController::class, 'index'])->name('dataCustomer');
     Route::get('management/customer/create', [CustomerController::class, 'create'])->name('dataCustomer.create');
     Route::post('management/customer/store', [CustomerController::class, 'store'])->name('dataCustomer.store');
@@ -66,9 +63,19 @@ Route::middleware('auth')->group(function () {
     Route::put('management/customer/{id}/edit', [CustomerController::class, 'update'])->name('dataCustomer.update');
     Route::put('management/customer/{id}/delete', [CustomerController::class, 'delete'])->name('dataCustomer.delete');
 
-    Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
-    Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
+    // Absensi
     Route::get('absensi/{id}/edit', [AbsensiController::class, 'edit'])->name('absensi.edit');
     Route::put('absensi/{id}/edit', [AbsensiController::class, 'update'])->name('absensi.update');
     Route::delete('absensi/{id}/delete', [AbsensiController::class, 'destroy'])->name('absensi.delete');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+    Route::get('profile', [UserController::class, 'index'])->name('profile');
+    Route::put('profile/edit', [UserController::class, 'update'])->name('profile.update');
+
+    Route::get('penjualan-staff', [PenjualanController::class, 'indexPenjualanStaff'])->name('penjualan-staff');
+
+    Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
+    Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
 });

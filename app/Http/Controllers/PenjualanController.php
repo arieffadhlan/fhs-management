@@ -26,6 +26,13 @@ class PenjualanController extends Controller
         return view('penjualan.index', compact('penjualans', 'penjualanStaff', 'customers', 'staffs'));
     }
 
+    public function indexPenjualanStaff()
+    {
+        $penjualanStaff = PenjualanStaff::get();
+        $staffs = Staff::get();
+        return view('penjualan-staff.index', compact('penjualanStaff', 'staffs'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
