@@ -15,8 +15,8 @@
                         <img src="{{ asset("images/user.png") }}" alt="Avatar" class="rounded-circle" width="100px" height="100px">
                     @endisset
                     <div class="profile-photo d-flex flex-column justify-content-start align-items-start mt-4">
-                        <button type="button" class="badge bg-primary border-0 fs-6 fw-normal px-3 py-2" data-bs-toggle="modal" data-bs-target="#edit-foto">
-                            <i class="fa fa-edit"></i>
+                        <button type="button" class="badge bg-success border-0 fs-6 fw-normal px-3 py-2" data-bs-toggle="modal" data-bs-target="#edit-foto">
+                            <i class="fa fa-edit me-1"></i>
                             Edit Foto
                         </button>
                         <small class="mt-2" style="font-size: 13px;">Foto sebaiknya berukuran tidak lebih dari 2mb.</small>
@@ -50,7 +50,10 @@
                     @enderror
                     <br>
                     
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-paper-plane me-1"></i>
+                        Submit
+                    </button>
                 </form>
             </div>
         </div>
@@ -91,7 +94,10 @@
                     </div>
                     <br>
         
-                    <button type="submit" class="btn btn-primary">Simpan Password</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-paper-plane me-1"></i>
+                        Submit
+                    </button>
                 </div>
             </div>
         </form>

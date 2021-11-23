@@ -4,7 +4,7 @@
         <div class="col-md-6">
             <x-form-card>
                 <x-slot name="title">
-                    Reset Password
+                    Form Reset Password
                 </x-slot>
             
                 <form method="post" action="{{ route('resetPassword.update') }}" enctype="multipart/form-data">

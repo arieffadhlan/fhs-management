@@ -1,10 +1,10 @@
-<x-app-layout title="Register">
+<x-app-layout title="Registrasi">
     @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card shadow">
-                    <div class="card-header fs-5 fw-bold">Register Form</div>
+                    <div class="card-header fs-5 fw-bold">Form Registrasi</div>
                     <div class="card-body p-4">
                         <form method="POST" action="{{ route('register') }}" class="d-flex flex-column">
                             @csrf

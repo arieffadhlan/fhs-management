@@ -46,12 +46,12 @@
                         <div class="navbar-nav ms-auto d-flex justify-content-end align-items-end">
                             @if (Request::is('login'))
                                 <a class="nav-link fw-bold" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrasi') }}</a>
                             @endif
 
                             @if (Request::is('register'))
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                <a class="nav-link fw-bold" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link fw-bold" href="{{ route('register') }}">{{ __('Registrasi') }}</a>
                             @endif
                         </div>
                     </div>

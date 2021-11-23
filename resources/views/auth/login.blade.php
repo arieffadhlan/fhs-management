@@ -27,7 +27,7 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card shadow">
-                    <div class="card-header fs-5 fw-bold">Login Form</div>
+                    <div class="card-header fs-5 fw-bold">Form Login</div>
                     <div class="card-body p-4">
                         <form method="POST" action="{{ route('login') }}" class="d-flex flex-column">
                             @csrf
@@ -84,7 +84,7 @@
                             </div>
 
                             <div class="mt-3 text-center">
-                                Belum punya akun? Silakan <a class="btn btn-link text-decoration-none p-0 border-0" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                Belum punya akun? Silakan <a class="btn btn-link text-decoration-none p-0 border-0" href="{{ route('register') }}">{{ __('Registrasi') }}</a>
                             </div>
                         </form>
                     </div>

@@ -130,7 +130,7 @@
                                             <i class="fa fa-edit"></i>
                                             Ubah
                                         </a>
-                                        <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $pembelianCust->id }}">
+                                        <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDeletePembelianCustomer{{ $pembelianCust->id }}">
                                             <i class="fa fa-trash"></i>
                                             Hapus
                                         </button>
@@ -170,7 +170,7 @@
                     </div>     
                 </x-slot>
 
-                @if ($staffs->isNotEmpty())
+                @if ($penjualanStaff->isNotEmpty())
                 <section class="sectionPenjualanStaff">
                     <table class="table table-hover table-striped table-bordered" id="tablePenjualanStaff">
                         <thead class="text-center">
@@ -195,7 +195,7 @@
                                                 <i class="fa fa-edit"></i>
                                                 Ubah
                                             </a>
-                                            <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $penjualan->id }}">
+                                            <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDeletePenjualanStaff{{ $penjualan->id }}">
                                                 <i class="fa fa-trash"></i>
                                                 Hapus
                                             </button>

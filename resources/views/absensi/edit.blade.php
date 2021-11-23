@@ -54,32 +54,11 @@
                     <br>
 
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary">Ubah Data</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane me-1"></i>
+                            Submit
+                        </button>
                     </div>
-                    
-                    {{-- <label for="jenis_kelamin" class="form-label fw-bold">
-                        Jenis Kelamin<sup style="color: red">*</sup>
-                    </label>
-                    <br>
-                    <div class="form-check form-check-inline">
-                        @if($staff->jenis_kelamin == "Pria")
-                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio1" value="Pria" checked>
-                        @else
-                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio1" value="Pria">
-                        @endif
-                        <label for="jenis_kelamin" class="form-check-label" for="inlineRadio1">Pria</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        @if($staff->jenis_kelamin == "Wanita")
-                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio2" value="Wanita" checked>
-                        @else
-                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="inlineRadio2" value="Wanita">
-                        @endif
-                        <label for="jenis_kelamin" class="form-check-label" for="inlineRadio2">Wanita</label>
-                    </div>
-                    @error('jenis_kelamin')
-                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                    @enderror     --}}
                 </div>
             </div>
         </form>

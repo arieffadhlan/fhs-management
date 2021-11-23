@@ -58,6 +58,7 @@
                     <div class="label-gambar d-flex justify-content-between align-items-center mt-3">
                         <label for="image" class="form-label fw-bold">Gambar</label>
                         <button id="clear_image" type="reset" onclick="clearImage()" class="d-none badge bg-danger border-0 fs-6 fw-normal mb-2">
+                            <i class="fa fa-trash me-1"></i>
                             Hapus Gambar
                         </button>
                     </div>
@@ -69,7 +70,10 @@
                     @enderror
 
                     <div class="mt-2">
-                        <button type="submit" class="btn btn-primary">Tambah Stok</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane me-1"></i>
+                            Submit
+                        </button>
                     </div>
                 </div>
             </div>

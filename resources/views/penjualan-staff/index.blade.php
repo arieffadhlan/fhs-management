@@ -5,7 +5,13 @@
             Data Penjualan Staff
         </x-slot>
 
-        @if ($staffs->isNotEmpty())
+        @php 
+            $no = 1;
+            $filteredStaffs = $staffs->filter(function ($value, $key) {
+                return $value->nama_staff == Auth::user()->fullname;
+            });
+        @endphp
+        @if (!empty($filteredStaffs->all()))
         <section class="sectionPenjualanStaff">
             <table class="table table-hover table-striped table-bordered" id="tablePenjualanStaff">
                 <thead class="text-center">
@@ -17,13 +23,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @php 
-                        $no = 1;
-
-                        $filteredStaffs = $staffs->filter(function ($value, $key) {
-                            return $value->nama_staff == Auth::user()->fullname;
-                        });
-                    @endphp
                     @foreach ($filteredStaffs as $staff)
                         @foreach($staff->PenjualanStaff as $pembelian)
                             <tr class="text-center">

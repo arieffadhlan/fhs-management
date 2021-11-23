@@ -35,31 +35,31 @@
                                     @endif
                                     
                                     @if ($loop->last && date('d-m-Y', strtotime($userAbsensi->tanggal)) != date('d-m-Y', strtotime('today')))
-                                        @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen)
+                                        {{-- @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen) --}}
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
                                                 <i class="fas fa-fw fa-plus"></i>
                                                 Isi Absensi
                                             </button>
-                                        @else
+                                        {{-- @else
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
                                                 <i class="fas fa-fw fa-plus"></i>
                                                 Isi Absensi
                                             </button>
-                                        @endif
+                                        @endif --}}
                                     @endif
                                 @endforeach
                             @else
-                                @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen)
+                                {{-- @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen) --}}
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
                                         <i class="fas fa-fw fa-plus"></i>
                                         Isi Absensi
                                     </button>
-                                @else
+                                {{-- @else
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
                                         <i class="fas fa-fw fa-plus"></i>
                                         Isi Absensi
                                     </button>
-                                @endif
+                                @endif --}}
                             @endif
                         @endif
                     </div>
@@ -95,7 +95,7 @@
                                             <td>
                                                 <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('absensi.edit', $absensi->id) }}" role="button">
                                                     <i class="fa fa-edit"></i>
-                                                    Edit
+                                                    Ubah
                                                 </a>
                                                 <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $absensi->id }}">
                                                     <i class="fa fa-trash"></i>

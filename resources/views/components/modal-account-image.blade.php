@@ -16,8 +16,14 @@
                     </div>
             </div>
             <div class="modal-footer d-flex justify-content-between align-items-center">
-                <button type="reset" onclick="clearAccountImage()" class="btn btn-sm btn-danger">Hapus Foto</button>
-                <button type="submit" name="submit" class="btn btn-sm btn-primary">Kirim</button>
+                <button type="reset" onclick="clearAccountImage()" class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash me-1"></i>
+                    Hapus Foto
+                </button>
+                <button type="submit" name="submit" class="btn btn-sm btn-primary">
+                    <i class="fa fa-paper-plane me-1"></i>
+                    Submit
+                </button>
                 </form>
             </div>
         </div>

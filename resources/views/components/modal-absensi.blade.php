@@ -41,7 +41,10 @@
                     </div>
                     
                     <div class="modal-footer p-0">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-paper-plane me-1"></i>
+                            Submit
+                        </button>
                     </div>
                 </form>
             </div>
