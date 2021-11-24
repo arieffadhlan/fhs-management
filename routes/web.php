@@ -6,20 +6,22 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\PenjualanController;
 
 Auth::routes();
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 Route::middleware('guest')->group(function () {
     Route::view('/', 'welcome')->middleware('guest');
-    Route::get('/reset-password', [LupaPasswordController::class, 'index'])->name('resetPassword');
-    Route::put('/reset-password/edit', [LupaPasswordController::class, 'update'])->name('resetPassword.update');
 });
 
-Route::group(['middleware' => ['admin', 'auth']], function () {
+Route::group(['middleware' => ['admin', 'auth', 'verified']], function () {
     // Stok
     Route::get('management/stock', [StockController::class, 'index'])->name('stock');
     Route::get('management/stock/create', [StockController::class, 'create'])->name('stock.create');
@@ -70,7 +72,7 @@ Route::group(['middleware' => ['admin', 'auth']], function () {
     Route::delete('absensi/{id}/delete', [AbsensiController::class, 'destroy'])->name('absensi.delete');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::get('profile', [UserController::class, 'index'])->name('profile');
     Route::put('profile/edit', [UserController::class, 'update'])->name('profile.update');
