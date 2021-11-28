@@ -11,7 +11,7 @@
             <div class="col-md-9">
                 <div class="container-fluid">
                     <label for="nama" class="form-label fw-bold">Nama</label>
-                    <input type="text" name="nama" value="{{ Auth::user()->fullname }}" class="form-control" id="basic-url" aria-describedby="basic-addon3" readonly>
+                    <input type="text" name="nama" value="{{ $absensi->nama }}" class="form-control" id="basic-url" aria-describedby="basic-addon3" readonly>
                     @error('nama_staff')
                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                     @enderror
@@ -42,8 +42,8 @@
                             @endif
                         </div>
                         <div class="form-check form-check-inline">
-                            @if ($absensi->kehadiran == "Izin")
-                                <input class="form-check-input" type="radio" name="kehadiran" id="status3" value="Tidak Hadir" required required>
+                            @if ($absensi->kehadiran == "Tidak Hadir")
+                                <input class="form-check-input" type="radio" name="kehadiran" id="status3" value="Tidak Hadir" required checked>
                                 <label class="form-check-label" for="status3">Tidak Hadir</label>
                             @else
                                 <input class="form-check-input" type="radio" name="kehadiran" id="status3" value="Tidak Hadir" required>

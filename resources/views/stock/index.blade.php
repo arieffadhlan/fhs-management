@@ -1,7 +1,7 @@
 <x-app-layout title="Stok">
     <x-alert-success></x-alert-success>
     <x-alert-error></x-alert-error>
-    
+
     <div class="d-flex justify-content-between align-items-center">
         <h2>Stok</h2>
     </div>
@@ -14,7 +14,7 @@
                         <i class="fas fa-fw fa-plus"></i>
                         Tambah Data
                     </a>
-                </div>     
+                </div>
             </x-slot>
             @if ($stocks->isNotEmpty())
                 <section class="section">
@@ -36,7 +36,8 @@
                                     <td>{{ $stock->kategori_barang }}</td>
                                     <td>{!! nl2br(Str::limit($stock->deskripsi_barang, 150)) !!}</td>
                                     <td>
-                                        <img style="width: 100px" src="{{ asset('storage/images/' . $stock->image) }}" alt="">
+                                        <img style="width: 100px" src="{{ asset('storage/images/' . $stock->image) }}"
+                                            alt="">
                                     </td>
                                     @if ($stock->jumlah_barang == 0)
                                         <td>Stock barang kosong.</td>
@@ -44,20 +45,20 @@
                                         <td>{{ $stock->jumlah_barang }}</td>
                                     @endif
                                     <td>
-                                        <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('stock.edit', $stock->id) }}" role="button">
+                                        <a class="badge bg-success border-0 text-white fw-normal"
+                                            href="{{ route('stock.edit', $stock->id) }}" role="button">
                                             <i class="fa fa-edit"></i>
                                             Ubah
                                         </a>
-                                        <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $stock->id }}">
+                                        <button type="button" class="badge bg-danger border-0 fw-normal"
+                                            style="font-size: 14px;" data-bs-toggle="modal"
+                                            data-bs-target="#modalDelete{{ $stock->id }}">
                                             <i class="fa fa-trash"></i>
                                             Hapus
                                         </button>
                                         <x-modal-delete-stock>
                                             <x-slot name="stock_id">
                                                 {{ $stock->id }}
-                                            </x-slot>
-                                            <x-slot name="stock_name">
-                                                {{ $stock->nama_barang }}
                                             </x-slot>
                                         </x-modal-delete-stock>
                                     </td>

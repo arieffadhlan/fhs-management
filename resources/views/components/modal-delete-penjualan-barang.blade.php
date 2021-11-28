@@ -1,10 +1,10 @@
-<div class="modal fade" id="modalDelete{{ $penjualan_barang_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="modalDeleteLabel" aria-hidden="true">
+<div class="modal fade" id="modalDelete{{ $penjualan_barang_id }}" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title text-black" id="modalDeleteLabel">
-                    Hapus Data Penjualan {{ $penjualan_barang_name }}
+                    Hapus Data Penjualan Barang
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>

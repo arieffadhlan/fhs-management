@@ -85,7 +85,7 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
 
-    @if (request()->route()->uri == 'management/stock')
+    @if (request()->route()->uri == 'management/stock' || request()->route()->uri == 'dashboard')
         <script>
             let tableStok = document.querySelector('#tableStok');
             let dataTableStok = new simpleDatatables.DataTable(tableStok);

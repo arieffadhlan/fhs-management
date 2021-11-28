@@ -19,35 +19,43 @@
                                         <label for="email" class="form-label fw-bold" style="color: #607080;">
                                             Alamat Email<sup style="color: red">*</sup>
                                         </label>
-                                        <input id="email" type="email"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                        <input id="email" type="email" class="form-control" name="email"
                                             value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
 
                                         @error('email')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                                         @enderror
 
                                         <label for="password" class="form-label fw-bold mt-3" style="color: #607080;">
                                             Password Baru<sup style="color: red">*</sup>
                                         </label>
-                                        <input id="password" type="password"
-                                            class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="new-password">
+                                        <div class="input-group">
+                                            <input id="password" name="password" type="password" class="input form-control"
+                                                placeholder="(minimal 8 karakter)" aria-label="password"
+                                                aria-describedby="basic-addon1" required autocomplete="off" />
+                                            <span class="input-group-text" onclick="password_show_hide();">
+                                                <i class="fas fa-eye" id="show_eye"></i>
+                                                <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                            </span>
+                                        </div>
 
                                         @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                                         @enderror
 
                                         <label for="password-confirm" class="form-label fw-bold mt-3"
                                             style="color: #607080;">
                                             Konfirmasi Password<sup style="color: red">*</sup>
                                         </label>
-                                        <input id="password-confirm" type="password" class="form-control"
-                                            name="password_confirmation" required autocomplete="new-password">
+                                        <div class="input-group">
+                                            <input id="password-confirm" name="password_confirmation" type="password"
+                                                class="input form-control" aria-label="password-confirm"
+                                                aria-describedby="basic-addon1" required autocomplete="off">
+                                            <span class="input-group-text" onclick="password_confirm_show_hide();">
+                                                <i class="fas fa-eye" id="confirm_show_eye"></i>
+                                                <i class="fas fa-eye-slash d-none" id="confirm_hide_eye"></i>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 

@@ -86,7 +86,7 @@ class PenjualanController extends Controller
             'jumlah_barang' => Stock::where('nama_barang', $request->nama_barang)->first()->jumlah_barang - $request->jumlah_barang
         ]);
 
-        return redirect('/management/penjualan')->with('success', 'Data penjualan telah berhasil ditambahkan!');
+        return redirect('/management/penjualan')->with('success', 'Data penjualan barang telah berhasil ditambahkan!');
     }
 
     public function storeCustomer(Request $request)
@@ -108,7 +108,7 @@ class PenjualanController extends Controller
             'tanggal_masuk' => $request->tanggal_masuk,
         ]);
 
-        return redirect('/management/penjualan')->with('success', 'Pembelian Customer telah berhasil ditambahkan!');
+        return redirect('/management/penjualan')->with('success', 'Data pembelian customer telah berhasil ditambahkan!');
     }
 
     public function storeStaff(Request $request)
@@ -212,7 +212,7 @@ class PenjualanController extends Controller
             'jumlah_barang' => Stock::where('nama_barang', $request->nama_barang)->first()->jumlah_barang - $request->jumlah_barang
         ]);
 
-        return redirect('/management/penjualan')->with('success', 'Data penjualan telah berhasil diubah!');
+        return redirect('/management/penjualan')->with('success', 'Data penjualan barang telah berhasil diubah!');
     }
 
     public function updateCustomer(Request $request, $id)
@@ -236,7 +236,7 @@ class PenjualanController extends Controller
             'tanggal_masuk' => $request->tanggal_masuk,
         ]);
 
-        return redirect('/management/penjualan')->with('success', 'Data Pembelian Customer telah berhasil diubah!');
+        return redirect('/management/penjualan')->with('success', 'Data pembelian customer telah berhasil diubah!');
     }
 
     public function updateStaff(Request $request, $id)
@@ -279,7 +279,7 @@ class PenjualanController extends Controller
 
         $penjualan->delete();
 
-        return redirect('/management/penjualan')->with('success', 'Data penjualan telah berhasil dihapus!');
+        return redirect('/management/penjualan')->with('success', 'Data penjualan barang telah berhasil dihapus!');
     }
 
     public function destroyCustomer($id)

@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            @if (Auth::user()->username == "admin")
+            @if (Auth::user()->username == 'admin')
                 <h1 class="h3 mb-0 text-gray-800">Data Absensi</h1>
             @else
                 <h1 class="h3 mb-0 text-gray-800">Absensi</h1>
@@ -15,51 +15,56 @@
             <x-form-card>
                 <x-slot name="title">
                     <div class="d-flex justify-content-between align-items-center">
-                        @if (Auth::user()->username == "admin")
+                        @if (Auth::user()->username == 'admin')
                             Data Absensi
                         @else
                             Absensi
                             @php
+                                $awalHari = Carbon\Carbon::NOW()->startOfDay();
                                 $mulaiAbsen = Carbon\Carbon::createFromTime(7, 0, 0);
-                                $selesaiAbsen = Carbon\Carbon::createFromTime(9, 0, 0)
                             @endphp
 
                             @if ($absensis->isNotEmpty())
                                 @foreach ($userAbsensis as $userAbsensi)
                                     @if (date('d-m-Y', strtotime($userAbsensi->tanggal)) == date('d-m-Y', strtotime('today')))
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#Add" disabled>
                                             <i class="fas fa-fw fa-plus"></i>
                                             Isi Absensi
                                         </button>
                                         @break
                                     @endif
-                                    
+
                                     @if ($loop->last && date('d-m-Y', strtotime($userAbsensi->tanggal)) != date('d-m-Y', strtotime('today')))
-                                        {{-- @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen) --}}
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
+                                        @if (NOW() >= $awalHari && NOW() < $mulaiAbsen)
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#Add" disabled>
                                                 <i class="fas fa-fw fa-plus"></i>
                                                 Isi Absensi
                                             </button>
-                                        {{-- @else
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
+                                        @else
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#Add">
                                                 <i class="fas fa-fw fa-plus"></i>
                                                 Isi Absensi
                                             </button>
-                                        @endif --}}
+                                        @endif
                                     @endif
                                 @endforeach
                             @else
-                                {{-- @if (NOW() > $mulaiAbsen && NOW() < $selesaiAbsen) --}}
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add">
+                                @if (NOW() >= $awalHari && NOW() < $mulaiAbsen)
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#Add" disabled>
                                         <i class="fas fa-fw fa-plus"></i>
                                         Isi Absensi
                                     </button>
-                                {{-- @else
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Add" disabled>
+                                @else
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#Add">
                                         <i class="fas fa-fw fa-plus"></i>
                                         Isi Absensi
                                     </button>
-                                @endif --}}
+                                @endif
                             @endif
                         @endif
                     </div>
@@ -75,14 +80,14 @@
                                     <th>Tanggal</th>
                                     <th>Kehadiran</th>
                                     <th>Keterangan</th>
-                                    @if (Auth::user()->username == "admin")
+                                    @if (Auth::user()->username == 'admin')
                                         <th>Aksi</th>
                                     @endif
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (Auth::user()->username == "admin")
-                                    @php 
+                                @if (Auth::user()->username == 'admin')
+                                    @php
                                         $no = 1;
                                     @endphp
                                     @foreach ($absensis as $absensi)
@@ -93,11 +98,14 @@
                                             <td>{{ $absensi->kehadiran }}</td>
                                             <td>{{ $absensi->keterangan }}</td>
                                             <td>
-                                                <a class="badge bg-success border-0 text-white fw-normal" href="{{ route('absensi.edit', $absensi->id) }}" role="button">
+                                                <a class="badge bg-success border-0 text-white fw-normal"
+                                                    href="{{ route('absensi.edit', $absensi->id) }}" role="button">
                                                     <i class="fa fa-edit"></i>
                                                     Ubah
                                                 </a>
-                                                <button type="button" class="badge bg-danger border-0 fw-normal" style="font-size: 14px;" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $absensi->id }}">
+                                                <button type="button" class="badge bg-danger border-0 fw-normal"
+                                                    style="font-size: 14px;" data-bs-toggle="modal"
+                                                    data-bs-target="#modalDelete{{ $absensi->id }}">
                                                     <i class="fa fa-trash"></i>
                                                     Hapus
                                                 </button>
@@ -105,15 +113,12 @@
                                                     <x-slot name="absensi_id">
                                                         {{ $absensi->id }}
                                                     </x-slot>
-                                                    <x-slot name="absensi_name">
-                                                        {{ $absensi->nama }}
-                                                    </x-slot>
                                                 </x-modal-delete-absensi>
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
-                                    @php 
+                                    @php
                                         $no = 1;
                                         $filteredAbsensis = $absensis->filter(function ($value, $key) {
                                             return $value->nama == Auth::user()->fullname;

@@ -9,23 +9,27 @@
             @csrf
             <div class="col-md-9">
                 <div class="container-fluid">
-                    <label for="nama_barang" class="form-label fw-bold">Nama Barang<sup style="color: red">*</sup></label>
-                    <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang') }}" class="form-control">
+                    <label for="nama_barang" class="form-label fw-bold">Nama Barang<sup
+                            style="color: red">*</sup></label>
+                    <input type="text" name="nama_barang" id="nama_barang" value="{{ old('nama_barang') }}"
+                        class="form-control">
                     @error('nama_barang')
                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                     @enderror
                     <br>
 
                     <label class="form-label fw-bold mt-3">Kategori<sup style="color: red">*</sup></label>
-                    <select name="kategori_barang" id="kategori_barang" class="form-select form-select-sm" aria-label=".form-select-sm">
+                    <select name="kategori_barang" id="kategori_barang" class="form-select form-select-sm"
+                        aria-label=".form-select-sm">
                         <option value="" selected disabled>Pilih Kategori</option>
-                        <option value="Tissue" {{ (old("kategori_barang") == "Tissue" ? "selected":"") }}>
+                        <option value="Tissue" {{ old('kategori_barang') == 'Tissue' ? 'selected' : '' }}>
                             Tissue
                         </option>
-                        <option value="Doorsmeer" {{ (old("kategori_barang") == "Doorsmeer" ? "selected":"") }}>
+                        <option value="Doorsmeer" {{ old('kategori_barang') == 'Doorsmeer' ? 'selected' : '' }}>
                             Doorsmeer
                         </option>
-                        <option value="Peralatan Lainnya" {{ (old("kategori_barang") == "Peralatan Lainnya" ? "selected":"") }}>
+                        <option value="Peralatan Lainnya"
+                            {{ old('kategori_barang') == 'Peralatan Lainnya' ? 'selected' : '' }}>
                             Peralatan Lainnya
                         </option>
                     </select>
@@ -35,7 +39,8 @@
                     <br>
 
                     <label class="form-label fw-bold mt-3">Deskripsi Barang<sup style="color: red">*</sup></label>
-                    <textarea name="deskripsi_barang" value="{{ old('deskripsi_barang') }}" class="editor form-control" rows="3"></textarea>
+                    <textarea name="deskripsi_barang" value="{{ old('deskripsi_barang') }}" class="editor form-control"
+                        rows="3"></textarea>
                     <script>
                         ClassicEditor
                             .create(document.querySelector('.editor'))
@@ -48,8 +53,11 @@
                     @enderror
                     <br>
 
-                    <label for="jumlah_barang" class="form-label fw-bold mt-3">Jumlah<sup style="color: red">*</sup></label>
-                    <input type="number" name="jumlah_barang" id="jumlah_barang" value="{{ old('jumlah_barang') }}"  class="form-control" min="1">
+                    <label for="jumlah_barang" class="form-label fw-bold mt-3">
+                        Jumlah Barang<sup style="color: red">*</sup>
+                    </label>
+                    <input type="number" name="jumlah_barang" id="jumlah_barang" value="{{ old('jumlah_barang') }}"
+                        class="form-control" min="1">
                     @error('jumlah_barang')
                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                     @enderror
@@ -57,7 +65,8 @@
 
                     <div class="label-gambar d-flex justify-content-between align-items-center mt-3">
                         <label for="image" class="form-label fw-bold">Gambar</label>
-                        <button id="clear_image" type="reset" onclick="clearImage()" class="d-none badge bg-danger border-0 fs-6 fw-normal mb-2">
+                        <button id="clear_image" type="reset" onclick="clearImage()"
+                            class="d-none badge bg-danger border-0 fs-6 fw-normal mb-2">
                             <i class="fa fa-trash me-1"></i>
                             Hapus Gambar
                         </button>
@@ -86,7 +95,7 @@
                     frame.src = URL.createObjectURL(event.target.files[0]);
                     frame.style.width = "150px";
                 }
-                
+
                 function clearImage() {
                     let clear_image = document.getElementById('clear_image');
                     clear_image.classList.add("d-none");

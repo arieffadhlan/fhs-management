@@ -40,8 +40,9 @@ class AbsensiController extends Controller
     public function store(Request $request)
     {
         $tanggal = Carbon::parse($request->tanggal)->format('Y-m-d H:i:s');
+        $cekJam = Carbon::NOW();
 
-        if ($tanggal > Carbon::createFromTime(9, 0, 0)) {
+        if ($cekJam > Carbon::createFromTime(9, 0, 0) && $cekJam <= Carbon::createFromTime(23, 59, 0)) {
             $keterangan = 'Terlambat';
         } else {
             $keterangan = 'Tepat Waktu';

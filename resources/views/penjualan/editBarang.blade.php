@@ -1,11 +1,12 @@
-<x-app-layout title="Ubah Data Penjualan Barang">
+<x-app-layout title="Perubahan Data Penjualan Barang">
     <h2>Perubahan Data Penjualan Barang</h2>
     <x-form-card>
         <x-slot name="title">
             Form
         </x-slot>
-        
-        <form method="POST" action="{{ route('penjualanBarang.update', $penjualan->id) }}" enctype="multipart/form-data" class="row g-3">
+
+        <form method="POST" action="{{ route('penjualanBarang.update', $penjualan->id) }}"
+            enctype="multipart/form-data" class="row g-3">
             @method('put')
             @csrf
             <div class="col-md-9">
@@ -13,7 +14,8 @@
                     <label for="tanggal_keluar" class="form-label fw-bold">
                         Tanggal Keluar<sup style="color: red">*</sup>
                     </label>
-                    <input type="date" value="{{ old('tanggal_keluar', $penjualan->tanggal_keluar) }}" name="tanggal_keluar" class="form-control" id="tanggal_masuk">
+                    <input type="date" value="{{ old('tanggal_keluar', $penjualan->tanggal_keluar) }}"
+                        name="tanggal_keluar" class="form-control" id="tanggal_masuk">
                     @error('tanggal_keluar')
                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                     @enderror
@@ -23,11 +25,11 @@
                         Nama barang<sup style="color: red">*</sup>
                     </label>
                     <select name="nama_barang" class="form-select form-select-sm" aria-label=".form-select-sm">
-                        @foreach($stocks as $stock)
-                            @if($penjualan->nama_barang == $stock->nama_barang)
-                            <option value="{{$stock->nama_barang}}" selected>{{$stock->nama_barang}}</option>
+                        @foreach ($stocks as $stock)
+                            @if ($penjualan->nama_barang == $stock->nama_barang)
+                                <option value="{{ $stock->nama_barang }}" selected>{{ $stock->nama_barang }}</option>
                             @else
-                            <option value="{{$stock->nama_barang}}">{{$stock->nama_barang}}</option>
+                                <option value="{{ $stock->nama_barang }}">{{ $stock->nama_barang }}</option>
                             @endif
                         @endforeach
                     </select>
@@ -39,7 +41,8 @@
                     <label for="jumlah_barang" class="form-label fw-bold mt-2">
                         Jumlah barang yang keluar<sup style="color: red">*</sup>
                     </label>
-                    <input type="number" min="1" value="{{ old('jumlah_barang', $penjualan->jumlah_barang) }}" name="jumlah_barang" class="form-control" id="jumlah_barang">
+                    <input type="number" min="1" value="{{ old('jumlah_barang', $penjualan->jumlah_barang) }}"
+                        name="jumlah_barang" class="form-control" id="jumlah_barang">
                     @error('jumlah_barang')
                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                     @enderror

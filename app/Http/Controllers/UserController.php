@@ -70,51 +70,93 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $messages = [
-            'alpha_num' => ':Attribute hanya boleh berisi huruf dan angka!',
-            'confirmed' => 'Konfirmasi password dan password tidak cocok!',
-            'email' => 'Format email harus valid!',
-            'image' => 'File harus dalam bentuk gambar!',
-            'max' => [
-                'file' => 'Ukuran foto maxsimal 2mb!',
-                'string' => ':Attribute tidak boleh lebih dari :max karakter!',
-            ],
-            'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
-            'required' => 'Harap masukkan :attribute!',
-            'unique' => ':Attribute sudah ada!',
-        ];
+        if (auth()->user()->username == "admin") {
+            $messages = [
+                'confirmed' => 'Konfirmasi password dan password tidak cocok!',
+                'image' => 'File harus dalam bentuk gambar!',
+                'max' => [
+                    'file' => 'Ukuran foto maxsimal 2mb!',
+                    'string' => ':Attribute tidak boleh lebih dari :max karakter!',
+                ],
+                'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
+                'required' => 'Harap masukkan :attribute!',
+            ];
 
-        $this->validate($request, [
-            'fullname' => 'string|max:225',
-            'username' => 'alpha_num|min:3|max:25|unique:users',
-            'password' => 'string|min:8|confirmed',
-            'email' => 'string|email:rfc,dns|max:225|unique:users',
-            'image' => 'image|max:2048'
-        ], $messages);
+            $this->validate($request, [
+                'fullname' => 'string|max:225',
+                'password' => 'string|min:8|confirmed',
+                'image' => 'image|max:2048'
+            ], $messages);
 
-        if ($request->image != null) {
-            if (isset(auth()->user()->image)) {
-                unlink(storage_path('app/public/images/' . auth()->user()->image));
-                $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
+            if ($request->image != null) {
+                if (isset(auth()->user()->image)) {
+                    unlink(storage_path('app/public/images/' . auth()->user()->image));
+                    $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
+                    $user->where('username', auth()->user()->username)->update([
+                        'image' => $request->image->getClientOriginalName(),
+                    ]);
+                } else {
+                    $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
+                    $user->where('username', auth()->user()->username)->update([
+                        'image' => $request->image->getClientOriginalName(),
+                    ]);
+                }
+            } else if ($request->fullname != null) {
                 $user->where('username', auth()->user()->username)->update([
-                    'image' => $request->image->getClientOriginalName(),
+                    'fullname' => $request->fullname,
                 ]);
             } else {
-                $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
                 $user->where('username', auth()->user()->username)->update([
-                    'image' => $request->image->getClientOriginalName(),
+                    'password' => Hash::make($request->password),
                 ]);
             }
-        } else if ($request->fullname != null && $request->username != null && $request->email != null) {
-            $user->where('username', auth()->user()->username)->update([
-                'fullname' => $request->fullname,
-                'username' => $request->username,
-                'email' => $request->email,
-            ]);
         } else {
-            $user->where('username', auth()->user()->username)->update([
-                'password' => Hash::make($request->password),
-            ]);
+            $messages = [
+                'alpha_num' => ':Attribute hanya boleh berisi huruf dan angka!',
+                'confirmed' => 'Konfirmasi password dan password tidak cocok!',
+                'email' => 'Format email harus valid!',
+                'image' => 'File harus dalam bentuk gambar!',
+                'max' => [
+                    'file' => 'Ukuran foto maxsimal 2mb!',
+                    'string' => ':Attribute tidak boleh lebih dari :max karakter!',
+                ],
+                'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
+                'required' => 'Harap masukkan :attribute!',
+                'unique' => ':Attribute sudah ada!',
+            ];
+
+            $this->validate($request, [
+                'fullname' => 'string|max:225',
+                'username' => 'alpha_num|min:3|max:25',
+                'password' => 'string|min:8|confirmed',
+                'email' => 'string|email:rfc,dns|max:225',
+                'image' => 'image|max:2048'
+            ], $messages);
+
+            if ($request->image != null) {
+                if (isset(auth()->user()->image)) {
+                    unlink(storage_path('app/public/images/' . auth()->user()->image));
+                    $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
+                    $user->where('username', auth()->user()->username)->update([
+                        'image' => $request->image->getClientOriginalName(),
+                    ]);
+                } else {
+                    $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
+                    $user->where('username', auth()->user()->username)->update([
+                        'image' => $request->image->getClientOriginalName(),
+                    ]);
+                }
+            } else if ($request->fullname != null && $request->username != null && $request->email != null) {
+                $user->where('username', auth()->user()->username)->update([
+                    'fullname' => $request->fullname,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                ]);
+            } else {
+                $user->where('username', auth()->user()->username)->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            }
         }
 
         return back()->with('success', 'Profil berhasil diupdate!');

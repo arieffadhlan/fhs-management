@@ -1,9 +1,9 @@
-<div class="modal fade" id="modalDelete{{ $stock_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="modalDeleteLabel" aria-hidden="true">
+<div class="modal fade" id="modalDelete{{ $stock_id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-black" id="modalDeleteLabel">Hapus Stok {{ $stock_name }}</h5>
+                <h5 class="modal-title text-black" id="modalDeleteLabel">Hapus Data Stok</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

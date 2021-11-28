@@ -115,8 +115,7 @@ class StockController extends Controller
                 'nama_barang' => $request->nama_barang,
                 'kategori_barang' => $request->kategori_barang,
                 'deskripsi_barang' => $request->deskripsi_barang,
-                'jumlah_barang' => $request->jumlah_barang,
-                'image' => null,
+                'jumlah_barang' => $request->jumlah_barang
             ]);
 
             return redirect('/management/stock')->with('success', 'Perubahan data stok telah berhasil!');
