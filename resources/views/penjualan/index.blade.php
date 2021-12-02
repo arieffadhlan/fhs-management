@@ -123,30 +123,42 @@
                                         <td>{{ $customer->kategori_daerah }}</td>
                                         <td>{{ $customer->alamat_customer }}</td>
                                         <td>{{ $customer->telp_customer }}</td>
-                                        @foreach ($customer->pembelian as $pembelian)
-                                            <td>{{ date('d-m-Y', strtotime($pembelian->tanggal_masuk)) }}</td>
-                                            <td>{{ $pembelian->nama_barang }}</td>
-                                            <td>{{ $pembelian->jumlah_pembelian }} dus</td>
-                                        @endforeach
                                         <td>
-                                            @foreach ($customer->pembelian as $pembelianCust)
-                                                <a class="badge bg-success border-0 text-white fw-normal"
+                                            @foreach($customer->pembelian as $pembelian)
+                                                <ol class="p-0">{{ $pembelian->tanggal_masuk}}</ol>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($customer->pembelian as $pembelian)
+                                                <ol class="p-0">{{ $pembelian->nama_barang}}</ol>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($customer->pembelian as $pembelian)
+                                                <ol class="p-0">{{ $pembelian->jumlah_pembelian}} dus</ol>
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach($customer->pembelian as $pembelianCust)
+                                                <ol class="p-0">
+                                                    <a class="badge bg-success border-0 text-white fw-normal"
                                                     href="{{ route('pembelianCustomer.edit', $pembelianCust->id) }}"
                                                     role="button">
-                                                    <i class="fa fa-edit"></i>
-                                                    Ubah
-                                                </a>
-                                                <button type="button" class="badge bg-danger border-0 fw-normal"
+                                                        <i class="fa fa-edit"></i>
+                                                        Ubah
+                                                    </a>
+                                                    <button type="button" class="badge bg-danger border-0 fw-normal"
                                                     style="font-size: 14px;" data-bs-toggle="modal"
                                                     data-bs-target="#modalDeletePembelianCustomer{{ $pembelianCust->id }}">
-                                                    <i class="fa fa-trash"></i>
-                                                    Hapus
-                                                </button>
-                                                <x-modal-delete-pembelian-customer>
-                                                    <x-slot name="pembelianCustomer_id">
-                                                        {{ $pembelianCust->id }}
-                                                    </x-slot>
-                                                </x-modal-delete-pembelian-customer>
+                                                        <i class="fa fa-trash"></i>
+                                                        Hapus
+                                                    </button>
+                                                    <x-modal-delete-pembelian-customer>
+                                                        <x-slot name="pembelianCustomer_id">
+                                                            {{ $pembelianCust->id }}
+                                                        </x-slot>
+                                                    </x-modal-delete-pembelian-customer>
+                                                </ol>
                                             @endforeach
                                         </td>
                                     </tr>

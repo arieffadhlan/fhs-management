@@ -189,18 +189,18 @@ function password_confirm_show_hide() {
 
 // Preview Account Image
 function readURL(input) {
-  console.log(input);
   if (input.files && input.files[0]) {
       let reader = new FileReader();
       let previewImage = document.getElementById("preview-account-image");
 
       reader.onload = function (e) {
           previewImage.setAttribute('src', e.target.result);
-      }
-
-      reader.readAsDataURL(input.files[0]);
-      previewImage.style.display = "flex";
-      previewImage.style.width = "250px";
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+        previewImage.style.display = "flex";
+        previewImage.style.width = "150px";
+        previewImage.alt = input.files[0].name;
   }
 }
 
@@ -208,6 +208,7 @@ function readURL(input) {
 function clearAccountImage() {
   let previewImage = document.getElementById("preview-account-image");
   previewImage.src = "";
+  previewImage.alt = "";
 }
 
 // Reset Modal Input Account Image
@@ -216,4 +217,25 @@ function AccountImageClose() {
   let previewImage = document.getElementById("preview-account-image");
   accountImageInput.value = "";
   previewImage.src = "";
+  previewImage.alt = "";
 }
+
+// Image Zoom
+var modalZoomImage = document.getElementById("modalZoomImage");
+var imgPreview = [...document.getElementsByClassName("imgPreview")];
+var modalImgPreview = document.getElementById("modalImgPreview");
+var captionText = document.getElementById("caption");
+
+imgPreview.forEach(function (element) {
+	element.addEventListener("click", function (event) {
+		modalZoomImage.style.display = "block";
+    modalImgPreview.src = this.src;
+    captionText.innerHTML = this.alt;
+	});
+
+  var span = document.getElementsByClassName("closeModalImgPreview")[0];
+
+  span.onclick = function() {
+    modalZoomImage.style.display = "none";
+  }
+});

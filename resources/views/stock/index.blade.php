@@ -36,13 +36,14 @@
                                     <td>{{ $stock->kategori_barang }}</td>
                                     <td>{!! nl2br(Str::limit($stock->deskripsi_barang, 150)) !!}</td>
                                     <td>
-                                        <img style="width: 100px" src="{{ asset('storage/images/' . $stock->image) }}"
-                                            alt="">
+                                        <img style="width: 50px" src="{{ asset('storage/images/' . $stock->image) }}"
+                                            alt="{{ $stock->image }}" class="imgPreview">
+                                        <x-modal-zoom-image></x-modal-zoom-image>
                                     </td>
                                     @if ($stock->jumlah_barang == 0)
                                         <td>Stock barang kosong.</td>
                                     @else
-                                        <td>{{ $stock->jumlah_barang }}</td>
+                                        <td style="width: 20px">{{ $stock->jumlah_barang }} dus</td>
                                     @endif
                                     <td>
                                         <a class="badge bg-success border-0 text-white fw-normal"

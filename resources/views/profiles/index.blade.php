@@ -10,8 +10,8 @@
             <div class="container-fluid">
                 <div class="col-md-9 d-flex flex-column justify-content-center align-items-start pb-3">
                     @isset(Auth::user()->image)
-                        <img src="{{ asset('storage/images/' . Auth::user()->image) }}" alt="Avatar" class="rounded-circle"
-                            width="100px" height="100px">
+                        <img src="{{ asset('storage/images/' . Auth::user()->image) }}" alt="{{ Auth::user()->image }}" class="rounded-circle imgPreview" width="100px" height="100px">
+                        <x-modal-zoom-image></x-modal-zoom-image>
                     @else
                         <img src="{{ asset('images/user.png') }}" alt="Avatar" class="rounded-circle" width="100px"
                             height="100px">
@@ -38,6 +38,14 @@
                         <input type="text" value="{{ Auth::user()->fullname }}" name="fullname" class="form-control"
                             id="fullname">
                         @error('fullname')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+
+                        <label for="email" class="form-label fw-bold">Alamat E-mail</label>
+                        <input type="text" name="email" value="{{ Auth::user()->email }}" class="form-control"
+                            id="email">
+                        @error('email')
                             <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                         @enderror
                         <br>

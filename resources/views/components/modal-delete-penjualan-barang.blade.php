@@ -17,8 +17,14 @@
                         <h5 class="text-black mt-3">Anda yakin ingin menghapusnya?</h5>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-sm btn-primary fs-6" data-bs-dismiss="modal">Tidak</button>
-                        <button type="submit" class="btn btn-sm btn-danger fs-6">Yakin</button>
+                        <button type="button" class="btn btn-sm btn-primary fs-6" data-bs-dismiss="modal">
+                            <i class="fa fa-times me-1"></i>
+                            Tidak
+                        </button>
+                        <button type="submit" class="btn btn-sm btn-danger fs-6">
+                            <i class="fa fa-paper-plane me-1"></i>
+                            Yakin
+                        </button>
                     </div>
                 </form>
             </div>

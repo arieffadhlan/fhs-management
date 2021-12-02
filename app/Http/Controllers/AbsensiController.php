@@ -16,6 +16,30 @@ class AbsensiController extends Controller
      */
     public function index()
     {
+        // $i = 0;
+        // $len = count(Absence::get()->toArray());
+        // if ($len != 0) {
+        //     foreach (Absence::get() as $dataAbsensi) {
+        //         if (date('d-m-Y', strtotime($dataAbsensi->tanggal)) == date('d-m-Y', strtotime('yesterday'))) {
+        //             break;
+        //         }
+
+        //         if ($i == $len - 1 && date('d-m-Y', strtotime($dataAbsensi->tanggal)) != date('d-m-Y', strtotime('yesterday'))) {
+        //             $kehadiran = "Tidak Hadir";
+        //             $keterangan = 'Terlambat';
+        //             Absence::create([
+        //                 'nama' => auth()->user()->fullname,
+        //                 'tanggal' =>  Carbon::parse(date('d-m-Y', strtotime('yesterday')))->format('Y-m-d H:i:s'),
+        //                 'kehadiran'  => $kehadiran,
+        //                 'keterangan' => $keterangan,
+        //             ]);
+        //             break;
+        //         }
+
+        //         $i++;
+        //     }
+        // }
+
         $absensis = Absence::get();
         $userAbsensis = Absence::where('nama', Auth::user()->fullname)->get();
         return view('absensi.index', compact('absensis', 'userAbsensis'));

@@ -93,7 +93,7 @@
                                     @foreach ($absensis as $absensi)
                                         <tr class="text-center">
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $absensi->nama }}</td>
+                                            <td style="width: 20px;">{{ $absensi->nama }}</td>
                                             <td>{{ $absensi->tanggal }}</td>
                                             <td>{{ $absensi->kehadiran }}</td>
                                             <td>{{ $absensi->keterangan }}</td>

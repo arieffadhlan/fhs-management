@@ -3,12 +3,13 @@
         <div class="d-flex justify-content-between">
             <div class="container brand d-flex flex-column justify-content-center align-items-center fs-5 fw-bold pt-4 pb-3">
                 @isset(Auth::user()->image)
-                <img src="{{ asset('storage/images/' . Auth::user()->image) }}" alt="Avatar" class="rounded-circle" width="100px" height="100px">
+                <img src="{{ asset('storage/images/' . Auth::user()->image) }}" class="rounded-circle imgPreview" width="100px" height="100px" alt="{{ Auth::user()->image }}">
+                <x-modal-zoom-image></x-modal-zoom-image>
                 @else
                 <img src="{{ asset("images/user.png") }}" alt="Avatar" class="rounded-circle" width="100px" height="100px">
                 @endisset
                 <div class="user-account container d-flex justify-content-center align-items-center mt-4">
-                    <h5 class="m-0">{{ Auth::user()->fullname }}</h4>
+                    <h5 class="m-0 text-center">{{ Auth::user()->fullname }}</h4>
                 </div>
             </div>
             <div class="toggler pe-3">

@@ -8,24 +8,16 @@
             <div class="modal-body">
                 <form method="post" action="{{route ('absensi.store')}}">
                     @csrf
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">Nama</span>
-                        </div>
-                        <input type="text" name="nama" value="{{Auth::user()->fullname}}" class="form-control" id="basic-url" aria-describedby="basic-addon3" readonly>
-                    </div>
+                    <label for="nama" class="form-label fw-bold">Nama</label>
+                    <input type="text" name="nama" value="{{Auth::user()->fullname}}" class="form-control" id="nama" readonly>
+                    <br>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">Tanggal</span>
-                        </div>
-                        <input type="datetime" name="tanggal" value="{{ date('d F Y H:i:s', strtotime(NOW())) }}" class="form-control" id="basic-url" aria-describedby="basic-addon3" readonly>
-                    </div>
+                    <label for="tanggal" class="form-label fw-bold">Tanggal</label>
+                    <input type="datetime" name="tanggal" value="{{ date('d F Y H:i:s', strtotime(NOW())) }}" class="form-control" id="tanggal"readonly>
+                    <br>
                     
+                    <label class="form-label fw-bold">Status</label>
                     <div class="input-group mb-3 d-flex flex-column">
-                        <div class="input-group-prepend w-100 me-3 mb-2">
-                            <span class="input-group-text" id="basic-addon3">Status</span>
-                        </div>
                         <div class="form-check form-check-inline mb-2">
                             <label class="form-check-label" for="status1">Hadir</label>
                             <input class="form-check-input" type="radio" name="kehadiran" id="status1" value="Hadir" required>

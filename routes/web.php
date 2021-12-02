@@ -3,14 +3,15 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AbsensiController;
-use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LupaPasswordController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\LupaPasswordController;
+use App\Http\Controllers\Auth\VerificationController;
 
 Auth::routes();
 Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
@@ -18,7 +19,9 @@ Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify']
 Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 
 Route::middleware('guest')->group(function () {
-    Route::view('/', 'welcome')->middleware('guest');
+    Route::get('/', function () {
+        return Redirect::route('login');
+    })->middleware('guest');
 });
 
 Route::group(['middleware' => ['admin', 'auth', 'verified']], function () {

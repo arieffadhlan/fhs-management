@@ -38,10 +38,13 @@
                                                 <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
                                             </span>
                                         </div>
-
                                         @error('password')
                                             <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                                         @enderror
+                                        <small class="mt-2" style="font-size: 13px;">
+                                            Gunakan minimal 8 karakter dengan kombinasi huruf dan angka.
+                                        </small>
+                                        <br>
 
                                         <label for="password-confirm" class="form-label fw-bold mt-3"
                                             style="color: #607080;">
@@ -62,6 +65,7 @@
                                 <div class="form-group row mb-0 mt-2">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary w-100">
+                                            <i class="fa fa-paper-plane me-1"></i>
                                             {{ __('Reset Password') }}
                                         </button>
                                     </div>

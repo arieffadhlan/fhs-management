@@ -13,6 +13,8 @@
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,6 +25,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     @if (request()->route()->uri !== 'login' && request()->route()->uri !== 'register')
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @endif
@@ -85,7 +88,7 @@
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
 
-    @if (request()->route()->uri == 'management/stock' || request()->route()->uri == 'dashboard')
+    @if (request()->route()->uri == 'management/stock')
         <script>
             let tableStok = document.querySelector('#tableStok');
             let dataTableStok = new simpleDatatables.DataTable(tableStok);

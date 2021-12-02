@@ -66,6 +66,12 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
+        $cekJumlahStok = Stock::where('nama_barang', $request->nama_barang)->first()->jumlah_barang;
+
+        if ($request->jumlah_barang > $cekJumlahStok) {
+            return back()->with('error', 'Jumlah stok tidak mencukupi!');
+        }
+
         $messages = [
             'required' => 'Harap masukkan :attribute!'
         ];

@@ -47,6 +47,10 @@
                                     @error('password')
                                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                                     @enderror
+                                    <small class="mt-2" style="font-size: 13px;">
+                                        Gunakan minimal 8 karakter dengan kombinasi huruf dan angka.
+                                    </small>
+                                    <br>
 
                                     <label for="password_confirmation" class="form-label fw-bold mt-4">
                                         Konfirmasi Password<sup style="color: red">*</sup>
@@ -64,7 +68,8 @@
                             <div class="form-group row mt-4 mb-0">
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary w-100">
-                                        {{ __('Register') }}
+                                        <i class="fa fa-paper-plane me-1"></i>
+                                        {{ __('Registrasi') }}
                                     </button>
                                 </div>
                             </div>

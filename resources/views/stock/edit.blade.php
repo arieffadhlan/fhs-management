@@ -43,7 +43,7 @@
                     <br>
 
                     <label class="form-label fw-bold mt-2">Deskripsi Barang<sup style="color: red">*</sup></label>
-                    <textarea name="deskripsi_barang" value="{{ old('deskripsi_barang', $stock->deskrpisi_barang) }}" class="editor form-control" rows="3">{{ old('jumlah_barang', $stock->deskripsi_barang) }}</textarea>
+                    <textarea name="deskripsi_barang" value="{{ old('deskripsi_barang', $stock->deskrpisi_barang) }}" class="editor form-control" rows="3">{{ old('deskripsi_barang', $stock->deskripsi_barang) }}</textarea>
                     <script>
                         ClassicEditor
                             .create(document.querySelector('.editor'))
@@ -70,8 +70,9 @@
                             Hapus Gambar
                         </button>
                     </div>
-                    <input name="image" type="file" id="image" class="form-control input-image" accept="image/*" onchange="preview()">
-                    <img id="frame" style="width: 150px" src="{{ asset('storage/images/' . $stock->image) }}" class="img-fluid mt-3 mb-3" />
+                    <input name="image" type="file" id="image" class="form-control input-image" accept="image/*" onchange="preview()" value="{{ old('image', $stock->jumlah_barang) }}">
+                    <img id="frame" style="width: 150px" src="{{ asset('storage/images/' . $stock->image) }}" class="img-fluid mt-3 mb-3 imgPreview" alt="{{ $stock->image }}" />
+                    <x-modal-zoom-image></x-modal-zoom-image>
                     <br>
                     @error('image')
                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
@@ -92,6 +93,7 @@
                     let clear_image = document.getElementById('clear_image');
                     clear_image.classList.remove("d-none");
                     frame.src = URL.createObjectURL(event.target.files[0]);
+                    frame.alt = document.getElementById('image').files[0].name;
                     frame.style.width = "150px";
                 }
 
@@ -99,6 +101,7 @@
                     let clear_image = document.getElementById('clear_image');
                     clear_image.classList.add("d-none");
                     frame.src = "";
+                    frame.alt = "";
                 }
             </script>
         </form>

@@ -73,6 +73,7 @@ class UserController extends Controller
         if (auth()->user()->username == "admin") {
             $messages = [
                 'confirmed' => 'Konfirmasi password dan password tidak cocok!',
+                'email' => 'Format email harus valid!',
                 'image' => 'File harus dalam bentuk gambar!',
                 'max' => [
                     'file' => 'Ukuran foto maxsimal 2mb!',
@@ -84,6 +85,7 @@ class UserController extends Controller
 
             $this->validate($request, [
                 'fullname' => 'string|max:225',
+                'email' => 'string|email:rfc,dns|max:225',
                 'password' => 'string|min:8|confirmed',
                 'image' => 'image|max:2048'
             ], $messages);
@@ -104,6 +106,7 @@ class UserController extends Controller
             } else if ($request->fullname != null) {
                 $user->where('username', auth()->user()->username)->update([
                     'fullname' => $request->fullname,
+                    'email' => $request->email
                 ]);
             } else {
                 $user->where('username', auth()->user()->username)->update([

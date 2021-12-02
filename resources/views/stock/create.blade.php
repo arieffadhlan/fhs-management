@@ -39,8 +39,8 @@
                     <br>
 
                     <label class="form-label fw-bold mt-3">Deskripsi Barang<sup style="color: red">*</sup></label>
-                    <textarea name="deskripsi_barang" value="{{ old('deskripsi_barang') }}" class="editor form-control"
-                        rows="3"></textarea>
+                    <textarea name="deskripsi_barang" class="editor form-control"
+                        rows="3">{{ old('deskripsi_barang') }}</textarea>
                     <script>
                         ClassicEditor
                             .create(document.querySelector('.editor'))
@@ -65,14 +65,15 @@
 
                     <div class="label-gambar d-flex justify-content-between align-items-center mt-3">
                         <label for="image" class="form-label fw-bold">Gambar</label>
-                        <button id="clear_image" type="reset" onclick="clearImage()"
+                        <button id="clear_image" type="button" onclick="clearImage()"
                             class="d-none badge bg-danger border-0 fs-6 fw-normal mb-2">
                             <i class="fa fa-trash me-1"></i>
                             Hapus Gambar
                         </button>
                     </div>
                     <input name="image" type="file" id="image" class="form-control input-image" onchange="preview()">
-                    <img id="frame" src="" class="img-fluid mt-3 mb-3" />
+                    <img id="frame" src="" class="img-fluid mt-3 mb-3 imgPreview" alt="" />
+                    <x-modal-zoom-image></x-modal-zoom-image>
                     <br>
                     @error('image')
                         <div class="fw-bold text-danger mt-1">{{ $message }}</div>
@@ -93,13 +94,17 @@
                     let clear_image = document.getElementById('clear_image');
                     clear_image.classList.remove("d-none");
                     frame.src = URL.createObjectURL(event.target.files[0]);
+                    frame.alt = document.getElementById('image').files[0].name;
                     frame.style.width = "150px";
                 }
 
                 function clearImage() {
                     let clear_image = document.getElementById('clear_image');
+                    let image = document.getElementById('image');
                     clear_image.classList.add("d-none");
                     frame.src = "";
+                    frame.alt = "";
+                    image.value = "";
                 }
             </script>
         </form>

@@ -50,6 +50,7 @@
                                 <div class="form-group row mb-0 mt-2">
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary w-100">
+                                            <i class="fa fa-paper-plane me-1"></i>
                                             Kirim link reset password
                                         </button>
                                     </div>

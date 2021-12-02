@@ -1,4 +1,5 @@
 <x-app-layout title="Penambahan Data Penjualan Barang">
+    <x-alert-error></x-alert-error>
     <h2>Penambahan Data Penjualan Barang</h2>
     <x-form-card>
         <x-slot name="title">

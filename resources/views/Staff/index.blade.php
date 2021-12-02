@@ -25,7 +25,7 @@
                                     <th>Alamat</th>
                                     <th>Email</th>
                                     <th>No Telp</th>
-                                    <th>Action</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             @php $no = 1; @endphp
