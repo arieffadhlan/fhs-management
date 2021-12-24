@@ -21,7 +21,7 @@ Route::post('email/resend', [VerificationController::class, 'resend'])->name('ve
 Route::middleware('guest')->group(function () {
     Route::get('/', function () {
         return Redirect::route('login');
-    })->middleware('guest');
+    });
 });
 
 Route::group(['middleware' => ['admin', 'auth', 'verified']], function () {

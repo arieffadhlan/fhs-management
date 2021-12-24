@@ -1,4 +1,8 @@
 <x-app-layout title="Stok">
+    @push('styles')
+        <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
+    @endpush
+    
     <x-alert-success></x-alert-success>
     <x-alert-error></x-alert-error>
 

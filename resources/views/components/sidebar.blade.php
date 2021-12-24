@@ -12,9 +12,9 @@
                     <h5 class="m-0 text-center">{{ Auth::user()->fullname }}</h4>
                 </div>
             </div>
-            <div class="toggler pe-3">
+            <div class="toggler pt-3 pe-3">
                 <a href="#" class="sidebar-hide d-xl-none d-block">
-                    <i class="bi bi-x bi-middle fa-2x"></i>
+                    <i class="fas fa-times fa-lg"></i>
                 </a>
             </div>
         </div>

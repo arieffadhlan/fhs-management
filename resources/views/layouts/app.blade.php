@@ -12,8 +12,8 @@
 
     <!-- Scripts -->
     {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts" async></script>
 
 
     <!-- Fonts -->
@@ -23,15 +23,15 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    @if (request()->route()->uri !== 'login' && request()->route()->uri !== 'register')
+    
+    @auth
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    @endif
-    <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendors/fontawesome/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendors/fontawesome/all.min.css') }}">
+        @stack('styles')
+    @endauth
 </head>
 
 <body>
@@ -83,47 +83,51 @@
         @endguest
     </div>
 
-    <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
 
-    @if (request()->route()->uri == 'management/stock')
-        <script>
-            let tableStok = document.querySelector('#tableStok');
-            let dataTableStok = new simpleDatatables.DataTable(tableStok);
-        </script>
-    @elseif (request()->route()->uri == 'management/penjualan')
-        <script>
-            let tablePenjualanBarang = document.querySelector('#tablePenjualanBarang');
-            let tablePembelianCustomer = document.querySelector('#tablePembelianCustomer');
-            let tablePenjualanStaff = document.querySelector('#tablePenjualanStaff');
-            let dataTablePenjualanBarang = new simpleDatatables.DataTable(tablePenjualanBarang);
-            let dataTablePembelianCustomer = new simpleDatatables.DataTable(tablePembelianCustomer);
-            let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
-        </script>
-    @elseif (request()->route()->uri == 'management/staff')
-        <script>
-            let tableStaff = document.querySelector('#tableStaff');
-            let dataTableStaff = new simpleDatatables.DataTable(tableStaff);
-        </script>
-    @elseif (request()->route()->uri == 'management/customer')
-        <script>
-            let tableCustomer = document.querySelector('#tableCustomer');
-            let dataTableCustomer = new simpleDatatables.DataTable(tableCustomer);
-        </script>
-    @elseif (request()->route()->uri == 'absensi')
-        <script>
-            let tableAbsensi = document.querySelector('#tableAbsensi');
-            let dataTableAbsensi = new simpleDatatables.DataTable(tableAbsensi);
-        </script>
-    @elseif (request()->route()->uri == 'penjualan-staff')
-        <script>
-            let tablePenjualanStaff = document.querySelector('#tablePenjualanStaff');
-            let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
-        </script>
-    @endif
-    <script src="{{ asset('js/main.js') }}"></script>
+    @auth
+        <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}" async></script>
+        <script src="{{ asset('vendors/fontawesome/all.min.js') }}" defer></script>
+        <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}" async></script>
+
+        @if (request()->route()->uri == 'management/stock')
+            <script>
+                let tableStok = document.querySelector('#tableStok');
+                let dataTableStok = new simpleDatatables.DataTable(tableStok);
+            </script>
+        @elseif (request()->route()->uri == 'management/penjualan')
+            <script>
+                let tablePenjualanBarang = document.querySelector('#tablePenjualanBarang');
+                let tablePembelianCustomer = document.querySelector('#tablePembelianCustomer');
+                let tablePenjualanStaff = document.querySelector('#tablePenjualanStaff');
+                let dataTablePenjualanBarang = new simpleDatatables.DataTable(tablePenjualanBarang);
+                let dataTablePembelianCustomer = new simpleDatatables.DataTable(tablePembelianCustomer);
+                let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
+            </script>
+        @elseif (request()->route()->uri == 'management/staff')
+            <script>
+                let tableStaff = document.querySelector('#tableStaff');
+                let dataTableStaff = new simpleDatatables.DataTable(tableStaff);
+            </script>
+        @elseif (request()->route()->uri == 'management/customer')
+            <script>
+                let tableCustomer = document.querySelector('#tableCustomer');
+                let dataTableCustomer = new simpleDatatables.DataTable(tableCustomer);
+            </script>
+        @elseif (request()->route()->uri == 'absensi')
+            <script>
+                let tableAbsensi = document.querySelector('#tableAbsensi');
+                let dataTableAbsensi = new simpleDatatables.DataTable(tableAbsensi);
+            </script>
+        @elseif (request()->route()->uri == 'penjualan-staff')
+            <script>
+                let tablePenjualanStaff = document.querySelector('#tablePenjualanStaff');
+                let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
+            </script>
+        @endif
+
+        <script src="{{ asset('js/main.js') }}"></script>
+    @endauth
 </body>
 
 </html>

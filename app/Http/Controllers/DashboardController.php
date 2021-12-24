@@ -30,21 +30,13 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        $stocks = Stock::get();
-        $penjualans = PenjualanBarang::get();
-        $pembelians = Pembelian::get();
-        $penjualanStaff = PenjualanStaff::get();
-        $staffs = Staff::get();
-        $customers = Customer::get();
-        $absensis = Absence::get();
-        return view('dashboard', compact(
-            'stocks',
-            'penjualans',
-            'pembelians',
-            'penjualanStaff',
-            'customers',
-            'staffs',
-            'absensis'
-        ));
+        // $stocks = Stock::get();
+        // $penjualans = PenjualanBarang::get();
+        // $pembelians = Pembelian::get();
+        // $penjualanStaff = PenjualanStaff::get();
+        // $staffs = Staff::get();
+        // $customers = Customer::get();
+        // $absensis = Absence::get();
+        return view('dashboard');
     }
 }
