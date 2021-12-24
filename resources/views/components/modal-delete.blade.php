@@ -1,15 +1,13 @@
-<div class="modal fade" id="modalDelete{{ $staff_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="modalDeleteLabel" aria-hidden="true">
+<div class="modal fade" id="modalDelete{{ $id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-black" id="modalDeleteLabel">
-                    Hapus Data Staff {{ $staff_name }}
-                </h5>
+                <h5 class="modal-title text-black" id="modalDeleteLabel">Hapus {{ $delete_label }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('DataStaff.delete', $staff_id) }}" method="post">
+                <form action="{{ $delete_action }}" method="post">
                     @csrf
                     @method('delete')
                     <div class="d-flex flex-column justify-content-center align-items-center mb-3">
@@ -30,4 +28,7 @@
             </div>
         </div>
     </div>
+</div>
+<div>
+    <!-- When there is no desire, all things are at peace. - Laozi -->
 </div>

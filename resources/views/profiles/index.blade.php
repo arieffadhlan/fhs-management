@@ -1,9 +1,9 @@
-<x-app-layout title="Profil">
+<x-app-layout title="Akun">
     <x-alert-success></x-alert-success>
-    <h2>Profil</h2>
+    <h2>Akun</h2>
     <x-form-card>
         <x-slot name="title">
-            Profil Pengguna
+            Akun Pengguna
         </x-slot>
 
         <div class="col-md-9">
@@ -31,7 +31,7 @@
                 </div>
 
                 @if (Auth::user()->username == 'admin')
-                    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('akun.update') }}" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <label for="fullname" class="form-label fw-bold mt-3">Nama Lengkap</label>
@@ -56,7 +56,7 @@
                         </button>
                     </form>
                 @else
-                    <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('akun.update') }}" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <label for="fullname" class="form-label fw-bold mt-3">Nama Lengkap</label>
@@ -98,7 +98,7 @@
             Ubah Password
         </x-slot>
 
-        <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('akun.update') }}" enctype="multipart/form-data">
             @method('put')
             @csrf
             <div class="col-md-9">

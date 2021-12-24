@@ -24,12 +24,12 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/fontawesome/all.min.css') }}">
     
     @auth
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendors/fontawesome/all.min.css') }}">
         @stack('styles')
     @endauth
 </head>
@@ -72,7 +72,7 @@
                     <x-footer></x-footer>
                 </div>
                 <x-modal-logout></x-modal-logout>
-                @if (request()->route()->uri == 'profile')
+                @if (request()->route()->uri == 'akun')
                     <x-modal-account-image></x-modal-account-image>
                 @endif
             @else
@@ -84,11 +84,12 @@
     </div>
 
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
 
     @auth
-        <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}" async></script>
-        <script src="{{ asset('vendors/fontawesome/all.min.js') }}" defer></script>
-        <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}" async></script>
+        <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+        <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
+        @stack('scripts')
 
         @if (request()->route()->uri == 'management/stock')
             <script>
