@@ -81,6 +81,17 @@ Route::prefix('master')->middleware(['admin', 'auth', 'verified'])->group(functi
     });
 });
 
+Route::prefix('laporan')->middleware(['admin', 'auth', 'verified'])->group(function () {
+    Route::prefix('absensi')->group(function () {
+        Route::get('', [AbsensiController::class, 'index'])->name('absensi');
+        Route::get('/create', [AbsensiController::class, 'create'])->name('absensi.create');
+        Route::post('', [AbsensiController::class, 'store'])->name('absensi.store');
+        Route::get('/{id}/edit', [AbsensiController::class, 'edit'])->name('absensi.edit');
+        Route::put('/{id}', [AbsensiController::class, 'update'])->name('absensi.update');
+        Route::delete('/{id}', [AbsensiController::class, 'destroy'])->name('absensi.delete');
+    });
+});
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('penjualan-staff', [PenjualanController::class, 'indexPenjualanStaff'])->name('penjualan-staff');
 

@@ -105,10 +105,7 @@
                 @enderror
 
                 <div class="mt-2">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-paper-plane me-1"></i>
-                        Submit
-                    </button>
+                    <x-button-submit></x-button-submit>
                 </div>
             </x-form-container>
 

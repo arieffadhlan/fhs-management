@@ -32,40 +32,40 @@
                                             <i class="fas fa-fw fa-plus"></i>
                                             Isi Absensi
                                         </button>
-                                        @break
-                                    @endif
-
-                                    @if ($loop->last && date('d-m-Y', strtotime($userAbsensi->tanggal)) != date('d-m-Y', strtotime('today')))
-                                        @if (NOW() >= $awalHari && NOW() < $mulaiAbsen)
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#Add" disabled>
-                                                <i class="fas fa-fw fa-plus"></i>
-                                                Isi Absensi
-                                            </button>
-                                        @else
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#Add">
-                                                <i class="fas fa-fw fa-plus"></i>
-                                                Isi Absensi
-                                            </button>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            @else
-                                @if (NOW() >= $awalHari && NOW() < $mulaiAbsen)
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#Add" disabled>
-                                        <i class="fas fa-fw fa-plus"></i>
-                                        Isi Absensi
-                                    </button>
-                                @else
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#Add">
-                                        <i class="fas fa-fw fa-plus"></i>
-                                        Isi Absensi
-                                    </button>
+                                    @break
                                 @endif
+
+                                @if ($loop->last && date('d-m-Y', strtotime($userAbsensi->tanggal)) != date('d-m-Y', strtotime('today')))
+                                    @if (NOW() >= $awalHari && NOW() < $mulaiAbsen)
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#Add" disabled>
+                                            <i class="fas fa-fw fa-plus"></i>
+                                            Isi Absensi
+                                        </button>
+                                    @else
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#Add">
+                                            <i class="fas fa-fw fa-plus"></i>
+                                            Isi Absensi
+                                        </button>
+                                    @endif
+                                @endif
+                            @endforeach
+                        @else
+                            @if (NOW() >= $awalHari && NOW() < $mulaiAbsen)
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Add" disabled>
+                                    <i class="fas fa-fw fa-plus"></i>
+                                    Isi Absensi
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#Add">
+                                    <i class="fas fa-fw fa-plus"></i>
+                                    Isi Absensi
+                                </button>
                             @endif
+                        @endif
                         @endif
                     </div>
                 </x-slot>
@@ -109,11 +109,13 @@
                                                     <i class="fa fa-trash"></i>
                                                     Hapus
                                                 </button>
-                                                <x-modal-delete-absensi>
-                                                    <x-slot name="absensi_id">
-                                                        {{ $absensi->id }}
+                                                <x-modal-delete>
+                                                    <x-slot name="id">{{ $absensi->id }}</x-slot>
+                                                    <x-slot name="delete_label">Data Absensi</x-slot>
+                                                    <x-slot name="delete_action">
+                                                        {{ route('absensi.delete', $absensi->id) }}
                                                     </x-slot>
-                                                </x-modal-delete-absensi>
+                                                </x-modal-delete>
                                             </td>
                                         </tr>
                                     @endforeach

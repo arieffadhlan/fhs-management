@@ -42,7 +42,7 @@ class AbsensiController extends Controller
 
         $absensis = Absence::get();
         $userAbsensis = Absence::where('nama', Auth::user()->fullname)->get();
-        return view('absensi.index', compact('absensis', 'userAbsensis'));
+        return view('pages.laporan.absensi.index', compact('absensis', 'userAbsensis'));
     }
 
     /**
@@ -102,7 +102,7 @@ class AbsensiController extends Controller
     public function edit($id)
     {
         $absensi = Absence::find($id);
-        return view('absensi.edit', compact('absensi'));
+        return view('pages.laporan.absensi.edit', compact('absensi'));
     }
 
     /**

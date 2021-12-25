@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -13,7 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = DB::table('categories')
+            ->select('id', 'nama_kategori')
+            ->get();
+        return view('pages.data-master.kategori.index', compact('categories'));
     }
 
     /**
@@ -23,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.data-master.kategori.create');
     }
 
     /**
@@ -34,7 +39,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = ['required' => 'Harap masukkan :attribute!'];
+        $this->validate($request, [
+            'nama_kategori' => 'required'
+        ], $messages);
+
+        Category::create([
+            'nama_kategori' => $request->nama_kategori,
+        ]);
+
+        return redirect('/master/kategori')->with('success', 'Data kategori telah berhasil ditambahkan!');
     }
 
     /**
@@ -56,7 +70,12 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = DB::table('categories')
+            ->select('id', 'nama_kategori',)
+            ->where('id', '=', $id)
+            ->get();
+
+        return view('pages.data-master.kategori.edit', compact('category'));
     }
 
     /**
@@ -68,7 +87,18 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::whereId($id)->first();
+
+        $messages = ['required' => 'Harap masukkan :attribute!'];
+        $this->validate($request, [
+            'nama_kategori' => 'required'
+        ], $messages);
+
+        $category->update([
+            'nama_kategori' => $request->nama_kategori,
+        ]);
+
+        return redirect('/master/kategori')->with('success', 'Data kategori telah berhasil diperbaharui!');
     }
 
     /**
