@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ModalDeleteStock extends Component
+class ButtonSubmit extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class ModalDeleteStock extends Component
      */
     public function render()
     {
-        return view('components.modal-delete-stock');
+        return view('components.button-submit');
     }
 }

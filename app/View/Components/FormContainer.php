@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ModalDeletePenjualanBarang extends Component
+class FormContainer extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class ModalDeletePenjualanBarang extends Component
      */
     public function render()
     {
-        return view('components.modal-delete-penjualan-barang');
+        return view('components.form-container');
     }
 }

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Staff extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'nama_staff',
         'jenis_kelamin',
@@ -16,9 +18,8 @@ class Staff extends Model
         'telp_staff',
     ];
 
-    public function PenjualanStaff() {
+    public function PenjualanStaff()
+    {
         return $this->hasMany(PenjualanStaff::class);
     }
-
-    use HasFactory;
 }

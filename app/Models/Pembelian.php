@@ -7,16 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pembelian extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'customer_id',
         'nama_barang',
         'jumlah_pembelian',
         'tanggal_masuk',
-    ];    
-    
-    public function customers() {
+    ];
+
+    public function customers()
+    {
         return $this->belongsTo(Customer::class);
     }
-
-    use HasFactory;
 }

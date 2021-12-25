@@ -5,10 +5,10 @@
                 @isset(Auth::user()->image)
                     <img src="{{ asset('storage/images/' . Auth::user()->image) }}" class="rounded-circle" width="100px" height="100px" alt="{{ Auth::user()->fullname }}">
                 @else
-                    <img src="{{ asset("images/user.png") }}" alt="Avatar" class="rounded-circle" width="100px" height="100px">
+                    <img src="{{ asset("images/user.png") }}" class="rounded-circle" width="100px" height="100px" alt="{{ Auth::user()->fullname }}">
                 @endisset
                 <div class="user-account container d-flex justify-content-center align-items-center mt-4">
-                    <h5 class="m-0 text-center">{{ Auth::user()->fullname }}</h4>
+                    <h5 class="m-0 text-center">{{ Auth::user()->fullname }}</h5>
                 </div>
             </div>
             <div class="toggler pt-3 pe-3">
@@ -21,7 +21,7 @@
             <ul class="menu mt-0">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item {{ request()->route()->uri === 'dashboard' ? 'active' : '' }}">
+                <li class="sidebar-item {{ set_active('dashboard') }}">
                     <a href="{{ route('dashboard') }}" class='sidebar-link'>
                         <i class="fas fa-home me-1"></i>
                         <span>Dashboard</span>
@@ -29,25 +29,45 @@
                 </li>
 
                 @if (Auth::user()->role == "admin")
-                    <li class="sidebar-item has-sub">
+                    <li class="sidebar-item has-sub {{ set_active(['master/barang', 'master/kategori', 'master/supplier', 'master/customer', 'master/pengguna']) }}">
                         <a href="#" class='sidebar-link'>
                             <i class="fas fa-layer-group" style="margin-right: 6px"></i>
                             <span>Data Master</span>
                         </a>
-                        <ul class="submenu">
-                            <li class="submenu-item">
-                                <a href="#">Barang</a>
+                        <ul class="submenu {{ set_active(['master/barang', 'master/kategori', 'master/supplier', 'master/customer', 'master/pengguna']) }}">
+                            <li class="submenu-item {{ set_active('master/barang') }}">
+                                <a href="{{ route('barang') }}">Barang</a>
                             </li>
-                            <li class="submenu-item">
-                                <a href="#">Transaksi</a>
+                            <li class="submenu-item {{ set_active('master/kategori') }}">
+                                <a href="{{ route('kategori') }}">Kategori</a>
                             </li>
-                            <li class="submenu-item">
+                            <li class="submenu-item {{ set_active('master/supplier') }}">
+                                <a href="{{ route('supplier') }}">Supplier</a>
+                            </li>
+                            <li class="submenu-item {{ set_active('master/customer') }}">
+                                <a href="{{ route('customer') }}">Customer</a>
+                            </li>
+                            <li class="submenu-item {{ set_active('master/pengguna') }}">
                                 <a href="{{ route('pengguna') }}">Pengguna</a>
                             </li>
                         </ul>
                     </li>
+                    <li class="sidebar-item has-sub {{ set_active(['laporan/transaksi', 'laporan/absensi']) }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-layer-group" style="margin-right: 6px"></i>
+                            <span>Laporan</span>
+                        </a>
+                        <ul class="submenu {{ set_active('laporan/transaksi') }}">
+                            <li class="submenu-item {{ set_active('laporan/transaksi') }}">
+                                <a href="#">Transaksi</a>
+                            </li>
+                            <li class="submenu-item {{ set_active('laporan/absensi') }}">
+                                <a href="{{ route('absensi') }}">Absensi</a>
+                            </li>
+                        </ul>
+                    </li>
                 @else
-                    <li class="sidebar-item {{ request()->route()->uri === 'penjualan-staff' ? 'active' : '' }}">
+                    <li class="sidebar-item {{ set_active('penjualan-staff') }}">
                         <a href="{{ route('penjualan-staff') }}" class='sidebar-link'>
                             <i class="fas fa-layer-group" style="margin-right: 6px"></i>
                             <span>Penjualan Staff</span>
@@ -55,16 +75,10 @@
                     </li>
                 @endif
 
-                <li class="sidebar-item {{ request()->route()->uri === 'profile' ? 'active' : '' }}">
+                <li class="sidebar-item {{ set_active('profile') }}">
                     <a href="{{ route('akun') }}" class='sidebar-link'>
                     <i class="fas fa-user me-2"></i>
                         <span>Akun</span>
-                    </a>
-                </li>
-                <li class="sidebar-item {{ request()->route()->uri === 'absensi' ? 'active' : '' }}">
-                    <a href="{{ route('absensi') }}" class='sidebar-link'>
-                        <i class="fas fa-address-book me-2"></i>
-                        <span>Absensi</span>
                     </a>
                 </li>
             </ul>

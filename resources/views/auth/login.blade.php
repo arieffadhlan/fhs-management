@@ -34,7 +34,7 @@
             @endif
             <div class="row justify-content-center">
                 <div class="col-md-5">
-                    <div class="card shadow">
+                    <div class="card shadow-sm">
                         <div class="card-header fs-5 fw-bold">Form Login</div>
                         <div class="card-body p-4">
                             <form method="POST" action="{{ route('login') }}" class="d-flex flex-column">

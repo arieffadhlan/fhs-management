@@ -2,7 +2,7 @@
     <h2>Tambah Data Pengguna</h2>
     <x-form-card>
         <x-slot name="title">
-            Data Pengguna
+            Form Data Pengguna
         </x-slot>
 
         <form method="POST" action="{{ route('pengguna.store') }}">

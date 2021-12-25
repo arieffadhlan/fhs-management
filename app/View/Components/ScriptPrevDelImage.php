@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class ModalDeleteAbsensi extends Component
+class ScriptPrevDelImage extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class ModalDeleteAbsensi extends Component
      */
     public function render()
     {
-        return view('components.modal-delete-absensi');
+        return view('components.script-prev-del-image');
     }
 }

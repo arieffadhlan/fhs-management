@@ -11,10 +11,8 @@
     <title>{{ $title }}</title>
 
     <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}" async></script>
+    @stack('headScripts')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts" async></script>
-
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,9 +21,9 @@
         rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendors/fontawesome/all.min.css') }}">
-    
+
     @auth
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -48,13 +46,21 @@
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav ms-auto d-flex justify-content-end align-items-end">
                             @if (Request::is('login'))
-                                <a class="nav-link fw-bold" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Registrasi') }}</a>
+                                <a class="nav-link fw-bold" href="{{ route('login') }}">
+                                    Login
+                                </a>
+                                <a class="nav-link" href="{{ route('register') }}">
+                                    Registrasi
+                                </a>
                             @endif
 
                             @if (Request::is('register'))
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                <a class="nav-link fw-bold" href="{{ route('register') }}">{{ __('Registrasi') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">
+                                    Login
+                                </a>
+                                <a class="nav-link fw-bold" href="{{ route('register') }}">
+                                    Registrasi
+                                </a>
                             @endif
                         </div>
                     </div>
@@ -91,12 +97,7 @@
         <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
         @stack('scripts')
 
-        @if (request()->route()->uri == 'management/stock')
-            <script>
-                let tableStok = document.querySelector('#tableStok');
-                let dataTableStok = new simpleDatatables.DataTable(tableStok);
-            </script>
-        @elseif (request()->route()->uri == 'management/penjualan')
+        {{-- @if (request()->route()->uri == 'management/penjualan')
             <script>
                 let tablePenjualanBarang = document.querySelector('#tablePenjualanBarang');
                 let tablePembelianCustomer = document.querySelector('#tablePembelianCustomer');
@@ -125,7 +126,7 @@
                 let tablePenjualanStaff = document.querySelector('#tablePenjualanStaff');
                 let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
             </script>
-        @endif
+        @endif --}}
 
         <script src="{{ asset('js/main.js') }}"></script>
     @endauth
