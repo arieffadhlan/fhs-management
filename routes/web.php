@@ -16,6 +16,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\TransactionController;
 
 Auth::routes();
 Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
@@ -29,9 +30,22 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', DashboardController::class)->name('dashboard')->withoutMiddleware('admin');
-    Route::get('akun', [UserController::class, 'index'])->name('akun')->withoutMiddleware('admin');
-    Route::put('akun/edit', [UserController::class, 'update'])->name('akun.update')->withoutMiddleware('admin');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
+    Route::get('penjualan-staff', [PenjualanController::class, 'indexPenjualanStaff'])->name('penjualan-staff');
+
+    // Absensi User
+    // Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
+    // Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
+
+    // Akun
+    Route::get('akun', [UserController::class, 'index'])->name('akun');
+    Route::put('akun/edit', [UserController::class, 'update'])->name('akun.update');
+
+    // Transaksi
+    Route::prefix('transaksi')->middleware('admin')->group(function () {
+        Route::get('/create', [TransactionController::class, 'create'])->name('transaksi.create');
+        Route::post('', [TransactionController::class, 'store'])->name('transaksi.store');
+    });
 });
 
 Route::prefix('master')->middleware(['admin', 'auth', 'verified'])->group(function () {
@@ -82,6 +96,13 @@ Route::prefix('master')->middleware(['admin', 'auth', 'verified'])->group(functi
 });
 
 Route::prefix('laporan')->middleware(['admin', 'auth', 'verified'])->group(function () {
+    Route::prefix('transaksi-barang')->group(function () {
+        Route::get('', [TransactionController::class, 'index'])->name('transaksi-barang');
+        Route::get('/{id}/edit', [TransactionController::class, 'edit'])->name('transaksi-barang.edit');
+        Route::put('/{id}', [TransactionController::class, 'update'])->name('transaksi-barang.update');
+        Route::delete('/{id}', [TransactionController::class, 'destroy'])->name('transaksi-barang.delete');
+    });
+
     Route::prefix('absensi')->group(function () {
         Route::get('', [AbsensiController::class, 'index'])->name('absensi');
         Route::get('/create', [AbsensiController::class, 'create'])->name('absensi.create');
@@ -90,13 +111,6 @@ Route::prefix('laporan')->middleware(['admin', 'auth', 'verified'])->group(funct
         Route::put('/{id}', [AbsensiController::class, 'update'])->name('absensi.update');
         Route::delete('/{id}', [AbsensiController::class, 'destroy'])->name('absensi.delete');
     });
-});
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('penjualan-staff', [PenjualanController::class, 'indexPenjualanStaff'])->name('penjualan-staff');
-
-    Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
-    Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
 });
 
 // Route::middleware(['admin', 'auth', 'verified'])->group(function () {

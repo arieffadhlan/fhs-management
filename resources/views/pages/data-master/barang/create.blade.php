@@ -64,17 +64,6 @@
                 <br>
 
                 <x-label>
-                    <x-slot name="label_for">stok_barang</x-slot>
-                    Stok Barang
-                </x-label>
-                <input type="number" name="stok_barang" id="stok_barang" class="form-control"
-                    value="{{ old('stok_barang') }}" min="1">
-                @error('stok_barang')
-                    <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                @enderror
-                <br>
-
-                <x-label>
                     <x-slot name="label_for">harga_barang</x-slot>
                     Harga Barang
                 </x-label>

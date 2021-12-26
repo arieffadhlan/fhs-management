@@ -43,7 +43,7 @@
                                     <td class="text-wrap">{{ $barang->nama_barang }}</td>
                                     <td>{{ $barang->kategori_barang }}</td>
                                     @if ($barang->stok_barang == 0)
-                                        <td>Stok kosong.</td>
+                                        <td>Stok kosong</td>
                                     @else
                                         <td>{{ $barang->stok_barang }} dus</td>
                                     @endif
@@ -70,13 +70,13 @@
                             @endforeach
                         </tbody>
                     </table>
-                    </d>
-                @else
-                    <div class="col-12">
-                        <div class="alert alert-primary">
-                            Data barang tidak ada.
-                        </div>
+                </div>
+            @else
+                <div class="col-12">
+                    <div class="alert alert-primary">
+                        Data barang tidak ada.
                     </div>
+                </div>
             @endif
         </x-form-card>
     </div>

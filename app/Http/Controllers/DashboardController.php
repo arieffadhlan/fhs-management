@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Absence;
-use App\Models\Staff;
-use App\Models\Stock;
-use App\Models\Customer;
-use App\Models\Pembelian;
+use App\Models\Barang;
+use App\Models\Category;
+use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\PenjualanStaff;
-use App\Models\PenjualanBarang;
 
 class DashboardController extends Controller
 {
@@ -30,13 +27,11 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        // $stocks = Stock::get();
-        // $penjualans = PenjualanBarang::get();
-        // $pembelians = Pembelian::get();
-        // $penjualanStaff = PenjualanStaff::get();
-        // $staffs = Staff::get();
-        // $customers = Customer::get();
-        // $absensis = Absence::get();
-        return view('dashboard');
+        $category = count(Category::get()->toArray());
+        $barang = count(Barang::get()->toArray());
+        $supplier = count(Supplier::get()->toArray());
+        $pengguna = count(User::get()->toArray());
+        $data = [$category, $barang, $supplier, $pengguna];
+        return view('dashboard', compact('data'));
     }
 }

@@ -58,13 +58,13 @@
                             @endforeach
                         </tbody>
                     </table>
-                    </d>
-                @else
-                    <div class="col-12">
-                        <div class="alert alert-primary">
-                            Data kategori tidak ada.
-                        </div>
+                </div>
+            @else
+                <div class="col-12">
+                    <div class="alert alert-primary">
+                        Data kategori tidak ada.
                     </div>
+                </div>
             @endif
         </x-form-card>
     </div>

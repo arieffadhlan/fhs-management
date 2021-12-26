@@ -66,7 +66,6 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'deskripsi_barang' => 'required',
             'foto_barang' => 'image|max:2048',
-            'stok_barang' => 'required|numeric|gte:1',
             'harga_barang' => 'required|numeric|gte:1',
             'kategori_barang' => 'required',
         ], $messages);
@@ -77,7 +76,7 @@ class BarangController extends Controller
             'nama_barang' => $request->nama_barang,
             'deskripsi_barang' => $request->deskripsi_barang,
             'foto_barang' => $request->foto_barang == null ? null : $request->foto_barang->getClientOriginalName(),
-            'stok_barang' => $request->stok_barang,
+            'stok_barang' => 0,
             'harga_barang' => $request->harga_barang,
             'kategori_id' => $request->kategori_barang,
             'pembuat_id' => auth()->user()->id,
@@ -154,7 +153,6 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'deskripsi_barang' => 'required',
             'foto_barang' => 'image|max:2048',
-            'stok_barang' => 'required|numeric|gte:1',
             'harga_barang' => 'required|numeric|gte:1',
             'kategori_barang' => 'required',
         ], $messages);
@@ -163,7 +161,6 @@ class BarangController extends Controller
             $barang->update([
                 'nama_barang' => $request->nama_barang,
                 'deskripsi_barang' => $request->deskripsi_barang,
-                'stok_barang' => $request->stok_barang,
                 'harga_barang' => $request->harga_barang,
                 'kategori_id' => $request->kategori_barang,
                 'pembuat_id' => auth()->user()->id,
@@ -179,7 +176,6 @@ class BarangController extends Controller
                 'nama_barang' => $request->nama_barang,
                 'deskripsi_barang' => $request->deskripsi_barang,
                 'foto_barang' => $fileName,
-                'stok_barang' => $request->stok_barang,
                 'harga_barang' => $request->harga_barang,
                 'kategori_id' => $request->kategori_barang,
                 'pembuat_id' => auth()->user()->id,

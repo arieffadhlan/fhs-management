@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
@@ -13,7 +15,10 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = DB::table('suppliers')
+            ->select('id', 'nama_pemasok', 'alamat_pemasok', 'telepon_pemasok')
+            ->get();
+        return view('pages.data-master.supplier.index', compact('suppliers'));
     }
 
     /**
@@ -23,7 +28,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.data-master.supplier.create');
     }
 
     /**
@@ -34,7 +39,21 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = ['required' => 'Harap masukkan :attribute!'];
+
+        $this->validate($request, [
+            'nama_pemasok' => 'required',
+            'alamat_pemasok' => 'required',
+            'telepon_pemasok' => 'required',
+        ], $messages);
+
+        Supplier::create([
+            'nama_pemasok' => $request->nama_pemasok,
+            'alamat_pemasok' => $request->alamat_pemasok,
+            'telepon_pemasok' => $request->telepon_pemasok,
+        ]);
+
+        return redirect('/master/supplier')->with('success', 'Data pemasok telah berhasil ditambahkan!');
     }
 
     /**
@@ -56,7 +75,11 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        //
+        $supplier = DB::table('suppliers')
+            ->select('id', 'nama_pemasok', 'alamat_pemasok', 'telepon_pemasok')
+            ->where('id', '=', $id)
+            ->get();
+        return view('pages.data-master.supplier.edit', compact('supplier'));
     }
 
     /**
@@ -68,7 +91,23 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supplier = Supplier::whereId($id)->first();
+
+        $messages = ['required' => 'Harap masukkan :attribute!'];
+
+        $this->validate($request, [
+            'nama_pemasok' => 'required',
+            'alamat_pemasok' => 'required',
+            'telepon_pemasok' => 'required',
+        ], $messages);
+
+        $supplier->update([
+            'nama_pemasok' => $request->nama_pemasok,
+            'alamat_pemasok' => $request->alamat_pemasok,
+            'telepon_pemasok' => $request->telepon_pemasok,
+        ]);
+
+        return redirect('/master/supplier')->with('success', 'Data pemasok telah berhasil diperbaharui!');
     }
 
     /**
