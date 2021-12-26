@@ -44,13 +44,13 @@ class SupplierController extends Controller
         $this->validate($request, [
             'nama_pemasok' => 'required',
             'alamat_pemasok' => 'required',
-            'telepon_pemasok' => 'required',
+            'telepon_pemasok' => 'required'
         ], $messages);
 
         Supplier::create([
             'nama_pemasok' => $request->nama_pemasok,
             'alamat_pemasok' => $request->alamat_pemasok,
-            'telepon_pemasok' => $request->telepon_pemasok,
+            'telepon_pemasok' => $request->telepon_pemasok
         ]);
 
         return redirect('/master/supplier')->with('success', 'Data pemasok telah berhasil ditambahkan!');
@@ -98,13 +98,13 @@ class SupplierController extends Controller
         $this->validate($request, [
             'nama_pemasok' => 'required',
             'alamat_pemasok' => 'required',
-            'telepon_pemasok' => 'required',
+            'telepon_pemasok' => 'required'
         ], $messages);
 
         $supplier->update([
             'nama_pemasok' => $request->nama_pemasok,
             'alamat_pemasok' => $request->alamat_pemasok,
-            'telepon_pemasok' => $request->telepon_pemasok,
+            'telepon_pemasok' => $request->telepon_pemasok
         ]);
 
         return redirect('/master/supplier')->with('success', 'Data pemasok telah berhasil diperbaharui!');

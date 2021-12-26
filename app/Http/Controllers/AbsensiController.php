@@ -76,7 +76,7 @@ class AbsensiController extends Controller
             'nama' => $request->nama,
             'tanggal' => $tanggal,
             'kehadiran'  => $request->kehadiran,
-            'keterangan' => $keterangan,
+            'keterangan' => $keterangan
         ]);
 
         return redirect('/absensi')->with('success', 'Absensi telah berhasil diisi!');

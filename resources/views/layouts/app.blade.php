@@ -127,9 +127,8 @@
                 let dataTablePenjualanStaff = new simpleDatatables.DataTable(tablePenjualanStaff);
             </script>
         @endif --}}
-
-        <script src="{{ asset('js/main.js') }}"></script>
     @endauth
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 
 </html>

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->enum('role', ['user', 'admin'])->default('user');
+            $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->rememberToken();
             $table->timestamps();
         });

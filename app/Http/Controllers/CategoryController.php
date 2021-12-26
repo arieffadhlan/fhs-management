@@ -45,7 +45,7 @@ class CategoryController extends Controller
         ], $messages);
 
         Category::create([
-            'nama_kategori' => $request->nama_kategori,
+            'nama_kategori' => $request->nama_kategori
         ]);
 
         return redirect('/master/kategori')->with('success', 'Data kategori telah berhasil ditambahkan!');
@@ -95,7 +95,7 @@ class CategoryController extends Controller
         ], $messages);
 
         $category->update([
-            'nama_kategori' => $request->nama_kategori,
+            'nama_kategori' => $request->nama_kategori
         ]);
 
         return redirect('/master/kategori')->with('success', 'Data kategori telah berhasil diperbaharui!');

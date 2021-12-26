@@ -44,7 +44,7 @@ class PenggunaController extends Controller
                 'string' => ':Attribute tidak boleh lebih dari :max karakter!',
             ],
             'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
-            'required' => 'Harap masukkan :attribute!',
+            'required' => 'Harap masukkan :attribute!'
         ];
 
         $this->validate($request, [
@@ -107,14 +107,14 @@ class PenggunaController extends Controller
                 'string' => ':Attribute tidak boleh lebih dari :max karakter!',
             ],
             'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
-            'required' => 'Harap masukkan :attribute!',
+            'required' => 'Harap masukkan :attribute!'
         ];
 
         $this->validate($request, [
             'fullname' => 'string|max:225',
             'username' => 'alpha_num|max:25|min:3',
             'email' => 'string|email:rfc,dns|max:225',
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed'
         ], $messages);
 
         if ($request->password == null) {
@@ -123,7 +123,7 @@ class PenggunaController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => $userData->password,
-                'role' => $request->role,
+                'role' => $request->role
             ]);
         } else {
             $userData->update([
@@ -131,7 +131,7 @@ class PenggunaController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => $request->role,
+                'role' => $request->role
             ]);
         }
 

@@ -76,7 +76,7 @@ class TransactionController extends Controller
             $this->validate($request, [
                 'nama_barang' => 'required',
                 'status_barang' => 'required',
-                'jumlah_transaksi' => 'required|numeric|gte:1',
+                'jumlah_transaksi' => 'required|numeric|gte:1'
             ], $messages);
         } else {
             $messages = [
@@ -93,7 +93,7 @@ class TransactionController extends Controller
                 'jumlah_transaksi' => 'required|numeric|gte:1',
                 'nama_pemasok' => 'required',
                 'alamat_pemasok' => 'required',
-                'telepon_pemasok' => 'required',
+                'telepon_pemasok' => 'required'
             ], $messages);
 
             Transaction::create([

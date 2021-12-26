@@ -67,7 +67,7 @@ class BarangController extends Controller
             'deskripsi_barang' => 'required',
             'foto_barang' => 'image|max:2048',
             'harga_barang' => 'required|numeric|gte:1',
-            'kategori_barang' => 'required',
+            'kategori_barang' => 'required'
         ], $messages);
 
         $request->file('foto_barang') ? $request->file('foto_barang')->storeAs('images', $request->foto_barang->getClientOriginalName()) : null;
@@ -114,7 +114,7 @@ class BarangController extends Controller
                 'foto_barang',
                 'stok_barang',
                 'harga_barang',
-                'categories.id as kategori_id',
+                'categories.id as kategori_id'
             )
             ->where('barangs.id', '=', $id)
             ->get();
@@ -154,7 +154,7 @@ class BarangController extends Controller
             'deskripsi_barang' => 'required',
             'foto_barang' => 'image|max:2048',
             'harga_barang' => 'required|numeric|gte:1',
-            'kategori_barang' => 'required',
+            'kategori_barang' => 'required'
         ], $messages);
 
         if ($request->foto_barang == null) {

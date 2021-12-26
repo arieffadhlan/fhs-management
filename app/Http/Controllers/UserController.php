@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('profiles.index');
+        return view('pages.akun.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class UserController extends Controller
                     'string' => ':Attribute tidak boleh lebih dari :max karakter!',
                 ],
                 'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
-                'required' => 'Harap masukkan :attribute!',
+                'required' => 'Harap masukkan :attribute!'
             ];
 
             $this->validate($request, [
@@ -95,12 +95,12 @@ class UserController extends Controller
                     unlink(storage_path('app/public/images/' . auth()->user()->image));
                     $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
                     $user->where('username', auth()->user()->username)->update([
-                        'image' => $request->image->getClientOriginalName(),
+                        'image' => $request->image->getClientOriginalName()
                     ]);
                 } else {
                     $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
                     $user->where('username', auth()->user()->username)->update([
-                        'image' => $request->image->getClientOriginalName(),
+                        'image' => $request->image->getClientOriginalName()
                     ]);
                 }
             } else if ($request->fullname != null) {
@@ -110,7 +110,7 @@ class UserController extends Controller
                 ]);
             } else {
                 $user->where('username', auth()->user()->username)->update([
-                    'password' => Hash::make($request->password),
+                    'password' => Hash::make($request->password)
                 ]);
             }
         } else {
@@ -125,7 +125,7 @@ class UserController extends Controller
                 ],
                 'min' => ['string' => ':Attribute minimal terdapat :min karakter!'],
                 'required' => 'Harap masukkan :attribute!',
-                'unique' => ':Attribute sudah ada!',
+                'unique' => ':Attribute sudah ada!'
             ];
 
             $this->validate($request, [
@@ -141,19 +141,19 @@ class UserController extends Controller
                     unlink(storage_path('app/public/images/' . auth()->user()->image));
                     $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
                     $user->where('username', auth()->user()->username)->update([
-                        'image' => $request->image->getClientOriginalName(),
+                        'image' => $request->image->getClientOriginalName()
                     ]);
                 } else {
                     $request->file('image') ? $request->file('image')->storeAs('images', $request->image->getClientOriginalName()) : auth()->user()->image ?? null;
                     $user->where('username', auth()->user()->username)->update([
-                        'image' => $request->image->getClientOriginalName(),
+                        'image' => $request->image->getClientOriginalName()
                     ]);
                 }
             } else if ($request->fullname != null && $request->username != null && $request->email != null) {
                 $user->where('username', auth()->user()->username)->update([
                     'fullname' => $request->fullname,
                     'username' => $request->username,
-                    'email' => $request->email,
+                    'email' => $request->email
                 ]);
             } else {
                 $user->where('username', auth()->user()->username)->update([
