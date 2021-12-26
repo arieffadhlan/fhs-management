@@ -26,6 +26,7 @@
                                 <th>No</th>
                                 <th>Nama</th>
                                 <th>Hak Akses</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -38,10 +39,17 @@
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $user->fullname }}</td>
                                     <td>
-                                        @if ($user->role == "admin")
+                                        @if ($user->role == 'admin')
                                             <span class="badge bg-dark">{{ ucwords($user->role) }}</span>
                                         @else
                                             <span class="badge bg-primary">Staff</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($user->status == 'Aktif')
+                                            <span class="badge bg-primary">{{ $user->status }}</span>
+                                        @else
+                                            <span class="badge bg-danger">{{ $user->status }}</span>
                                         @endif
                                     </td>
                                     <td>

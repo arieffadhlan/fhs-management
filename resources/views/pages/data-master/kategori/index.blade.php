@@ -50,7 +50,7 @@
                                             <x-slot name="id">{{ $category->id }}</x-slot>
                                             <x-slot name="delete_label">Data Kategori</x-slot>
                                             <x-slot name="delete_action">
-                                                {{ route('pengguna.delete', $category->id) }}
+                                                {{ route('kategori.delete', $category->id) }}
                                             </x-slot>
                                         </x-modal-delete>
                                     </td>
@@ -69,10 +69,12 @@
         </x-form-card>
     </div>
 
-    @push('scripts')
-        <script>
-            let tableKategori = document.querySelector('#tableKategori');
-            let dataTableKategori = new simpleDatatables.DataTable(tableKategori);
-        </script>
-    @endpush
+    @if ($categories->isNotEmpty())
+        @push('scripts')
+            <script>
+                let tableKategori = document.querySelector('#tableKategori');
+                let dataTableKategori = new simpleDatatables.DataTable(tableKategori);
+            </script>
+        @endpush
+    @endif
 </x-app-layout>

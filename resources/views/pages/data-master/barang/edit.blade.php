@@ -31,13 +31,23 @@
                 </x-label>
                 <select name="kategori_barang" id="kategori_barang" class="form-select form-select-sm"
                     aria-label=".form-select-sm">
-                    @if ($categories->isNotEmpty())
+                    @if ($barang['0']->kategori_id == null)
+                        <option selected disabled>Pilih Kategori</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ old('nama_kategori') == $category->id ? 'selected' : '' }}>
                                 {{ $category->nama_kategori }}
                             </option>
                         @endforeach
+                    @else
+                        @if ($categories->isNotEmpty())
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ old('nama_kategori') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->nama_kategori }}
+                                </option>
+                            @endforeach
+                        @endif
                     @endif
                 </select>
                 @error('kategori_barang')

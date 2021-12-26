@@ -41,7 +41,15 @@
                                         <x-modal-zoom-image></x-modal-zoom-image>
                                     </td>
                                     <td class="text-wrap">{{ $barang->nama_barang }}</td>
-                                    <td>{{ $barang->kategori_barang }}</td>
+                                    @foreach ($categories as $category)
+                                        @if ($category->id == $barang->kategori_id)
+                                            <td>{{ $category->nama_kategori }}</td>
+                                            @break
+                                        @else
+                                            <td></td>
+                                            @break
+                                        @endif
+                                    @endforeach
                                     @if ($barang->stok_barang == 0)
                                         <td>Stok kosong</td>
                                     @else
@@ -81,10 +89,12 @@
         </x-form-card>
     </div>
 
-    @push('scripts')
-        <script>
-            let tableBarang = document.querySelector('#tableBarang');
-            let dataTableBarang = new simpleDatatables.DataTable(tableBarang);
-        </script>
-    @endpush
+    @if ($barangs->isNotEmpty())
+        @push('scripts')
+            <script>
+                let tableBarang = document.querySelector('#tableBarang');
+                let dataTableBarang = new simpleDatatables.DataTable(tableBarang);
+            </script>
+        @endpush
+    @endif
 </x-app-layout>

@@ -16,17 +16,21 @@ class BarangController extends Controller
     public function index()
     {
         $barangs = DB::table('barangs')
-            ->join('categories', 'barangs.kategori_id', '=', 'categories.id')
             ->select(
                 'barangs.id',
                 'nama_barang',
                 'foto_barang',
                 'stok_barang',
                 'harga_barang',
-                'categories.nama_kategori as kategori_barang'
+                'kategori_id'
             )
             ->get();
-        return view('pages.data-master.barang.index', compact('barangs'));
+
+        $categories = DB::table('categories')
+            ->select('id', 'nama_kategori')
+            ->get();
+
+        return view('pages.data-master.barang.index', compact('barangs', 'categories'));
     }
 
     /**
@@ -106,7 +110,7 @@ class BarangController extends Controller
     public function edit($id)
     {
         $barang = DB::table('barangs')
-            ->join('categories', 'barangs.kategori_id', '=', 'categories.id')
+            // ->join('categories', 'barangs.kategori_id', '=', 'categories.id')
             ->select(
                 'barangs.id as barang_id',
                 'nama_barang',
@@ -114,7 +118,7 @@ class BarangController extends Controller
                 'foto_barang',
                 'stok_barang',
                 'harga_barang',
-                'categories.id as kategori_id'
+                'kategori_id'
             )
             ->where('barangs.id', '=', $id)
             ->get();

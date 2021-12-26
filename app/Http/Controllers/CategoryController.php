@@ -109,6 +109,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return redirect('/master/kategori')->with('success', 'Data kategori telah berhasil dihapus!');
     }
 }

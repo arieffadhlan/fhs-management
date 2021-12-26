@@ -3,20 +3,18 @@
 
     <div class="container-fluid">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            @if (Auth::user()->username == 'admin')
-                <h1 class="h3 mb-0 text-gray-800">Data Absensi</h1>
+            @if (Auth::user()->role == 'admin')
+                <h1 class="h3 mb-0 text-gray-800">Absensi</h1>
             @else
                 <h1 class="h3 mb-0 text-gray-800">Absensi</h1>
             @endif
         </div>
         <div class="row">
-            <x-date-time></x-date-time>
-
             <x-form-card>
                 <x-slot name="title">
                     <div class="d-flex justify-content-between align-items-center">
-                        @if (Auth::user()->username == 'admin')
-                            Data Absensi
+                        @if (Auth::user()->role == 'admin')
+                            Laporan Absensi
                         @else
                             Absensi
                             @php
@@ -142,7 +140,7 @@
                 @else
                     <div class="col-12">
                         <div class="alert alert-primary">
-                            Data absensi kosong.
+                            Data absensi tidak ada.
                         </div>
                     </div>
                 @endif

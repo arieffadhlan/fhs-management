@@ -52,7 +52,8 @@ class PenggunaController extends Controller
             'username' => 'required|alpha_num|max:25|min:3',
             'email' => 'required|string|email:rfc,dns|max:225',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required'
+            'role' => 'required',
+            'status' => 'required'
         ], $messages);
 
         User::create([
@@ -61,7 +62,8 @@ class PenggunaController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'image' => null,
-            'role' => $request->role
+            'role' => $request->role,
+            'status' => $request->status
         ]);
 
         return redirect('/master/pengguna')->with('success', 'Data pengguna telah berhasil ditambahkan!');
@@ -111,9 +113,9 @@ class PenggunaController extends Controller
         ];
 
         $this->validate($request, [
-            'fullname' => 'string|max:225',
-            'username' => 'alpha_num|max:25|min:3',
-            'email' => 'string|email:rfc,dns|max:225',
+            'fullname' => 'required|string|max:225',
+            'username' => 'required|alpha_num|max:25|min:3',
+            'email' => 'required|string|email:rfc,dns|max:225',
             'password' => 'nullable|string|min:8|confirmed'
         ], $messages);
 
@@ -123,7 +125,8 @@ class PenggunaController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => $userData->password,
-                'role' => $request->role
+                'role' => $request->role,
+                'status' => $request->status
             ]);
         } else {
             $userData->update([
@@ -131,11 +134,12 @@ class PenggunaController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => $request->role
+                'role' => $request->role,
+                'status' => $request->status
             ]);
         }
 
-        return redirect('/master/pengguna')->with('success', 'Data pengguna telah berhasil diubah!');
+        return redirect('/master/pengguna')->with('success', 'Data pengguna telah berhasil diperbaharui!');
     }
 
     /**
