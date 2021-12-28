@@ -79,7 +79,7 @@ class AbsensiController extends Controller
             'keterangan' => $keterangan
         ]);
 
-        return redirect('/absensi')->with('success', 'Absensi telah berhasil diisi!');
+        return redirect('/laporan/absensi')->with('success', 'Absensi telah berhasil diisi!');
     }
 
     /**

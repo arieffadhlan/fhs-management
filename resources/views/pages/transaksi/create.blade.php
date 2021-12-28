@@ -39,9 +39,11 @@
                 <select name="status_barang" id="status_barang" class="form-select form-select-sm"
                     aria-label=".form-select-sm">
                     <option selected disabled>Pilih Kategori</option>
-                    <option value="masuk" {{ old('status_barang') == 'masuk' ? 'selected' : '' }}>
-                        Barang Masuk
-                    </option>
+                    @if (Auth::user()->role == 'admin')
+                        <option value="masuk" {{ old('status_barang') == 'masuk' ? 'selected' : '' }}>
+                            Barang Masuk
+                        </option>
+                    @endif
                     <option value="keluar" {{ old('status_barang') == 'keluar' ? 'selected' : '' }}>
                         Barang Keluar
                     </option>
@@ -62,45 +64,139 @@
                 @enderror
                 <br>
 
-                <h5 class="fw-bold mt-3 mb-0">Data Pemasok</h5>
-                <hr class="col-2 mt-2 mb-3">
-                <x-label>
-                    <x-slot name="label_for">nama_pemasok</x-slot>
-                    Nama Pemasok
-                </x-label>
-                <input type="text" name="nama_pemasok" id="nama_pemasok" class="form-control"
-                    value="{{ old('nama_pemasok') }}">
-                @error('nama_pemasok')
-                    <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                @enderror
-                <br>
+                @if (Auth::user()->role == 'admin')
+                    <h5 class="fw-bold mt-3 mb-0">Data Pemasok</h5>
+                    <hr class="col-2 mt-2 mb-3">
+                    <x-label>
+                        <x-slot name="label_for">nama_pemasok</x-slot>
+                        Nama Pemasok
+                    </x-label>
+                    <input type="text" name="nama_pemasok" id="nama_pemasok" class="form-control"
+                        value="{{ old('nama_pemasok') }}">
+                    @error('nama_pemasok')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-                <x-label>
-                    <x-slot name="label_for">alamat_pemasok</x-slot>
-                    Alamat Pemasok
-                </x-label>
-                <input type="text" name="alamat_pemasok" id="alamat_pemasok" class="form-control"
-                    value="{{ old('alamat_pemasok') }}">
-                @error('alamat_pemasok')
-                    <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                @enderror
-                <br>
+                    <x-label>
+                        <x-slot name="label_for">alamat_pemasok</x-slot>
+                        Alamat Pemasok
+                    </x-label>
+                    <input type="text" name="alamat_pemasok" id="alamat_pemasok" class="form-control"
+                        value="{{ old('alamat_pemasok') }}">
+                    @error('alamat_pemasok')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
 
-                <x-label>
-                    <x-slot name="label_for">telepon_pemasok</x-slot>
-                    Nomor Telepon
-                </x-label>
-                <input type="tel" name="telepon_pemasok" id="telepon_pemasok" class="form-control"
-                    value="{{ old('telepon_pemasok') }}">
-                @error('telepon_pemasok')
-                    <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                @enderror
-                <br>
+                    <x-label>
+                        <x-slot name="label_for">telepon_pemasok</x-slot>
+                        Nomor Telepon
+                    </x-label>
+                    <input type="tel" name="telepon_pemasok" id="telepon_pemasok" class="form-control"
+                        value="{{ old('telepon_pemasok') }}">
+                    @error('telepon_pemasok')
+                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                    @enderror
+                    <br>
+                @else
+                    <h5 class="fw-bold mt-3 mb-0">Data Customer</h5>
+                    <hr class="col-2 mt-2 mb-3">
+
+                    <label class="fw-bold mb-1">Apakah data customer sudah ada?</label>
+                    <br>
+                    <input type="radio" onclick="yesnoCheck();" name="yesno" id="yesCheck">
+                    <label for="yesCheck" class="me-3">Sudah</label>
+                    <input type="radio" onclick="yesnoCheck();" name="yesno" id="noCheck" checked>
+                    <label for="noCheck">Belum</label>
+                    <br>
+
+                    <div id="ifYes" style="display: none;">
+                        <label for="nama_customer" class="form-label fw-bold mt-4">
+                            Nama Customer<sup style="color: red">*</sup>
+                        </label>
+                        <input type="text" name="nama_customer" value="{{ old('nama_customer') }}"
+                            class="form-control" id="nama_customer">
+                        @error('nama_customer')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+
+                        <label for="inputAddress" class="form-label fw-bold mt-2">
+                            Daerah<sup style="color: red">*</sup>
+                        </label>
+                        <select name="kategori_daerah" value="{{ old('kategori_daerah') }}"
+                            class="form-select form-select-sm" aria-label=".form-select-sm">
+                            <option value="" selected disabled>Pilih Kategori</option>
+                            <option value="Gunung" {{ old('kategori_daerah') == 'Gunung' ? 'selected' : '' }}>Gunung
+                            </option>
+                            <option value="Medan" {{ old('kategori_daerah') == 'Medan' ? 'selected' : '' }}>Medan
+                            </option>
+                            <option value="Lainnya" {{ old('kategori_daerah') == 'Lainnya' ? 'selected' : '' }}>
+                                Lainnya
+                            </option>
+                        </select>
+                        @error('kategori_daerah')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+
+                        <label for="alamat_customer" class="form-label fw-bold mt-2">
+                            Alamat Customer<sup style="color: red">*</sup>
+                        </label>
+                        <input type="text" name="alamat_customer" value="{{ old('alamat_customer') }}"
+                            class="form-control" id="alamat_customer">
+                        @error('alamat_customer')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+
+                        <label for="typePhone" class="form-label fw-bold mt-2">
+                            No HP Costumer<sup style="color: red">*</sup>
+                        </label>
+                        <input type="tel" name="telp_customer" value="{{ old('telp_customer') }}" id="typePhone"
+                            class="form-control" />
+                        @error('telp_customer')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+                    </div>
+
+                    <div id="ifNo" style="display: block;">
+                        <label class="form-label fw-bold mt-4">
+                            Nama Customer<sup style="color: red">*</sup>
+                        </label>
+                        <select name="nama_customer" class="form-select form-select-sm" aria-label=".form-select-sm">
+                            <option value="" selected disabled>Pilih customer</option>
+                            @foreach ($customers as $customer)
+                                <option value="{{ $customer->nama_customer }}">
+                                    {{ $customer->nama_customer }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('nama_customer')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+                    </div>
+                @endif
 
                 <div class="mt-2">
                     <x-button-submit></x-button-submit>
                 </div>
             </x-form-container>
+
+            <script type="text/javascript">
+                function yesnoCheck() {
+                    if (document.getElementById('yesCheck').checked) {
+                        document.getElementById('ifYes').style.display = 'block';
+                        document.getElementById('ifNo').style.display = 'none';
+                    } else {
+                        document.getElementById('ifYes').style.display = 'none';
+                        document.getElementById('ifNo').style.display = 'block';
+                    }
+                }
+            </script>
         </form>
     </x-form-card>
 </x-app-layout>

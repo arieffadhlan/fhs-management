@@ -12,10 +12,12 @@
             <x-slot name="title">
                 <div class="d-flex justify-content-between align-items-center">
                     Data Kategori
-                    <a class="btn btn-primary" href="{{ route('kategori.create') }}" role="button">
-                        <i class="fas fa-fw fa-plus"></i>
-                        Tambah Data
-                    </a>
+                    @if (Auth::user()->role == 'admin')
+                        <a class="btn btn-primary" href="{{ route('kategori.create') }}" role="button">
+                            <i class="fas fa-fw fa-plus"></i>
+                            Tambah Data
+                        </a>
+                    @endif
                 </div>
             </x-slot>
             @if ($categories->isNotEmpty())
@@ -25,7 +27,9 @@
                             <tr class="table-secondary">
                                 <th>No</th>
                                 <th>Nama Kategori</th>
-                                <th>Aksi</th>
+                                @if (Auth::user()->role == 'admin')
+                                    <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -36,24 +40,26 @@
                                 <tr class="text-center">
                                     <td>{{ $no++ }}</td>
                                     <td class="text-wrap">{{ $category->nama_kategori }}</td>
-                                    <td>
-                                        <a class="badge bg-success border-0 text-white fw-normal"
-                                            href="{{ route('kategori.edit', $category->id) }}" role="button">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <button type="button" class="badge bg-danger border-0 fw-normal"
-                                            style="font-size: 14px;" data-bs-toggle="modal"
-                                            data-bs-target="#modalDelete{{ $category->id }}">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <x-modal-delete>
-                                            <x-slot name="id">{{ $category->id }}</x-slot>
-                                            <x-slot name="delete_label">Data Kategori</x-slot>
-                                            <x-slot name="delete_action">
-                                                {{ route('kategori.delete', $category->id) }}
-                                            </x-slot>
-                                        </x-modal-delete>
-                                    </td>
+                                    @if (Auth::user()->role == 'admin')
+                                        <td>
+                                            <a class="badge bg-success border-0 text-white fw-normal"
+                                                href="{{ route('kategori.edit', $category->id) }}" role="button">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="badge bg-danger border-0 fw-normal"
+                                                style="font-size: 14px;" data-bs-toggle="modal"
+                                                data-bs-target="#modalDelete{{ $category->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <x-modal-delete>
+                                                <x-slot name="id">{{ $category->id }}</x-slot>
+                                                <x-slot name="delete_label">Data Kategori</x-slot>
+                                                <x-slot name="delete_action">
+                                                    {{ route('kategori.delete', $category->id) }}
+                                                </x-slot>
+                                            </x-modal-delete>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

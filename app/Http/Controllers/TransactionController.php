@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Supplier;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -29,7 +31,24 @@ class TransactionController extends Controller
             )
             ->get();
 
-        return view('pages.laporan.transaksi-barang.index', compact('transactions'));
+        if (Auth::user()->role == 'admin') {
+            return view('pages.laporan.transaksi-barang.index', compact('transactions'));
+        } else {
+            $transactions = DB::table('transactions')
+                ->join('users', 'transactions.petugas_id', '=', 'users.id')
+                ->select(
+                    'transactions.id',
+                    'nama_barang',
+                    'kategori_barang',
+                    'jumlah_transaksi',
+                    'status_barang',
+                    'transactions.created_at as tanggal_keluar'
+                )
+                ->where('transactions.petugas_id', '=', Auth::user()->id)
+                ->get();
+
+            return view('pages.staff.index', compact('transactions'));
+        }
     }
 
     /**
@@ -43,7 +62,11 @@ class TransactionController extends Controller
             ->select('id', 'nama_barang', 'stok_barang')
             ->get();
 
-        return view('pages.transaksi.create', compact('barangs'));
+        $customers = DB::table('customers')
+            ->select('nama_customer')
+            ->get();
+
+        return view('pages.transaksi.create', compact('barangs', 'customers'));
     }
 
     /**
@@ -61,6 +84,7 @@ class TransactionController extends Controller
         $getKategoriBarang = Category::where('id', $setKategoriBarang)->first()->nama_kategori;
 
         if ($request->status_barang == 'keluar') {
+            dd($request->all());
             if ($stokBarang == 0 || $request->jumlah_transaksi > $stokBarang) {
                 return back()->with('error', 'Jumlah stok tidak mencukupi!');
             }
@@ -76,8 +100,33 @@ class TransactionController extends Controller
             $this->validate($request, [
                 'nama_barang' => 'required',
                 'status_barang' => 'required',
-                'jumlah_transaksi' => 'required|numeric|gte:1'
+                'jumlah_transaksi' => 'required|numeric|gte:1',
+                'nama_customer' => 'required',
             ], $messages);
+
+            Transaction::create([
+                'nama_barang' => $namaBarang,
+                'kategori_barang' => $getKategoriBarang,
+                'jumlah_transaksi' => $request->jumlah_transaksi,
+                'status_barang' => $request->status_barang,
+                'nama_supplier' => $request->nama_customer,
+                'petugas_id' => auth()->user()->id
+            ]);
+
+            if ($request->alamat_customer != null && $request->telp_customer != null) {
+                Customer::create([
+                    'nama_customer' => $request->nama_customer,
+                    'kategori_daerah' => $request->kategori_daerah,
+                    'alamat_customer' => $request->alamat_customer,
+                    'telp_customer' => $request->telp_customer,
+                ]);
+            }
+
+            Barang::where('id', $request->nama_barang)->update([
+                'stok_barang' => $stokBarang - $request->jumlah_transaksi
+            ]);
+
+            return redirect('laporan/transaksi-barang')->with('success', 'Data transaksi barang keluar telah berhasil ditambahkan!');
         } else {
             $messages = [
                 'required' => 'Harap masukkan :attribute!',

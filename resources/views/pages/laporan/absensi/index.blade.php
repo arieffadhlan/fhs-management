@@ -19,7 +19,7 @@
                             Absensi
                             @php
                                 $awalHari = Carbon\Carbon::NOW()->startOfDay();
-                                $mulaiAbsen = Carbon\Carbon::createFromTime(7, 0, 0);
+                                $mulaiAbsen = Carbon\Carbon::createFromTime(0, 0, 0);
                             @endphp
 
                             @if ($absensis->isNotEmpty())

@@ -33,38 +33,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     Route::get('penjualan-staff', [PenjualanController::class, 'indexPenjualanStaff'])->name('penjualan-staff');
 
-    // Absensi User
-    // Route::get('absensi', [AbsensiController::class, 'index'])->name('absensi');
-    // Route::post('absensi/store', [AbsensiController::class, 'store'])->name('absensi.store');
-
     // Akun
     Route::get('akun', [UserController::class, 'index'])->name('akun');
     Route::put('akun/edit', [UserController::class, 'update'])->name('akun.update');
 
     // Transaksi
-    Route::prefix('transaksi')->middleware('admin')->group(function () {
+    Route::prefix('transaksi')->group(function () {
+        Route::get('', [TransactionController::class, 'index'])->name('transaksi');
         Route::get('/create', [TransactionController::class, 'create'])->name('transaksi.create');
         Route::post('', [TransactionController::class, 'store'])->name('transaksi.store');
     });
 });
 
 Route::prefix('master')->middleware(['admin', 'auth', 'verified'])->group(function () {
-    Route::prefix('barang')->group(function () {
-        Route::get('', [BarangController::class, 'index'])->name('barang');
-        Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
-        Route::post('', [BarangController::class, 'store'])->name('barang.store');
-        Route::get('/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
-        Route::put('/{id}', [BarangController::class, 'update'])->name('barang.update');
-        Route::delete('/{id}', [BarangController::class, 'destroy'])->name('barang.delete');
-    });
-
     Route::prefix('kategori')->group(function () {
-        Route::get('', [CategoryController::class, 'index'])->name('kategori');
+        Route::get('', [CategoryController::class, 'index'])->name('kategori')->withoutMiddleware('admin');
         Route::get('/create', [CategoryController::class, 'create'])->name('kategori.create');
         Route::post('', [CategoryController::class, 'store'])->name('kategori.store');
         Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('kategori.edit');
         Route::put('/{id}', [CategoryController::class, 'update'])->name('kategori.update');
         Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('kategori.delete');
+    });
+
+    Route::prefix('barang')->group(function () {
+        Route::get('', [BarangController::class, 'index'])->name('barang')->withoutMiddleware('admin');
+        Route::get('/create', [BarangController::class, 'create'])->name('barang.create');
+        Route::post('', [BarangController::class, 'store'])->name('barang.store');
+        Route::get('/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+        Route::put('/{id}', [BarangController::class, 'update'])->name('barang.update');
+        Route::delete('/{id}', [BarangController::class, 'destroy'])->name('barang.delete');
     });
 
     Route::prefix('supplier')->group(function () {
@@ -104,9 +101,9 @@ Route::prefix('laporan')->middleware(['admin', 'auth', 'verified'])->group(funct
     });
 
     Route::prefix('absensi')->group(function () {
-        Route::get('', [AbsensiController::class, 'index'])->name('absensi');
+        Route::get('', [AbsensiController::class, 'index'])->name('absensi')->withoutMiddleware('admin');
         Route::get('/create', [AbsensiController::class, 'create'])->name('absensi.create');
-        Route::post('', [AbsensiController::class, 'store'])->name('absensi.store');
+        Route::post('', [AbsensiController::class, 'store'])->name('absensi.store')->withoutMiddleware('admin');
         Route::get('/{id}/edit', [AbsensiController::class, 'edit'])->name('absensi.edit');
         Route::put('/{id}', [AbsensiController::class, 'update'])->name('absensi.update');
         Route::delete('/{id}', [AbsensiController::class, 'destroy'])->name('absensi.delete');

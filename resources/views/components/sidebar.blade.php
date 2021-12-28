@@ -73,18 +73,42 @@
                         </ul>
                     </li>
                 @else
-                    <li class="sidebar-item {{ set_active('penjualan-staff') }}">
-                        <a href="{{ route('penjualan-staff') }}" class='sidebar-link'>
+                    <li class="sidebar-item has-sub {{ set_active(['master/barang', 'master/kategori']) }}">
+                        <a href="#" class='sidebar-link'>
                             <i class="fas fa-layer-group" style="margin-right: 6px"></i>
-                            <span>Penjualan Staff</span>
+                            <span>Data</span>
                         </a>
+                        <ul class="submenu {{ set_active(['master/barang', 'master/kategori']) }}">
+                            <li class="submenu-item {{ set_active('master/kategori') }}">
+                                <a href="{{ route('kategori') }}">Kategori</a>
+                            </li>
+                            <li class="submenu-item {{ set_active('master/barang') }}">
+                                <a href="{{ route('barang') }}">Barang</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item has-sub {{ set_active(['transaksi']) }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="fas fa-file-alt" style="margin-right: 11px"></i>
+                            <span>Laporan</span>
+                        </a>
+                        <ul class="submenu {{ set_active('transaksi') }}">
+                            <li class="submenu-item {{ set_active('transaksi') }}">
+                                <a href="{{ route('transaksi') }}">Transaksi Barang</a>
+                            </li>
+                        </ul>
                     </li>
                 @endif
-
                 <li class="sidebar-item {{ set_active('transaksi/create') }}">
                     <a href="{{ route('transaksi.create') }}" class='sidebar-link'>
                         <i class="fas fa-exchange-alt me-2"></i>
                         <span>Transaksi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ set_active('absensi') }}">
+                    <a href="{{ route('absensi') }}" class="sidebar-link">
+                        <i class="fas fa-pen me-4"></i>
+                        Absensi
                     </a>
                 </li>
                 <li class="sidebar-item {{ set_active('akun') }}">

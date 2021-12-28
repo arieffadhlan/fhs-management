@@ -12,10 +12,12 @@
             <x-slot name="title">
                 <div class="d-flex justify-content-between align-items-center">
                     Data Barang
-                    <a class="btn btn-primary" href="{{ route('barang.create') }}" role="button">
-                        <i class="fas fa-fw fa-plus"></i>
-                        Tambah Data
-                    </a>
+                    @if (Auth::user()->role == 'admin')
+                        <a class="btn btn-primary" href="{{ route('barang.create') }}" role="button">
+                            <i class="fas fa-fw fa-plus"></i>
+                            Tambah Data
+                        </a>
+                    @endif
                 </div>
             </x-slot>
             @if ($barangs->isNotEmpty())
@@ -28,7 +30,9 @@
                                 <th>Kategori</th>
                                 <th>Stok</th>
                                 <th>Harga</th>
-                                <th>Aksi</th>
+                                @if (Auth::user()->role == 'admin')
+                                    <th>Aksi</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -56,24 +60,26 @@
                                         <td>{{ $barang->stok_barang }} dus</td>
                                     @endif
                                     <td>Rp {{ number_format($barang->harga_barang, 0, ',', '.') }}</td>
-                                    <td>
-                                        <a class="badge bg-success border-0 text-white fw-normal"
-                                            href="{{ route('barang.edit', $barang->id) }}" role="button">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <button type="button" class="badge bg-danger border-0 fw-normal"
-                                            style="font-size: 14px;" data-bs-toggle="modal"
-                                            data-bs-target="#modalDelete{{ $barang->id }}">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                        <x-modal-delete>
-                                            <x-slot name="id">{{ $barang->id }}</x-slot>
-                                            <x-slot name="delete_label">Data Barang</x-slot>
-                                            <x-slot name="delete_action">
-                                                {{ route('pengguna.delete', $barang->id) }}
-                                            </x-slot>
-                                        </x-modal-delete>
-                                    </td>
+                                    @if (Auth::user()->role == 'admin')
+                                        <td>
+                                            <a class="badge bg-success border-0 text-white fw-normal"
+                                                href="{{ route('barang.edit', $barang->id) }}" role="button">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="badge bg-danger border-0 fw-normal"
+                                                style="font-size: 14px;" data-bs-toggle="modal"
+                                                data-bs-target="#modalDelete{{ $barang->id }}">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                            <x-modal-delete>
+                                                <x-slot name="id">{{ $barang->id }}</x-slot>
+                                                <x-slot name="delete_label">Data Barang</x-slot>
+                                                <x-slot name="delete_action">
+                                                    {{ route('pengguna.delete', $barang->id) }}
+                                                </x-slot>
+                                            </x-modal-delete>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>
