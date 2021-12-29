@@ -75,7 +75,7 @@
                                                 <x-slot name="id">{{ $barang->id }}</x-slot>
                                                 <x-slot name="delete_label">Data Barang</x-slot>
                                                 <x-slot name="delete_action">
-                                                    {{ route('pengguna.delete', $barang->id) }}
+                                                    {{ route('barang.delete', $barang->id) }}
                                                 </x-slot>
                                             </x-modal-delete>
                                         </td>

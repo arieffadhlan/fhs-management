@@ -5,7 +5,7 @@
             Form
         </x-slot>
         
-        <form method="POST" action="{{ route('dataCustomer.update', $customers->id) }}" enctype="multipart/form-data" class="row g-3">
+        <form method="POST" action="{{ route('customer.update', $customers->id) }}" class="row g-3">
             @method('put')
             @csrf
             <div class="col-md-9">

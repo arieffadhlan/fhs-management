@@ -74,7 +74,7 @@ Route::prefix('master')->middleware(['admin', 'auth', 'verified'])->group(functi
     });
 
     Route::prefix('customer')->group(function () {
-        Route::get('', [CustomerController::class, 'index'])->name('customer');
+        Route::get('', [CustomerController::class, 'index'])->name('customer')->withoutMiddleware('admin');
         Route::get('/create', [CustomerController::class, 'create'])->name('customer.create');
         Route::post('', [CustomerController::class, 'store'])->name('customer.store');
         Route::get('/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');

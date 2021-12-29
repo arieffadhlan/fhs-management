@@ -16,9 +16,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::get();
         $customers = Customer::get();
-        return view('customer.index', compact('customers', 'stocks'));
+        return view('pages.data-master.customer.index', compact('customers'));
     }
 
     /**
@@ -28,7 +27,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        return view('pages.data-master.customer.create');
     }
 
     /**
@@ -57,7 +56,7 @@ class CustomerController extends Controller
             'telp_customer' => $request->telp_customer,
         ]);
 
-        return redirect('/management/customer')->with('success', 'Data Customer telah berhasil ditambahkan!');
+        return redirect('master/customer')->with('success', 'Data customer telah berhasil ditambahkan!');
     }
 
     /**
@@ -80,7 +79,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customers = Customer::whereId($id)->first();
-        return view('customer.edit', compact('customers'));
+        return view('pages.data-master.customer.edit', compact('customers'));
     }
 
     /**
@@ -111,7 +110,7 @@ class CustomerController extends Controller
             'telp_customer' => $request->telp_customer,
         ]);
 
-        return redirect('/management/customer')->with('success', 'Data Customer telah berhasil diubah!');
+        return redirect('master/customer')->with('success', 'Data customer telah berhasil diperbaharui!');
     }
 
     /**
@@ -122,9 +121,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $pembelian = Pembelian::find($id);
-        $pembelian->delete();
+        $customer = Customer::find($id);
+        $customer->delete();
 
-        return redirect('/management/customer')->with('success', 'Data Customer telah berhasil dihapus!');
+        return redirect('/master/customer')->with('success', 'Data customer telah berhasil dihapus!');
     }
 }

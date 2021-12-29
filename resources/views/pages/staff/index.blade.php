@@ -1,17 +1,17 @@
-<x-app-layout title="Transaksi Barang">
+<x-app-layout title="Laporan Transaksi Barang">
     @push('styles')
         <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
     @endpush
     <x-alert-success></x-alert-success>
 
     <div class="d-flex justify-content-between align-items-center">
-        <h2>Transaksi Barang</h2>
+        <h2>Laporan Transaksi Barang</h2>
     </div>
     <div class="col-12">
         <x-form-card>
             <x-slot name="title">
                 <div class="d-flex justify-content-between align-items-center">
-                    Data Transaksi Barang
+                    Data Laporan Transaksi Barang
                 </div>
             </x-slot>
 
@@ -21,29 +21,51 @@
                         <thead class="text-center">
                             <tr class="table-secondary">
                                 <th>Tanggal</th>
-                                <th>Nama Barang</th>
-                                <th>Kategori</th>
+                                <th>Customer</th>
+                                <th>Barang</th>
                                 <th>Jumlah</th>
                                 <th>Jenis</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transactions as $transaction)
+                            @foreach ($customers as $customer)
                                 <tr class="text-center">
-                                    <td>{{ date('d M Y H:i', strtotime($transaction->tanggal_keluar)) }}</td>
-                                    <td class="text-wrap">{{ $transaction->nama_barang }}</td>
-                                    <td>{{ $transaction->kategori_barang }}</td>
-                                    <td>{{ $transaction->jumlah_transaksi }}</td>
                                     <td>
-                                        @if ($transaction->status_barang == 'masuk')
-                                            <span class="badge bg-primary">
-                                                {{ ucwords($transaction->status_barang) }}
-                                            </span>
-                                        @else
-                                            <span class="badge bg-danger">
-                                                {{ ucwords($transaction->status_barang) }}
-                                            </span>
-                                        @endif
+                                        @foreach ($transactions as $transaction)
+                                            @if ($transaction->nama_pelanggan == $customer->nama_customer)
+                                                <ol class="p-0">{{ $transaction->tanggal_keluar }}</ol>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>{{ $customer->nama_customer }}</td>
+                                    <td>
+                                        @foreach ($transactions as $transaction)
+                                            @if ($transaction->nama_pelanggan == $customer->nama_customer)
+                                                <ol class="p-0">{{ $transaction->nama_barang }}</ol>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($transactions as $transaction)
+                                            @if ($transaction->nama_pelanggan == $customer->nama_customer)
+                                                <ol class="p-0">{{ $transaction->jumlah_transaksi }}</ol>
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @foreach ($transactions as $transaction)
+                                            @if ($transaction->nama_pelanggan == $customer->nama_customer)
+                                                @if ($transaction->status_barang == 'masuk')
+                                                    <ol class="badge bg-primary">
+                                                        {{ $transaction->status_barang }}
+                                                    </ol>
+                                                @else
+                                                    <ol class="badge bg-danger">
+                                                        {{ $transaction->status_barang }}
+                                                    </ol>
+                                                @endif
+                                            @endif
+                                        @endforeach
                                     </td>
                                 </tr>
                             @endforeach

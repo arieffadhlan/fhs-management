@@ -6,8 +6,7 @@
             Form
         </x-slot>
 
-        <form method="POST" action="{{ route('dataCustomer.store') }}" enctype="multipart/form-data"
-            class="row g-3">
+        <form method="POST" action="{{ route('customer.store') }}" class="row g-3">
             @csrf
             <div class="col-6">
                 <label for="nama_customer" class="form-label fw-bold">

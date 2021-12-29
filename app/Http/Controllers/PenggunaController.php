@@ -60,6 +60,7 @@ class PenggunaController extends Controller
             'fullname' => $request->fullname,
             'username' => $request->username,
             'email' => $request->email,
+            'email_verified_at' => NOW(),
             'password' => Hash::make($request->password),
             'image' => null,
             'role' => $request->role,

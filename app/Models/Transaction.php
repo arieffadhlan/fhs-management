@@ -14,7 +14,7 @@ class Transaction extends Model
         'kategori_barang',
         'jumlah_transaksi',
         'status_barang',
-        'nama_supplier',
+        'nama_pelanggan',
         'petugas_id'
     ];
 

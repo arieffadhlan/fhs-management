@@ -63,7 +63,7 @@
                             <i class="fas fa-file-alt" style="margin-right: 11px"></i>
                             <span>Laporan</span>
                         </a>
-                        <ul class="submenu {{ set_active('laporan/transaksi-barang') }}">
+                        <ul class="submenu {{ set_active(['laporan/transaksi-barang', 'laporan/absensi']) }}">
                             <li class="submenu-item {{ set_active('laporan/transaksi-barang') }}">
                                 <a href="{{ route('transaksi-barang') }}">Transaksi Barang</a>
                             </li>
@@ -78,12 +78,15 @@
                             <i class="fas fa-layer-group" style="margin-right: 6px"></i>
                             <span>Data</span>
                         </a>
-                        <ul class="submenu {{ set_active(['master/barang', 'master/kategori']) }}">
+                        <ul class="submenu {{ set_active(['master/barang', 'master/kategori', 'master/customer']) }}">
                             <li class="submenu-item {{ set_active('master/kategori') }}">
                                 <a href="{{ route('kategori') }}">Kategori</a>
                             </li>
                             <li class="submenu-item {{ set_active('master/barang') }}">
                                 <a href="{{ route('barang') }}">Barang</a>
+                            </li>
+                            <li class="submenu-item {{ set_active('master/customer') }}">
+                                <a href="{{ route('customer') }}">Customer</a>
                             </li>
                         </ul>
                     </li>
@@ -105,12 +108,14 @@
                         <span>Transaksi</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ set_active('absensi') }}">
-                    <a href="{{ route('absensi') }}" class="sidebar-link">
-                        <i class="fas fa-pen me-4"></i>
-                        Absensi
-                    </a>
-                </li>
+                @if (Auth::user()->role != 'admin')
+                    <li class="sidebar-item {{ set_active('absensi') }}">
+                        <a href="{{ route('absensi') }}" class="sidebar-link">
+                            <i class="fas fa-pen me-4"></i>
+                            Absensi
+                        </a>
+                    </li>
+                @endif
                 <li class="sidebar-item {{ set_active('akun') }}">
                     <a href="{{ route('akun') }}" class='sidebar-link'>
                         <i class="fas fa-user me-2"></i>

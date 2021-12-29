@@ -19,7 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->string('kategori_barang');
             $table->unsignedBigInteger('jumlah_transaksi');
             $table->enum('status_barang', ['masuk', 'keluar']);
-            $table->string('nama_supplier');
+            $table->string('nama_pelanggan');
             $table->foreignId('petugas_id')->nullable();
             $table->foreign('petugas_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();

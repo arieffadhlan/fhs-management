@@ -67,38 +67,69 @@
                 @if (Auth::user()->role == 'admin')
                     <h5 class="fw-bold mt-3 mb-0">Data Pemasok</h5>
                     <hr class="col-2 mt-2 mb-3">
-                    <x-label>
-                        <x-slot name="label_for">nama_pemasok</x-slot>
-                        Nama Pemasok
-                    </x-label>
-                    <input type="text" name="nama_pemasok" id="nama_pemasok" class="form-control"
-                        value="{{ old('nama_pemasok') }}">
-                    @error('nama_pemasok')
-                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                    @enderror
-                    <br>
 
-                    <x-label>
-                        <x-slot name="label_for">alamat_pemasok</x-slot>
-                        Alamat Pemasok
-                    </x-label>
-                    <input type="text" name="alamat_pemasok" id="alamat_pemasok" class="form-control"
-                        value="{{ old('alamat_pemasok') }}">
-                    @error('alamat_pemasok')
-                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                    @enderror
+                    <label class="fw-bold mb-1">Apakah data customer sudah ada?</label>
                     <br>
+                    <input type="radio" onclick="yesnoCheck();" name="yesno" id="yesCheck">
+                    <label for="yesCheck" class="me-3">Sudah</label>
+                    <input type="radio" onclick="yesnoCheck();" name="yesno" id="noCheck">
+                    <label for="noCheck">Belum</label>
+                    <br>
+                    
+                    <div id="ifYes" style="display: none;">
+                        <label for="nama_pemasok" class="form-label fw-bold mt-4">
+                            Nama Pemasok<sup style="color: red">*</sup>
+                        </label>
+                        <select name="nama_pemasok" id="nama_pemasok" class="form-select form-select-sm"
+                            aria-label=".form-select-sm">
+                            <option selected disabled>Pilih pemasok</option>
+                            @foreach ($suppliers as $supplier)
+                                <option value="{{ $supplier->nama_pemasok }}"
+                                    {{ old('nama_pemasok') == $supplier->nama_pemasok ? 'selected' : '' }}>
+                                    {{ $supplier->nama_pemasok }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('nama_pemasok')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+                    </div>
+                    
+                    <div id="ifNo" style="display: none;" class="mt-4">
+                        <x-label>
+                            <x-slot name="label_for">nama_pemasok2</x-slot>
+                            Nama Pemasok
+                        </x-label>
+                        <input type="text" name="nama_pemasok2" id="nama_pemasok2" class="form-control"
+                            value="{{ old('nama_pemasok2') }}">
+                        @error('nama_pemasok2')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
 
-                    <x-label>
-                        <x-slot name="label_for">telepon_pemasok</x-slot>
-                        Nomor Telepon
-                    </x-label>
-                    <input type="tel" name="telepon_pemasok" id="telepon_pemasok" class="form-control"
-                        value="{{ old('telepon_pemasok') }}">
-                    @error('telepon_pemasok')
-                        <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                    @enderror
-                    <br>
+                        <x-label>
+                            <x-slot name="label_for">alamat_pemasok</x-slot>
+                            Alamat Pemasok
+                        </x-label>
+                        <input type="text" name="alamat_pemasok" id="alamat_pemasok" class="form-control"
+                            value="{{ old('alamat_pemasok') }}">
+                        @error('alamat_pemasok')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+
+                        <x-label>
+                            <x-slot name="label_for">telepon_pemasok</x-slot>
+                            Nomor Telepon
+                        </x-label>
+                        <input type="tel" name="telepon_pemasok" id="telepon_pemasok" class="form-control"
+                            value="{{ old('telepon_pemasok') }}">
+                        @error('telepon_pemasok')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+                    </div>
                 @else
                     <h5 class="fw-bold mt-3 mb-0">Data Customer</h5>
                     <hr class="col-2 mt-2 mb-3">
@@ -107,7 +138,7 @@
                     <br>
                     <input type="radio" onclick="yesnoCheck();" name="yesno" id="yesCheck">
                     <label for="yesCheck" class="me-3">Sudah</label>
-                    <input type="radio" onclick="yesnoCheck();" name="yesno" id="noCheck" checked>
+                    <input type="radio" onclick="yesnoCheck();" name="yesno" id="noCheck">
                     <label for="noCheck">Belum</label>
                     <br>
 
@@ -115,9 +146,29 @@
                         <label for="nama_customer" class="form-label fw-bold mt-4">
                             Nama Customer<sup style="color: red">*</sup>
                         </label>
-                        <input type="text" name="nama_customer" value="{{ old('nama_customer') }}"
-                            class="form-control" id="nama_customer">
+                        <select name="nama_customer" id="nama_customer" class="form-select form-select-sm"
+                            aria-label=".form-select-sm">
+                            <option selected disabled>Pilih customer</option>
+                            @foreach ($customers as $customer)
+                                <option value="{{ $customer->nama_customer }}"
+                                    {{ old('nama_customer') == $customer->nama_customer ? 'selected' : '' }}>
+                                    {{ $customer->nama_customer }}
+                                </option>
+                            @endforeach
+                        </select>
                         @error('nama_customer')
+                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
+                        @enderror
+                        <br>
+                    </div>
+
+                    <div id="ifNo" style="display: none;">
+                        <label for="nama_customer2" class="form-label fw-bold mt-4">
+                            Nama Customer<sup style="color: red">*</sup>
+                        </label>
+                        <input type="text" name="nama_customer2" value="{{ old('nama_customer2') }}"
+                            class="form-control" id="nama_customer2">
+                        @error('nama_customer2')
                             <div class="fw-bold text-danger mt-1">{{ $message }}</div>
                         @enderror
                         <br>
@@ -161,27 +212,9 @@
                         @enderror
                         <br>
                     </div>
-
-                    <div id="ifNo" style="display: block;">
-                        <label class="form-label fw-bold mt-4">
-                            Nama Customer<sup style="color: red">*</sup>
-                        </label>
-                        <select name="nama_customer" class="form-select form-select-sm" aria-label=".form-select-sm">
-                            <option value="" selected disabled>Pilih customer</option>
-                            @foreach ($customers as $customer)
-                                <option value="{{ $customer->nama_customer }}">
-                                    {{ $customer->nama_customer }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('nama_customer')
-                            <div class="fw-bold text-danger mt-1">{{ $message }}</div>
-                        @enderror
-                        <br>
-                    </div>
                 @endif
 
-                <div class="mt-2">
+                <div class="mt-4">
                     <x-button-submit></x-button-submit>
                 </div>
             </x-form-container>

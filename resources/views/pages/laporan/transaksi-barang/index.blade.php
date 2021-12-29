@@ -25,13 +25,12 @@
                                 <th>Kategori</th>
                                 <th>Jumlah</th>
                                 <th>Jenis</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($transactions as $transaction)
                                 <tr class="text-center">
-                                    <td>{{ date('d M Y H:i', strtotime($transaction->tanggal_masuk)) }}</td>
+                                    <td>{{ date('d M Y H:i', strtotime($transaction->tanggal_keluar_masuk)) }}</td>
                                     <td class="text-wrap">{{ $transaction->nama_barang }}</td>
                                     <td>{{ $transaction->kategori_barang }}</td>
                                     <td>{{ $transaction->jumlah_transaksi }}</td>
@@ -45,13 +44,6 @@
                                                 {{ ucwords($transaction->status_barang) }}
                                             </span>
                                         @endif
-                                    </td>
-                                    <td>
-                                        <a class="badge bg-success border-0 text-white fw-normal"
-                                            href="{{ route('transaksi-barang.edit', $transaction->id) }}"
-                                            role="button">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

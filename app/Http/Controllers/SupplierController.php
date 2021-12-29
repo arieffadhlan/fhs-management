@@ -118,6 +118,9 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        $supplier->delete();
+
+        return redirect('/master/supplier')->with('success', 'Data pemasok telah berhasil dihapus!');
     }
 }

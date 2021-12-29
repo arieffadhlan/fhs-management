@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Barang;
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\Supplier;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -29,9 +31,16 @@ class DashboardController extends Controller
     {
         $category = count(Category::get()->toArray());
         $barang = count(Barang::get()->toArray());
-        $supplier = count(Supplier::get()->toArray());
-        $pengguna = count(User::get()->toArray());
-        $data = [$category, $barang, $supplier, $pengguna];
+
+        if (Auth::user()->role == 'admin') {
+            $supplier = count(Supplier::get()->toArray());
+            $pengguna = count(User::get()->toArray());
+            $data = [$category, $barang, $supplier, $pengguna];
+        } else {
+            $customer = count(Customer::get()->toArray());
+            $data = [$category, $barang, $customer];
+        }
+
         return view('dashboard', compact('data'));
     }
 }
