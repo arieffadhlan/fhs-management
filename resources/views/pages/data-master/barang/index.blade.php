@@ -50,8 +50,12 @@
                                             <td>{{ $category->nama_kategori }}</td>
                                             @break
                                         @else
-                                            <td></td>
-                                            @break
+                                            @if ($category->id == $barang->kategori_id)
+                                                <td>{{ $category->nama_kategori }}</td>
+                                                @break
+                                            @elseif ($loop->last && $category->id != $barang->kategori_id)
+                                                <td></td>
+                                            @endif
                                         @endif
                                     @endforeach
                                     @if ($barang->stok_barang == 0)

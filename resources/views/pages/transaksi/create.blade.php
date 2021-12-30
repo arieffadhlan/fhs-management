@@ -43,10 +43,11 @@
                         <option value="masuk" {{ old('status_barang') == 'masuk' ? 'selected' : '' }}>
                             Barang Masuk
                         </option>
+                    @else
+                        <option value="keluar" {{ old('status_barang') == 'keluar' ? 'selected' : '' }}>
+                            Barang Keluar
+                        </option>
                     @endif
-                    <option value="keluar" {{ old('status_barang') == 'keluar' ? 'selected' : '' }}>
-                        Barang Keluar
-                    </option>
                 </select>
                 @error('status_barang')
                     <div class="fw-bold text-danger mt-1">{{ $message }}</div>
@@ -68,7 +69,7 @@
                     <h5 class="fw-bold mt-3 mb-0">Data Pemasok</h5>
                     <hr class="col-2 mt-2 mb-3">
 
-                    <label class="fw-bold mb-1">Apakah data customer sudah ada?</label>
+                    <label class="fw-bold mb-1">Apakah data pemasok sudah ada?</label>
                     <br>
                     <input type="radio" onclick="yesnoCheck();" name="yesno" id="yesCheck">
                     <label for="yesCheck" class="me-3">Sudah</label>

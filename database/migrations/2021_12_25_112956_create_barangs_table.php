@@ -22,8 +22,10 @@ class CreateBarangsTable extends Migration
             $table->unsignedBigInteger('harga_barang');
             $table->foreignId('kategori_id')->nullable();
             $table->foreign('kategori_id')->references('id')->on('categories')->onDelete('set null')->onUpdate('cascade');
-            $table->foreignId('pembuat_id')->constrained('users');
-            $table->foreignId('perubah_id')->constrained('users');
+            $table->foreignId('pembuat_id')->nullable();
+            $table->foreign('pembuat_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
+            $table->foreignId('perubah_id')->nullable();
+            $table->foreign('perubah_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }

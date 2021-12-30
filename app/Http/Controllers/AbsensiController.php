@@ -119,7 +119,7 @@ class AbsensiController extends Controller
             'kehadiran'  => $request->kehadiran
         ]);
 
-        return redirect('/absensi')->with('success', 'Data absensi telah berhasil diubah');
+        return redirect('laporan/absensi')->with('success', 'Data absensi telah berhasil diubah');
     }
 
     /**
@@ -132,6 +132,6 @@ class AbsensiController extends Controller
     {
         $absensi = Absence::find($id);
         $absensi->delete();
-        return redirect('absensi')->with('success', 'Data absensi telah berhasil dihapus');
+        return redirect('laporan/absensi')->with('success', 'Data absensi telah berhasil dihapus');
     }
 }

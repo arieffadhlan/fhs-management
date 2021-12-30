@@ -47,7 +47,7 @@
                                 <a href="{{ route('barang') }}">Barang</a>
                             </li>
                             <li class="submenu-item {{ set_active('master/supplier') }}">
-                                <a href="{{ route('supplier') }}">Supplier</a>
+                                <a href="{{ route('supplier') }}">Pemasok</a>
                             </li>
                             <li class="submenu-item {{ set_active('master/customer') }}">
                                 <a href="{{ route('customer') }}">Customer</a>

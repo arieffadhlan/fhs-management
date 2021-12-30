@@ -28,32 +28,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($customers as $customer)
+                            @foreach ($transactions as $transaction)
                                 <tr class="text-center">
                                     <td>
-                                        @foreach ($transactions as $transaction)
+                                        @foreach ($customers as $customer)
                                             @if ($transaction->nama_pelanggan == $customer->nama_customer)
                                                 <ol class="p-0">{{ $transaction->tanggal_keluar }}</ol>
                                             @endif
                                         @endforeach
                                     </td>
-                                    <td>{{ $customer->nama_customer }}</td>
+                                    <td>{{ $transaction->nama_pelanggan }}</td>
                                     <td>
-                                        @foreach ($transactions as $transaction)
+                                        @foreach ($customers as $customer)
                                             @if ($transaction->nama_pelanggan == $customer->nama_customer)
                                                 <ol class="p-0">{{ $transaction->nama_barang }}</ol>
                                             @endif
                                         @endforeach
                                     </td>
                                     <td>
-                                        @foreach ($transactions as $transaction)
+                                        @foreach ($customers as $customer)
                                             @if ($transaction->nama_pelanggan == $customer->nama_customer)
                                                 <ol class="p-0">{{ $transaction->jumlah_transaksi }}</ol>
                                             @endif
                                         @endforeach
                                     </td>
                                     <td>
-                                        @foreach ($transactions as $transaction)
+                                        @foreach ($customers as $customer)
                                             @if ($transaction->nama_pelanggan == $customer->nama_customer)
                                                 @if ($transaction->status_barang == 'masuk')
                                                     <ol class="badge bg-primary">

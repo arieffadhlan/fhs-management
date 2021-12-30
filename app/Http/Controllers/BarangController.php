@@ -17,7 +17,7 @@ class BarangController extends Controller
     {
         $barangs = DB::table('barangs')
             ->select(
-                'barangs.id',
+                'id',
                 'nama_barang',
                 'foto_barang',
                 'stok_barang',
